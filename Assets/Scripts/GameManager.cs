@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //GameManager‚ğí‚Éˆê‚Â
-    public static GameManager Instance {  get; private set; }
+    public static GameManager gameManager {  get; private set; }
 
     //ƒQ[ƒ€ó‘Ô
     public enum GameState
@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     private void Awake()
     {
-        if(Instance == null)
+        if(gameManager == null)
         {
-            Instance = this;
+            gameManager = this;
             DontDestroyOnLoad(gameObject);
         }
         else
