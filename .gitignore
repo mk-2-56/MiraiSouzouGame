@@ -10,6 +10,10 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# 火山アセットの軽量化用ignore
+L.V.E- Lava and Volcano Environment/Demo Scenes/
+Terrain Data/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
