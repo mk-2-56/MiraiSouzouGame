@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveComponent : MonoBehaviour
@@ -21,22 +22,22 @@ public class MoveComponent : MonoBehaviour
     {
         if (rd == null)
         {
-            RbMove();
+            TfMove();
         }
         else
         {
-            TfMove();
+            RbMove();
         }
     }
 
     private void TfMove()
     {
-        transform.position += dir * speed;
+        transform.position += dir * speed * Time.deltaTime;
     }
 
     private void RbMove()
     {
-        rd.AddForce(dir * speed);
+        rd.MovePosition(dir * speed * Time.deltaTime);
     }
 
     //à⁄ìÆï˚å¸ê›íË
