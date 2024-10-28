@@ -7,25 +7,22 @@ public class MeteorMovement : MonoBehaviour
     public struct MeteorProperties
     {
         public Vector3 Pos;
-        public Quaternion Rot;
         public Vector3 SpawnPos;                                     // 噴石のスポーン地点
         public int Time;                                             // スポーンさせる時間
         public bool Use;                                             // 使用中フラグ
         public bool WillUse;                                         // 使用する予定フラグ
         public bool OnGround;                                        // 着地フラグ
     }
-
     // *********************************************************************************************************
     // グローバル変数
 
     // パブリック変数
-
+    public static int MaxMeteor = 5;                                                     // 噴石の最大数
+    public MeteorProperties[] MeteorProp = new MeteorProperties[MaxMeteor];              // 噴石の設定
 
     // プライベート変数 
-    [SerializeField] private GameObject PrefabsObj;                                      // 噴石オブジェクトの取得
-    [SerializeField] private static int MaxMeteor = 5;                                   // 噴石の最大数
-    private GameObject[] Meteor = new GameObject[MaxMeteor];                             // 噴石オブジェクト
-    private MeteorProperties[] MeteorProp = new MeteorProperties[MaxMeteor];             // 噴石の設定(pos, rot, 等...)
+    [SerializeField] private GameObject PrefabObj;                                       // 噴石オブジェクトの取得
+    private List<GameObject> Meteor = new List<GameObject>();                            // 噴石オブジェクトリスト
     private float Speed = 0.02f;                                                         // 落下速度
     private Vector3 Crater = new Vector3(-2.0f, 0.0f, -30.0f);                             // 噴火口の中心座標
     private float Height = 20.0f;                                                        // 噴石のスポーンy座標、いくら上でスポーンさせるか、固定値
@@ -37,8 +34,6 @@ public class MeteorMovement : MonoBehaviour
     private int CntStartedMeteor = 0;                                                    // 出現させた噴石の数のカウント
     private int EventNum = 0;                                                            // 噴石イベントの発生回数のカウント
     private int AddNumforPosTank = 0;                                                    // MeteorsPosTank参照用カウント
-
-
 
     private Vector3[] MeteorsPosTank =                               // 噴石Positionの貯蔵庫
         {
@@ -76,15 +71,14 @@ public class MeteorMovement : MonoBehaviour
         // オブジェクトを生成＆非表示で保管しておく
         for (int i = 0; i < MaxMeteor; i++)
         {
-            Meteor[i] = Instantiate(PrefabsObj); // オブジェクトを生成する
+            GameObject obj = Instantiate(PrefabObj); // オブジェクトを生成する
+            Meteor.Add(obj); // リストに追加
             Meteor[i].SetActive(false); // 非表示にする
         }
         // 設定の初期化
         for (int i = 0; i < MaxMeteor; i++)
         {
-            //MeteorProp[i] = new MeteorProperties(); // インスタンスを作成
             MeteorProp[i].Pos = new Vector3(0, 0, 0);
-            MeteorProp[i].Rot = Quaternion.identity;
             MeteorProp[i].SpawnPos = new Vector3(0, 0, 0);
             MeteorProp[i].Time = 0;
             MeteorProp[i].Use = false;
@@ -99,7 +93,7 @@ public class MeteorMovement : MonoBehaviour
         AddNumforPosTank = 0;
 
         // エラー確認：配列サイズ
-        if (MeteorProp.Length != Meteor.Length)
+        if (MeteorProp.Length != Meteor.Count)
         {
             Debug.Log("MeteorProp & Meteor.Length has different array num, crucial error may occur ");
         }
@@ -116,6 +110,12 @@ public class MeteorMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            if (EventNum >= MaxEventNum)
+            {
+                EventNum = 0;
+                AddNumforPosTank = 0;
+                CntStartedMeteor = 0;
+            }
             // 1キーが押されたら、SpawnMeteorフラグをOnにして、噴石の初期設定をする
             ActivateMeteors();
         }
@@ -190,7 +190,7 @@ public class MeteorMovement : MonoBehaviour
             if (CntOnGroundMeteor >= MaxUsingMeteor)
             {
                 CntDespawn++;
-                if (CntDespawn > 1000)
+                if (CntDespawn > 3000)
                 {
                     for (int i = 0; i < MaxUsingMeteor; i++)
                     {
@@ -210,7 +210,6 @@ public class MeteorMovement : MonoBehaviour
                 if (MeteorProp[Index].Use)
                 {
                     Meteor[Index].transform.position = MeteorProp[Index].Pos;
-                    Meteor[Index].transform.rotation = MeteorProp[Index].Rot;
                 }
                 Index++;
             }
@@ -237,7 +236,7 @@ public class MeteorMovement : MonoBehaviour
 
         Debug.Log("(SetMeteorPos) Array is full. Cannot set meteor. ");
     }
-    // 噴石のUseにする
+    // 噴石を使用中にする
     public void SetMeteorUse()
     {
         int Index = 0;
@@ -284,4 +283,18 @@ public class MeteorMovement : MonoBehaviour
             AddNumforPosTank += MaxUsingMeteor;
         }
     }
+    // ゲッター・セッター
+    public List<GameObject> GetInstantiatedMeteors()
+    {
+        return Meteor; // インスタンス化したオブジェクトのリストを返す
+    }
+    public int GetMaxMeteor()
+    {
+        return MaxMeteor;
+    }
+    public MeteorProperties GetMeteorProperties(int num)
+    {
+        return MeteorProp[num];
+    }
 }
+
