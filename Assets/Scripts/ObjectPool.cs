@@ -19,6 +19,24 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    public GameObject GetObject()
+    {
+        //非表示のオブジェクトを周回する
+        foreach (GameObject obj in pool)
+        {
+            if (obj.activeInHierarchy == false)
+            {
+                obj.SetActive(true);
+                return obj;
+            }
+        }
+
+        //プールしたいが容量いっぱいなら
+        GameObject newObj = Instantiate(prefab);
+        pool.Add(newObj);
+        return newObj;
+    }
+
     public GameObject GetObject(Vector3 pos, Quaternion Rot)
     {
         //非表示のオブジェクトを周回する
