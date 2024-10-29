@@ -42,11 +42,7 @@ public class GameCamera : MonoBehaviour
     {
         if(param_locking)
         {
-            transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rCog.rotation, param_lerpSpeed * Time.deltaTime) ;
-            //if(Vector3.Angle(_rCamFacing.forward, _rCog.forward) > 45.0f)
-            //{
-            //    transform.rotation = _rCamFacing.rotation = Quaternion.RotateTowards(_rCog.rotation, _rCamFacing.rotation, 45.0f);
-            //}
+            transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rCog.rotation, param_lerpSpeed * Time.deltaTime);
         }
         else
             CameraControl();
