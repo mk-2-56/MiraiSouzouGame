@@ -14,23 +14,32 @@ public class ObjectFactory : MonoBehaviour
         objType_Coin,
         objType_Max,
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public generateObj(ObjectType Type,Vector3 pos , Quaternion rot)
+    //アクティブだけで、TransformはUnity側で設定する必要がある
+    public void generateObj(ObjectType Type)
     {
         switch (Type)
         {
             case ObjectType.objType_Rock:
                 rockOBJPool.GetObject();
+                break;
+            case ObjectType.objType_River:
+                break;
+            case ObjectType.objType_Coin:
+                break;
+            case ObjectType.objType_Max:
+                break;
+            default:
+                break;
+        }
+    }
+    //PosとRotを指定しアクティブ
+    public void generateObj(ObjectType Type,Vector3 pos , Quaternion rot)
+    {
+        switch (Type)
+        {
+            case ObjectType.objType_Rock:
+                rockOBJPool.GetObject(pos,rot);
                 break;
             case ObjectType.objType_River:
                 break;

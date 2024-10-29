@@ -11,6 +11,7 @@ public class ObjectPool : MonoBehaviour
     private void Awake()
     {
         pool = new List<GameObject>();
+        //メモリ空間を確保
         for (int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(prefab);
@@ -30,7 +31,6 @@ public class ObjectPool : MonoBehaviour
                 return obj;
             }
         }
-
         //プールしたいが容量いっぱいなら
         GameObject newObj = Instantiate(prefab);
         pool.Add(newObj);
