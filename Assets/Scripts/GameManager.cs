@@ -10,14 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager {  get; private set; }
 
     //ゲーム状態
-    public enum GameState
-    {
-        MainMenu,
-        Playing,
-        Dressing,
-        Paused,
-        Result,
-    }
+    public enum GameState{ Title, Game, Paused, Result}
     // 現在のゲーム状態を保持
     public GameState CurrentState { get; private set; }
     private void Awake()
@@ -29,13 +22,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //存在しているなら破棄する
             Destroy(gameObject);
         }    
     }
     private void Start()
     {
-        
+        SetState(GameState.Title);
     }
 
     public void SetState(GameState newState)
@@ -44,32 +36,24 @@ public class GameManager : MonoBehaviour
 
         switch (newState)
         {
-
-            case GameState.MainMenu:
-                SceneManager.LoadScene("Menu");
+            case GameState.Title:
+                SceneManager.LoadScene("Title");
 
                 Debug.Log("Menu");
 
                 break;
-            case GameState.Playing:
+            case GameState.Game:
                 SceneManager.LoadScene("Game");
 
                 Debug.Log("Game");
 
                 break;
-            case GameState.Dressing:
-                SceneManager.LoadScene("Dress");
-
-                Debug.Log("Dressing!");
-
-                break;
-
             case GameState.Paused:
                 Time.timeScale = 0.0f;
                 break;
             case GameState.Result:
                 SceneManager.LoadScene("Result");
-
+                
                 Debug.Log("Result!");
                 break;
             default:
@@ -81,7 +65,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         // ゲームをプレイ状態に変更（シーンを再ロード）
-        SetState(GameState.Playing);
+        SetState(GameState.Game);
     }
 
     public void QuitGame()
