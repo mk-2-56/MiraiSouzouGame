@@ -15,7 +15,7 @@ public class GameCamera : MonoBehaviour
     //_____________Parameters
     [SerializeField] float param_mouseSpeed = 50.0f;
     [SerializeField] float param_lerpSpeed = 0.8f;
-    [SerializeField] bool  param_locking = true;
+    [SerializeField] bool  param_locking = false;
 
     //_____________Members
     Transform _rCog;
