@@ -83,7 +83,6 @@ public class CCT_Basic : MonoBehaviour
     float _yRotationCog;
 
     Command _launchCommand;
-
     //______________Flags
     State _PCstate;
 
@@ -96,6 +95,8 @@ public class CCT_Basic : MonoBehaviour
     bool _launching;
     bool _jumping;
 
+
+    public bool _isSplineMove;
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
@@ -104,6 +105,9 @@ public class CCT_Basic : MonoBehaviour
         _rCCHover = GetComponent<CCHover>();
 
         _debugText = DebugText.GetMsgBuffer();
+
+        _isSplineMove = false;
+
     }
 
     void Update()
@@ -112,6 +116,7 @@ public class CCT_Basic : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_isSplineMove == true) return;
         _debugText.Text = "";
 
         _xzPlainVel = new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z);
