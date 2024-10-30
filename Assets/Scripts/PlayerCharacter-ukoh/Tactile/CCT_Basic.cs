@@ -96,7 +96,7 @@ public class CCT_Basic : MonoBehaviour
     bool _jumping;
 
 
-    public bool _isSplineMove;
+    private bool _isMovementEnabled;
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
@@ -106,7 +106,7 @@ public class CCT_Basic : MonoBehaviour
 
         _debugText = DebugText.GetMsgBuffer();
 
-        _isSplineMove = false;
+        _isMovementEnabled = true;
 
     }
 
@@ -116,7 +116,11 @@ public class CCT_Basic : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_isSplineMove == true) return;
+        if (_isMovementEnabled == false) 
+        {
+            Debug.Log("ç°ìÆÇØÇ»Ç¢");
+            return;
+        }
         _debugText.Text = "";
 
         _xzPlainVel = new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z);
@@ -328,5 +332,10 @@ public class CCT_Basic : MonoBehaviour
         _drifting = Input.GetButton("Fire2");
         _launching = Input.GetButton("Fire3");
         _jumping = Input.GetButton("Jump");
+    }
+
+    public void SetMovement(bool ismove)
+    {
+        _isMovementEnabled = ismove;
     }
 }
