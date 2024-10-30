@@ -11,8 +11,42 @@ using UnityEngine;
 /// 必要がありましたら気軽に連絡を
 /// </summary>
 
+public abstract class Command
+{
+    public abstract void Execute();
+};
+
 public class CCT_Basic : MonoBehaviour
 {
+    public float Speed
+    {
+        get{ return _xzSpeed;}
+    }
+
+    public Vector3 InputDirectionWorld
+    { 
+        get{ return _inputDirection;}
+    }
+
+    public bool UseGravity
+    { 
+        get{ return _rRb.useGravity;}
+        set{ _rRb.useGravity = value;}
+    }
+
+    public void ResigterLaunchModule(Command cmd)
+    { 
+        _launchCommand = cmd;
+    }
+
+    enum State
+    { 
+        Loco,
+        Boosting,
+        Drifting,
+        Launching,
+    }
+
     //Debug:
     MsgBuffer _debugText;
     //_____________Properties
@@ -21,7 +55,7 @@ public class CCT_Basic : MonoBehaviour
     [SerializeField] float param_maxSpeed    = 60.0f;
     [SerializeField] float param_maxMomentum = 160.0f;
     [SerializeField] float param_maxAngularAcc = 15.0f;
-    [SerializeField] float param_airCoefficient = 0.2f;
+    [SerializeField] float param_jumpForce = 30.0f;
     [SerializeField] float param_acc = 10.0f;
 
 
@@ -48,12 +82,19 @@ public class CCT_Basic : MonoBehaviour
 
     float _yRotationCog;
 
+    Command _launchCommand;
+
     //______________Flags
+    State _PCstate;
+
+    bool _grounded;
     bool _nuetralInput;
+
     bool _boosting;
     bool _drifting;
     bool _driftingOld;
-    bool _grounded;
+    bool _launching;
+    bool _jumping;
 
     void Start()
     {
@@ -76,37 +117,57 @@ public class CCT_Basic : MonoBehaviour
         _xzPlainVel = new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z);
         _xzSpeed    = _xzPlainVel.magnitude;
 
-        _debugText.Text += "Grounded: " + _grounded.ToString();
-        _debugText.Text += " Input: " + _inputDirection.ToString();
-        _debugText.Text += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
-        _debugText.Text += " Momentum: " + _momentum.ToString("F4");
-
-        _grounded = _rCCHover.Grounded;
-        _terrianNormal = _rCCHover.Groundhit.normal;
-
-        _terrianRotation = Quaternion.identity;
-        if (_grounded)
-        {
-            bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.7f);
-            _debugText.Text += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
-            if (!terrianClamp)
-                _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
-        }
+        BasicDebugInfo();
+        TerrianCheck();
 
         NewSpeedSystem();
         MomentumSystem();
+
+        if(_jumping)
+            Jumping();
+
+        if(_launching) 
+            _launchCommand.Execute();
+
 
         Drifting();
         Locomovtive();
         _driftingOld = _drifting;
     }
 
+    void BasicDebugInfo()
+    {
+        _debugText.Text += "Grounded: " + _grounded.ToString();
+        _debugText.Text += " Input: " + _inputDirection.ToString();
+        _debugText.Text += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
+        _debugText.Text += " Momentum: " + _momentum.ToString("F4");
+
+        _debugText.Text += "\tLaunchInput: " + _launching.ToString();
+    }
+
+    void TerrianCheck()
+    {
+        _grounded = _rCCHover.Grounded;
+        _terrianNormal = _rCCHover.Groundhit.normal;
+        _terrianRotation = Quaternion.identity;
+        if (_grounded)
+        {
+            bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.5f);
+            _debugText.Text += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
+            if (!terrianClamp)
+                _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
+        }
+        else
+            _rRb.AddForce(Vector3.down * 9.8f * 3, ForceMode.Acceleration);
+    }
+
+
     void Locomovtive()
     {
         if (_drifting && _grounded)
             return;
 
-        float directionFector = 2.0f - Vector3.Dot(_inputDirection, _xzPlainVel.normalized);
+        float directionFector = 3.0f - 2 * Vector3.Dot(_inputDirection, _xzPlainVel.normalized);
 
         float accMag = param_acc;
         Vector3 acc  = _inputDirection * accMag;
@@ -179,18 +240,25 @@ public class CCT_Basic : MonoBehaviour
         appliedAcc = _terrianRotation * appliedAcc;
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
     }
+    void Jumping()
+    { 
+        if(!_grounded)
+            return;
 
+        _grounded = false;
+        _rRb.AddForce(Vector3.up * param_jumpForce, ForceMode.VelocityChange);
+    }
 
     void Boosting()
     {
-        if (_nuetralInput)
-            _inputDirection = _xzPlainVel.normalized;
         if (!_boosting)
-        { 
-            if (_nuetralInput)
-                _inputDirection *= -0.2f;
+        {
+            if (_nuetralInput && _xzSpeed > 0)
+                _inputDirection = _xzPlainVel.normalized * -0.2f;
             return;
         }
+        if (_nuetralInput)
+            _inputDirection = _xzPlainVel.normalized;
 
         _accCoefficient += 1;
     }
@@ -251,8 +319,9 @@ public class CCT_Basic : MonoBehaviour
         _rawInput = new Vector2(_vertInput, _horiInput);
         _inputDirection = Vector3.Normalize(_rCamFacing.forward * _vertInput + _rCamFacing.right * _horiInput);
 
-        //_boosting = Input.GetKey(KeyCode.LeftShift) ;
         _boosting = Input.GetButton("Fire1");
         _drifting = Input.GetButton("Fire2");
+        _launching = Input.GetButton("Fire3");
+        _jumping = Input.GetButton("Jump");
     }
 }
