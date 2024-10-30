@@ -8,11 +8,10 @@ public class GameManager : MonoBehaviour
 {
     //GameManager‚ğí‚Éˆê‚Â
     public static GameManager gameManager {  get; private set; }
-
     //ƒQ[ƒ€ó‘Ô
-    public enum GameState{ Title, Game, Paused, Result}
+    public enum GameState{ Title, Game, Paused, Result};
+    private IState currentState { get; private set; }
     // Œ»İ‚ÌƒQ[ƒ€ó‘Ô‚ğ•Û
-    public GameState CurrentState { get; private set; }
     private void Awake()
     {
         if(gameManager == null)
@@ -32,7 +31,8 @@ public class GameManager : MonoBehaviour
 
     public void SetState(GameState newState)
     {
-        CurrentState = newState;
+        currentState.Exit();
+        currentState.Enter();
 
         switch (newState)
         {
