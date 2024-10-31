@@ -4,10 +4,10 @@ using UnityEngine;
 
 /// <summary>
 /// ukoh-2024-10-28
-/// GameCamera  ƒvƒŒƒCƒ„[ƒJƒƒ‰
+/// GameCamera  ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½
 /// 
-/// ƒVƒ“ƒvƒ‹‚ÈƒJƒƒ‰§Œä‚È‚¾‚¯
-/// todo inertia‹@”\
+/// ï¿½Vï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ÈƒJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½
+/// todo inertiaï¿½@ï¿½\
 /// </summary>
 
 public class GameCamera : MonoBehaviour
