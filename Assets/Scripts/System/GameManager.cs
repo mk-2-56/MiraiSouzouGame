@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
     public CCT_Basic playerMovement;
     public SplineFollower splineFollower;
 
+    public Camera mainCamera;
+    public Camera eventCamera;
+ 
     private bool isEvent;
     void Start()
     {
