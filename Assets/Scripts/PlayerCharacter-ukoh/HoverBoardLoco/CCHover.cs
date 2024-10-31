@@ -44,7 +44,7 @@ public class CCHover : MonoBehaviour
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
-        _debugText = DebugText.GetMsgBuffer();
+        _debugText = AU.Debug.GetMsgBuffer();
     }
 
     // Update is called once per frame
@@ -71,7 +71,7 @@ public class CCHover : MonoBehaviour
             float hoverForce = x * HoverSpringStrength - verticleVel * HoverDamperStrength;
 
             //debug.Msg = hoverForce.ToString("F4");
-            _debugText.Text = "HoverForce: " + hoverForce.ToString("F4");
+            _debugText.FixedText = "HoverForce: " + hoverForce.ToString("F4");
 
             _rRb.AddForce(Vector3.down * hoverForce, ForceMode.Acceleration);
         }

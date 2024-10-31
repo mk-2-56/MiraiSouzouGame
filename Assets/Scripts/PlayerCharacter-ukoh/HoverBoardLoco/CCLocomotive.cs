@@ -12,9 +12,6 @@ using UnityEngine;
 /// 
 public class CCLocomotive : MonoBehaviour
 {
-    //Debug:
-    MsgBuffer _debugText;
-
     //_____________Properties
 
     //_____________Parameters
@@ -49,8 +46,7 @@ public class CCLocomotive : MonoBehaviour
         _rCog = transform.Find("Cog");
         _rCCHover = GetComponent<CCHover>();
 
-        _debugText = DebugText.GetMsgBuffer();
-    }
+            }
 
     private void Update()
     {
@@ -92,8 +88,7 @@ public class CCLocomotive : MonoBehaviour
         bool damping  = horiSpeed > speedLimit;
         _targetFacing = _rCamFacing.rotation;
 
-        _debugText.Text = "Speed:" + horiSpeed.ToString("F4") + " SpeedLimit:" + speedLimit.ToString("F4");
-
+        
         {
             const float k = 10.0f;
             float a = Mathf.Max(0, (horiSpeed - speedLimit));
@@ -105,7 +100,6 @@ public class CCLocomotive : MonoBehaviour
                 float limiter = Vector3.Dot(_inputDirection, new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z).normalized);
                 moveForce = moveForce * damp * limiter + moveForce * (1 - limiter);
             }
-            _debugText.Text += "<br>MoveForce:" + moveForce.magnitude.ToString("F4") + " Damping:" + damping.ToString() + " Coeffecient:" + damp.ToString("F4");
         }
 
         //Vector3 forceDir = _inputDirection;
@@ -131,8 +125,7 @@ public class CCLocomotive : MonoBehaviour
             //forceDir = terrianRotation * forceDir;
             slideDir = terrianRotation * slideDir;
 
-            _debugText.Text += "<br>slideForceMag:" + slideForceMag.ToString("F4");
-
+            
             _rRb.AddForce(-terrianNormal * Mathf.Max(0, Vector3.Dot(_rRb.velocity, terrianNormal)),
                 ForceMode.Acceleration);
         }

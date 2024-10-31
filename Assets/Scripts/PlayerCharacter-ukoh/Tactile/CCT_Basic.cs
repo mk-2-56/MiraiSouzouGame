@@ -103,7 +103,7 @@ public class CCT_Basic : MonoBehaviour
         _rCog = transform.Find("Cog");
         _rCCHover = GetComponent<CCHover>();
 
-        _debugText = DebugText.GetMsgBuffer();
+        _debugText = AU.Debug.GetMsgBuffer();
     }
 
     void Update()
@@ -112,7 +112,7 @@ public class CCT_Basic : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        _debugText.Text = "";
+        //_debugText.FixedText = "";
 
         _xzPlainVel = new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z);
         _xzSpeed    = _xzPlainVel.magnitude;
@@ -137,12 +137,12 @@ public class CCT_Basic : MonoBehaviour
 
     void BasicDebugInfo()
     {
-        _debugText.Text += "Grounded: " + _grounded.ToString();
-        _debugText.Text += " Input: " + _inputDirection.ToString();
-        _debugText.Text += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
-        _debugText.Text += " Momentum: " + _momentum.ToString("F4");
+        _debugText.FixedText += "Grounded: " + _grounded.ToString();
+        _debugText.FixedText += " Input: " + _inputDirection.ToString();
+        _debugText.FixedText += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
+        _debugText.FixedText += " Momentum: " + _momentum.ToString("F4");
 
-        _debugText.Text += "\tLaunchInput: " + _launching.ToString();
+        _debugText.FixedText += "\tLaunchInput: " + _launching.ToString();
     }
 
     void TerrianCheck()
@@ -153,7 +153,7 @@ public class CCT_Basic : MonoBehaviour
         if (_grounded)
         {
             bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.5f);
-            _debugText.Text += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
+            _debugText.FixedText += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
             if (!terrianClamp)
                 _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
         }
@@ -187,14 +187,14 @@ public class CCT_Basic : MonoBehaviour
             float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
                 * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rCog.forward));
 
-            _debugText.Text += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
+            _debugText.FixedText += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
             acc += _inputDirection * 98f * slideBuildUp;
         }
         Vector3 appliedAcc = acc + mAcc ;
         appliedAcc = _terrianRotation * appliedAcc;
 
-        _debugText.Text += "<br>Acc: " + acc.ToString();
-        _debugText.Text += "<br>MomentumAcc: " + mAcc.ToString();
+        _debugText.FixedText += "<br>Acc: " + acc.ToString();
+        _debugText.FixedText += "<br>MomentumAcc: " + mAcc.ToString();
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
 
         if (_xzPlainVel.sqrMagnitude > 5.0f)
@@ -268,7 +268,7 @@ public class CCT_Basic : MonoBehaviour
         //sigmoid function for clamping the acceleratioin
         _accCoefficient = Mathf.Min(1.0f, 2.0f / (1 + Mathf.Pow( 2.7f , k * (_xzPlainVel.magnitude - param_maxSpeed))));
         Boosting();
-        _debugText.Text += " AccCoefficient: " + _accCoefficient.ToString("F4");
+        _debugText.FixedText += " AccCoefficient: " + _accCoefficient.ToString("F4");
     }
 
     void MomentumSystem_Old()
@@ -295,7 +295,7 @@ public class CCT_Basic : MonoBehaviour
             _momentum -= _momentum * (0.3f + 3 * stopping) * dTime;
             _momentum = Mathf.Max(0, _momentum);
         }
-        _debugText.Text += "Momentum: " + _momentum.ToString("F4");
+        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4");
     }
 
     void MomentumSystem()
@@ -308,7 +308,7 @@ public class CCT_Basic : MonoBehaviour
         float buildUp = param_acc;
 
         _momentum = Mathf.Max( 0, _xzSpeed - param_maxSpeed);
-        _debugText.Text += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
+        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
     }
 
     void InputFetcher()

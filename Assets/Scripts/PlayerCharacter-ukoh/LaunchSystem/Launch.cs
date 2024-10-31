@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Launch : MonoBehaviour
 {
+
     [SerializeField] float param_LaunchSpeed = 90.0f;
-    [SerializeField] Transform testTarget;
+    [SerializeField] Transform param_TestTarget;
+    [SerializeField] TargetManager param_TargetManager;
+
 
     Rigidbody _rRb;
     CCT_Basic _rMovementContoller;
@@ -15,6 +18,7 @@ public class Launch : MonoBehaviour
         _rRb = GetComponent<Rigidbody>();
         _rMovementContoller = GetComponent<CCT_Basic>();
         _rMovementContoller.ResigterLaunchModule(new LaunchCommand(this));
+
     }
 
     // Update is called once per frame
@@ -29,10 +33,15 @@ public class Launch : MonoBehaviour
         Launch _launchModule;
         public override void Execute()
         {
-            _launchModule.LaunchPlayerTowards(_launchModule.testTarget.position);
+            Vector3 target;
+            Vector3 positionOrigin = _launchModule._rRb.position;
+            Vector3 inputDirection = _launchModule._rMovementContoller.InputDirectionWorld;
+            if (_launchModule.param_TargetManager.FindBestTarget(positionOrigin, inputDirection, out target))
+            _launchModule.LaunchPlayerTowards(target);
             //throw new System.NotImplementedException();
         }
     }
+
 
     void LaunchPlayerTowards(Vector3 pos)
     {
@@ -41,7 +50,9 @@ public class Launch : MonoBehaviour
         ResetSpeed();
         _rRb.useGravity = false;
         _rRb.AddForce((pos - _rRb.position ).normalized * param_LaunchSpeed, ForceMode.VelocityChange);
-        Invoke("EndLaunching", 0.8f);
+        float airTime = (pos - _rRb.position).magnitude / param_LaunchSpeed;
+
+        Invoke("EndLaunching", airTime);
     }
 
     void EndLaunching()
