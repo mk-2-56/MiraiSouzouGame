@@ -5,18 +5,17 @@ public class GameManager : MonoBehaviour
 {
     public CCT_Basic playerMovement;
     public SplineFollower splineFollower;
+    public CameraManager cameraManager;
 
-    public Camera mainCamera;
-    public Camera eventCamera;
- 
     private bool isEvent;
     void Start()
     {
+        cameraManager.SetMainCamera();
         isEvent = false;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             isEvent = !isEvent;
             Debug.Log("Spline = " + isEvent);
@@ -38,6 +37,8 @@ public class GameManager : MonoBehaviour
         // 通常移動を無効にし、スプライン移動を開始
         playerMovement.SetMovement(false);
         splineFollower.StartSplineMovement();
+        cameraManager.SetEventCamera();
+
     }
 
     public void EndSplineEvent()
@@ -45,5 +46,6 @@ public class GameManager : MonoBehaviour
         // スプライン移動を終了し、通常移動を再開
         splineFollower.EndSplineMovement();
         playerMovement.SetMovement(true);
+        cameraManager.SetMainCamera();
     }
 }
