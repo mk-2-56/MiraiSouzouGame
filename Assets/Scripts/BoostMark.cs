@@ -28,8 +28,9 @@ public class BoostMark : MonoBehaviour
     private int waitAppear = 10;                                     // 表示
     private int waitExpand = 120;                                    // 拡大
 
-    // *********************************************************************************************************
+    /******************************************************************************************************************************************************************/
     // グローバル変数
+    /******************************************************************************************************************************************************************/
 
     // パブリック変数
     public static int MaxMarkUI = 10;                                               // UIの最大数(maxMeteorの2倍は使用中)
@@ -195,11 +196,12 @@ public class BoostMark : MonoBehaviour
     public (bool, Vector3) ObjectBoostUsable()
     {
         bool usable = false;
-
-        // カメラの前方ベクトルを取得
-        Vector3 cameraForward = Camera.main.transform.forward;
-        float closestAngle = float.MaxValue; // 最も小さい角度を見つけるための初期値
         Vector3 pos = new Vector3(0, 0, 0);
+
+
+        Vector3 cameraForward = Camera.main.transform.forward; // カメラの前方ベクトルを取得
+        float closestAngle = float.MaxValue; // 最も小さい角度を見つけるための初期値
+
 
         for (int i = 0; i < MaxMarkUI; i++)
         {

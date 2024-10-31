@@ -215,6 +215,11 @@ PrefabInstance:
       propertyPath: param_mouseSpeed
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 1615461306309286417, guid: 8ca010948918c6c44ab667e48b82ad98,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1615461306913877898, guid: 8ca010948918c6c44ab667e48b82ad98,
         type: 3}
       propertyPath: param_mouseSpeed

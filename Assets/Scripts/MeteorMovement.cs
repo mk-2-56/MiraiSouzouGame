@@ -59,10 +59,11 @@ public class MeteorMovement : MonoBehaviour
         };
     private int MaxEventNum = 3;                                     // 最大イベント数（上記のUseNumAtOnceTankに入力した数字の数）
 
+    private bool SpawnMeteor = false;                                // 噴石発生フラグ
 
     // [SerializeField] 後で追加検討
     // testing
-    private bool SpawnMeteor = false;                                // 噴石発生フラグ
+
 
 
 
@@ -77,24 +78,8 @@ public class MeteorMovement : MonoBehaviour
             GameObject obj = Instantiate(PrefabObj); // オブジェクトを生成する
             Meteor.Add(obj); // リストに追加
             Meteor[i].SetActive(false); // 非表示にする
+            // ResetMeteorProperties(i); // 噴石の設定を初期化
         }
-        // 設定の初期化
-        for (int i = 0; i < MaxMeteor; i++)
-        {
-            MeteorProp[i].Pos = new Vector3(0, 0, 0);
-            MeteorProp[i].SpawnPos = new Vector3(0, 0, 0);
-            MeteorProp[i].Time = 0;
-            MeteorProp[i].Use = false;
-            MeteorProp[i].WillUse = false;
-            MeteorProp[i].OnGround = false;
-            MeteorProp[i].CntDespawn = 0;
-        }
-        // その他、変数の初期化
-        AllStarted = false;
-        MaxUsingMeteor = 0;
-        CntStartedMeteor = 0;
-        EventNum = 0;
-        AddNumforPosTank = 0;
 
         // エラー確認：配列サイズ
         if (MeteorProp.Length != Meteor.Count)
@@ -103,6 +88,19 @@ public class MeteorMovement : MonoBehaviour
         }
 
     }
+    //private void ResetMeteorProperties(int index)
+    //{
+    //    MeteorProp[index] = new MeteorProperties
+    //    {
+    //        Pos = Vector3.zero,
+    //        SpawnPos = Vector3.zero,
+    //        Time = 0,
+    //        Use = false,
+    //        WillUse = false,
+    //        OnGround = false,
+    //        CntDespawn = 0
+    //    };
+    //}
 
     void Start()
     {
@@ -120,97 +118,98 @@ public class MeteorMovement : MonoBehaviour
             }
         }
 
-
         if (SpawnMeteor)
         {
-            if (!AllStarted)
-            {
-                SpawnTimer++; // タイマーを更新
+            UpdateSpawnTimer();
+            UpdateMeteors();
+        }
+    }
 
-                for (int i = 0; i < MeteorProp.Length; i++)
+    private void UpdateSpawnTimer()
+    {
+        if (!AllStarted)
+        {
+            SpawnTimer++;
+            for (int i = 0; i < MeteorProp.Length; i++)
+            {
+                if (SpawnTimer >= MeteorProp[i].Time && MeteorProp[i].WillUse)
                 {
-                    // Intervalに達したら次の噴石をスポーン
-                    if (SpawnTimer >= MeteorProp[i].Time && MeteorProp[i].WillUse)
+                    SetMeteorUse();
+                    CntStartedMeteor++;
+                }
+            }
+            if (CntStartedMeteor >= MaxUsingMeteor)
+            {
+                AllStarted = true;
+            }
+        }
+    }
+    private void UpdateMeteors()
+    {
+        int allInactive = 0;    // すべての噴石が使用されていない状態か確認→すべてUseではないなら、SpawnMeteorフラグをoffにする
+        for (int i = 0; i < MeteorProp.Length; i++)
+        {
+            if (MeteorProp[i].Use)
+            {
+                float radius = 0.1f;    // 噴石モデルの半径
+                if (MeteorProp[i].Pos.y < MeteorProp[i].SpawnPos.y - Height - radius)
+                {
+                    MeteorProp[i].OnGround = true;
+                }
+                else
+                {
+                    // 噴石を落下させる
+                    MeteorProp[i].Pos.y -= Speed;
+
+                    // 火口からスポーン地点へ向かう計算
+                    Vector3 targetDirection = MeteorProp[i].Pos - Crater;
+                    targetDirection.y = 0; // Y方向は無視する
+
+                    if (targetDirection.magnitude > 0.01f) // 小さな値より大きい場合
                     {
-                        SetMeteorUse();
-                        CntStartedMeteor++;
+                        targetDirection.Normalize(); // 正規化して方向ベクトルを得る
+                        MeteorProp[i].Pos += targetDirection * Speed * 0.01f;
                     }
                 }
-
-                if (CntStartedMeteor >= MaxUsingMeteor) AllStarted = true;
             }
+            else
+            {
+                allInactive++;  // すべての噴石が不使用になったか、チェック
+                Meteor[i].SetActive(false); // 非表示にする
+            }
+        }
+        if (allInactive >= MeteorProp.Length)
+        {
+            // もし、すべての噴石がUseではなくなったら、噴石落下イベントを停止させる
+            SpawnMeteor = false;
+        }
 
 
+        // 地面に着地したら、時間経過でデスポーンさせる
+        for (int i = 0; i < MeteorProp.Length; i++)
+        {
+            if (MeteorProp[i].Use && MeteorProp[i].OnGround)
+            {
+                MeteorProp[i].CntDespawn++;
+                if (MeteorProp[i].CntDespawn > 6000)
+                {
+                    MeteorProp[i].CntDespawn = 0;
+                    MeteorProp[i].Use = false;
+                }
+            }
+        }
 
-            int allInactive = 0;    // すべての噴石が使用されていない状態か確認
+        // 噴石の設定をオブジェクトへ反映
+        {
             for (int i = 0; i < MeteorProp.Length; i++)
             {
                 if (MeteorProp[i].Use)
                 {
-                    float radius = 0.1f;    // 噴石モデルの半径
-                    if (MeteorProp[i].Pos.y < MeteorProp[i].SpawnPos.y - Height - radius)
-                    {
-                        MeteorProp[i].OnGround = true;
-                    }
-                    else
-                    {
-                        // 噴石を落下させる
-                        MeteorProp[i].Pos.y -= Speed;
-
-                        // 火口からスポーン地点へ向かう計算
-                        Vector3 targetDirection = MeteorProp[i].Pos - Crater;
-                        targetDirection.y = 0; // Y方向は無視する
-
-                        if (targetDirection.magnitude > 0.01f) // 小さな値より大きい場合
-                        {
-                            targetDirection.Normalize(); // 正規化して方向ベクトルを得る
-                            MeteorProp[i].Pos += targetDirection * Speed * 0.01f;
-                        }
-                    }
+                    Meteor[i].transform.position = MeteorProp[i].Pos;
                 }
-                else
-                {
-                    allInactive++;  // すべての噴石が不使用になったか、チェック
-                    Meteor[i].SetActive(false); // 非表示にする
-                }
-            }
-            if (allInactive >= MeteorProp.Length)
-            {
-                // もし、すべての噴石がUseではなくなったら、噴石落下イベントを停止させる
-                SpawnMeteor = false;
-            }
-
-
-            // 地面に着地したら、時間経過でデスポーンさせる
-            for (int i = 0; i < MeteorProp.Length; i++)
-            {
-                if (MeteorProp[i].Use && MeteorProp[i].OnGround)
-                {
-                    MeteorProp[i].CntDespawn++;
-                    if (MeteorProp[i].CntDespawn > 6000)
-                    {
-                        MeteorProp[i].CntDespawn = 0;
-                        MeteorProp[i].Use = false;
-                    }
-                }
-            }
-        }
-        // 噴石の設定をオブジェクトへ反映
-        {
-            int Index = 0;
-            while (Index < MeteorProp.Length)
-            {
-                if (MeteorProp[Index].Use)
-                {
-                    Meteor[Index].transform.position = MeteorProp[Index].Pos;
-                }
-                Index++;
             }
         }
     }
-
-
-
 
 
 
@@ -222,18 +221,16 @@ public class MeteorMovement : MonoBehaviour
     // 噴石のスポーン地点を正確に決める
     private void SetMeteorPos(Vector3 pos)
     {
-        int Index = 0;
         int SpawnTime = 0;
-        while (Index < MeteorProp.Length)
+        for (int i = 0; i < MeteorProp.Length; i++)
         {
-            if (!MeteorProp[Index].WillUse)
+            if (!MeteorProp[i].WillUse)
             {
-                MeteorProp[Index].SpawnPos = new Vector3(pos.x, pos.y + Height, pos.z);
-                MeteorProp[Index].Time = SpawnTime;
-                MeteorProp[Index].WillUse = true;
+                MeteorProp[i].SpawnPos = new Vector3(pos.x, pos.y + Height, pos.z);
+                MeteorProp[i].Time = SpawnTime;
+                MeteorProp[i].WillUse = true;
                 return;
             }
-            Index++;
             SpawnTime += Interval;
         }
 
@@ -242,18 +239,16 @@ public class MeteorMovement : MonoBehaviour
     // 噴石を使用中にする
     private void SetMeteorUse()
     {
-        int Index = 0;
-        while (Index < MeteorProp.Length)
+        for (int i = 0; i < MeteorProp.Length; i++)
         {
-            if (MeteorProp[Index].WillUse && !MeteorProp[Index].Use)
+            if (MeteorProp[i].WillUse && !MeteorProp[i].Use)
             {
-                MeteorProp[Index].WillUse = false;
-                MeteorProp[Index].Use = true;
-                Meteor[Index].SetActive(true); // 表示する
-                MeteorProp[Index].Pos = MeteorProp[Index].SpawnPos;
+                MeteorProp[i].WillUse = false;
+                MeteorProp[i].Use = true;
+                Meteor[i].SetActive(true); // 表示する
+                MeteorProp[i].Pos = MeteorProp[i].SpawnPos;
                 return;
             }
-            Index++;
         }
 
         Debug.Log("(SetMeteorUse) Array is full. Cannot set meteor. ");
@@ -266,7 +261,6 @@ public class MeteorMovement : MonoBehaviour
         if (!SpawnMeteor)
         {
             SpawnMeteor = true;
-            // 変数の初期化
             SpawnTimer = 0;
             CntStartedMeteor = 0;
             MaxUsingMeteor = UseNumAtOnceTank[EventNum];
@@ -283,7 +277,6 @@ public class MeteorMovement : MonoBehaviour
 
             // 最初の噴石を出現させる
             SetMeteorUse();
-
             EventNum++;
             AddNumforPosTank += MaxUsingMeteor;
         }
@@ -316,6 +309,8 @@ public class MeteorMovement : MonoBehaviour
 
         InitMeteors();
     }
+
+
     // ゲッター・セッター
     public List<GameObject> GetInstantiatedMeteors()
     {
