@@ -12,9 +12,15 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour
 {
+    public Vector3 CameraDirection
+    {
+        get { return joint.transform.forward;}
+    }
+
     //_____________Parameters
     [SerializeField] float param_mouseSpeed = 50.0f;
     [SerializeField] float param_lerpSpeed = 0.8f;
+    [SerializeField] float param_lerpSpeedPos = 0.95f;
     [SerializeField] bool  param_locking = true;
 
     //_____________Members
@@ -25,6 +31,7 @@ public class GameCamera : MonoBehaviour
     float m_yRotation = 0.0f;
     Vector2 m_mouseInput;
 
+    GameObject joint;
 
 
     // Start is called before the first frame update
@@ -32,6 +39,9 @@ public class GameCamera : MonoBehaviour
     {
         _rCamFacing = transform.parent;
         _rCog = transform.parent.parent.Find("Cog");
+        joint = new GameObject();
+        joint.transform.position = transform.position;
+        transform.Find("Main Camera").SetParent(joint.transform);
 
         Cursor.visible   = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -41,12 +51,16 @@ public class GameCamera : MonoBehaviour
     void Update()
     {
         if(param_locking)
-        {
-            transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rCog.rotation, param_lerpSpeed * Time.deltaTime);
-        }
+            joint.transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rCog.rotation, param_lerpSpeed * Time.deltaTime);
         else
             CameraControl();
     }
+
+    private void FixedUpdate()
+    {
+        joint.transform.position = Vector3.Lerp( joint.transform.position, _rCog.position, param_lerpSpeedPos);
+    }
+
     void CameraControl()
     {
         //mouse
@@ -59,6 +73,6 @@ public class GameCamera : MonoBehaviour
         m_xRotation = Mathf.Clamp(m_xRotation, -70.0f, 85.0f);
 
         _rCamFacing.rotation  = Quaternion.Euler(0, m_yRotation, 0);
-        transform.rotation = Quaternion.Euler(m_xRotation, m_yRotation, 0);
+        joint.transform.rotation = Quaternion.Euler(m_xRotation, m_yRotation, 0);
     }
 }
