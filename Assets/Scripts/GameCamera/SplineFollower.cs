@@ -5,6 +5,7 @@ public class SplineFollower : MonoBehaviour
 {
     public SplineContainer splineContainer;
     public float speed = 5.0f;
+    public CameraManager cameraManager;
 
     private float progress = 0.0f;
     private bool isSpline = false;
@@ -54,6 +55,7 @@ public class SplineFollower : MonoBehaviour
     public void EndSplineMovement()
     {
         isSpline = false;
+        cameraManager.SetMainCamera();
         // 他のスクリプトで通常移動に戻す処理を行う
     }
 
