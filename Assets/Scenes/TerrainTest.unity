@@ -7251,7 +7251,7 @@ TerrainCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 26e44d71995c369449e44f9b7c8dc520, type: 2}
   m_EnableTreeColliders: 1
@@ -7325,7 +7325,7 @@ GameObject:
   - component: {fileID: 2074180085}
   - component: {fileID: 2074180084}
   m_Layer: 0
-  m_Name: Pipe
+  m_Name: Pipe(IttanYameru)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
