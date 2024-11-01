@@ -31,7 +31,7 @@ MonoBehaviour:
     x: -534
     y: -190
     width: 1925
-    height: 2229
+    height: 2286
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -453,7 +453,7 @@ MonoBehaviour:
   particlePerStripCount: 16
   needsComputeBounds: 0
   boundsMode: 0
-  m_Space: 0
+  m_Space: 1
 --- !u!114 &8926484042661614580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661615287}
-  m_UIPosition: {x: 942, y: 1063}
+  m_UIPosition: {x: 942, y: 1174}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615242}
   - {fileID: 8926484042661615792}
   - {fileID: 8926484042661615734}
-  m_UIPosition: {x: 942, y: 1378}
+  m_UIPosition: {x: 942, y: 1435}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_OutputSlots: []
   m_Disabled: 0
   m_ActivationSlot: {fileID: 8926484042661614825}
-  mode: 0
+  mode: 1
   axes: 4
 --- !u!114 &8926484042661614825
 MonoBehaviour:
@@ -2449,8 +2449,6 @@ MonoBehaviour:
     - outputSlot: {fileID: 8926484042661615399}
       inputSlot: {fileID: 8926484042661615460}
     - outputSlot: {fileID: 8926484042661615399}
-      inputSlot: {fileID: 8926484042661615629}
-    - outputSlot: {fileID: 8926484042661615399}
       inputSlot: {fileID: 8926484042661615637}
     position: {x: -59.2, y: 808.8}
     expandedSlots: []
@@ -2635,8 +2633,6 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661615404}
       inputSlot: {fileID: 8926484042661615464}
-    - outputSlot: {fileID: 8926484042661615404}
-      inputSlot: {fileID: 8926484042661615637}
     - outputSlot: {fileID: 8926484042661615404}
       inputSlot: {fileID: 8926484042661615629}
     position: {x: -53.6, y: 911.2}
@@ -3144,7 +3140,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 611, y: 494}
+  m_UIPosition: {x: 583, y: 497}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

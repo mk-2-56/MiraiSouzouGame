@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &745724502455071745
+--- !u!1 &3043895951687811991
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5265133276319300884}
-  - component: {fileID: 5422745995771452857}
-  - component: {fileID: 7368930419522699353}
-  - component: {fileID: 6591755026767571235}
+  - component: {fileID: 7287601044626123490}
+  - component: {fileID: 3704719865217213527}
+  - component: {fileID: 3881892356566290276}
+  - component: {fileID: 332279161663363771}
   m_Layer: 0
   m_Name: Shibuki
   m_TagString: Untagged
@@ -19,45 +19,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5265133276319300884
+--- !u!4 &7287601044626123490
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745724502455071745}
+  m_GameObject: {fileID: 3043895951687811991}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5422745995771452857
+--- !u!114 &3704719865217213527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745724502455071745}
+  m_GameObject: {fileID: 3043895951687811991}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e826c5481e55744080348b9a15f9633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualEffect: {fileID: 7368930419522699353}
-  startPoint: {x: 0, y: 0, z: 0}
-  endPoint: {x: 10, y: 0, z: 10}
-  controlPoint: {x: 10, y: 0, z: 0}
-  segmentCount: 20
---- !u!2083052967 &7368930419522699353
+  visualEffect: {fileID: 3881892356566290276}
+  startPoint: {x: 0.068041414, y: 0, z: 0.47853228}
+  endPoint: {x: 0.44064742, y: 0, z: -0.07434727}
+  controlPoint: {x: 0.60630524, y: 0, z: 0.33604646}
+  segmentCount: 100
+--- !u!2083052967 &3881892356566290276
 VisualEffect:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745724502455071745}
+  m_GameObject: {fileID: 3043895951687811991}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 8411be0b79f9c42438de066a5d2e088b, type: 3}
   m_InitialEventName: OnPlay
@@ -71,6 +71,39 @@ VisualEffect:
       m_Array:
       - m_Value: 0.35
         m_Name: SpawnDistance
+        m_Overridden: 1
+      - m_Value: 10
+        m_Name: MoveSpeed
+        m_Overridden: 1
+      - m_Value: 10
+        m_Name: UpPower
+        m_Overridden: 1
+      - m_Value: 0.1
+        m_Name: Size
+        m_Overridden: 1
+      - m_Value: 0.01
+        m_Name: SpawnRandomRange
+        m_Overridden: 1
+      - m_Value: 5
+        m_Name: UpPowerRandomRange
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: SpawnSizeMax
+        m_Overridden: 1
+      - m_Value: 3
+        m_Name: UpPowerMin
+        m_Overridden: 1
+      - m_Value: 5
+        m_Name: UpPowerMax
+        m_Overridden: 1
+      - m_Value: 0.5
+        m_Name: SpawnSizeMin
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: MoveSpeedMin
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: MoveSpeedMax
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -100,12 +133,27 @@ VisualEffect:
       - m_Value: {x: -1, y: 0, z: 0}
         m_Name: New Line_end
         m_Overridden: 1
+      - m_Value: {x: 1, y: 0.5, z: 1}
+        m_Name: RandomRangeVeloclity
+        m_Overridden: 1
+      - m_Value: {x: 0.068041414, y: 0, z: 0.47853228}
+        m_Name: Start
+        m_Overridden: 1
+      - m_Value: {x: 0.44064742, y: 0, z: -0.07434727}
+        m_Name: End
+        m_Overridden: 1
+      - m_Value: {x: 0.60630524, y: 0, z: 0.33604646}
+        m_Name: Control
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 1000
+        m_Name: Spawn
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -180,14 +228,14 @@ VisualEffect:
         m_Overridden: 1
     m_Bool:
       m_Array: []
---- !u!73398921 &6591755026767571235
+--- !u!73398921 &332279161663363771
 VFXRenderer:
   serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745724502455071745}
+  m_GameObject: {fileID: 3043895951687811991}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
