@@ -73,20 +73,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8116613859084990610, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
+    - target: {fileID: -5998301319071483956, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
+    - target: {fileID: -5413527474356003177, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
     - target: {fileID: -3216998209466556742, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 36d85d0d201b9824fbe944d29ffddf04, type: 2}
+    - target: {fileID: -3215555783603854218, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
+    - target: {fileID: -2932998491564163895, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
     - target: {fileID: -1684107799473140416, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 36d85d0d201b9824fbe944d29ffddf04, type: 2}
+    - target: {fileID: -1018664272722485354, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
       propertyPath: m_Name
       value: Meteor_Breakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorBreakable
       objectReference: {fileID: 0}
     - target: {fileID: 2915357609019638705, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
@@ -98,6 +133,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 36d85d0d201b9824fbe944d29ffddf04, type: 2}
+    - target: {fileID: 4424396828587804706, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914173764048766335, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: MeteorsChild
+      objectReference: {fileID: 0}
     - target: {fileID: 6317578925029434746, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -239,7 +284,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524183398198192616}
-  m_Material: {fileID: 13400000, guid: 0bbdf9cb57fdad747b4dfa54ad286d29, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

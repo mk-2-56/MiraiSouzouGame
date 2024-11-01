@@ -230,6 +230,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1615461306913877896, guid: 8ca010948918c6c44ab667e48b82ad98,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 361055762}
     - targetCorrespondingSourceObject: {fileID: 1615461306774315816, guid: 8ca010948918c6c44ab667e48b82ad98,
         type: 3}
       insertIndex: -1
@@ -378,6 +382,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &361055759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1615461306913877896, guid: 8ca010948918c6c44ab667e48b82ad98,
+    type: 3}
+  m_PrefabInstance: {fileID: 276023468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &361055762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361055759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d423edf6828a544a569fb7d35b20fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  param_mouseSpeed: 1000
+  param_lerpSpeed: 0.8
+  param_locking: 0
 --- !u!1 &598043357
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb03ac20f901cf4f8ef798c1a9b5a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabObj: {fileID: 6261197415680060583, guid: e4431ba0006d43f4284bf1062a6c68b8,
+  PrefabObj: {fileID: 8816875895100869423, guid: 00d4a06a8f987f24facd99c1bd18c9b0,
     type: 3}
   Interval: 300
 --- !u!65 &1411586308
