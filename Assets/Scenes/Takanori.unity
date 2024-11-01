@@ -570,12 +570,12 @@ PrefabInstance:
     - target: {fileID: 3704719865217213527, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
       propertyPath: controlPoint.x
-      value: 0.26784357
+      value: 0.2667697
       objectReference: {fileID: 0}
     - target: {fileID: 3704719865217213527, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
       propertyPath: controlPoint.z
-      value: 0.45231584
+      value: 0.46185896
       objectReference: {fileID: 0}
     - target: {fileID: 3881892356566290276, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
@@ -600,12 +600,12 @@ PrefabInstance:
     - target: {fileID: 3881892356566290276, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[11].m_Value.x
-      value: 0.26784357
+      value: 0.2667697
       objectReference: {fileID: 0}
     - target: {fileID: 3881892356566290276, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[11].m_Value.z
-      value: 0.45231584
+      value: 0.46185896
       objectReference: {fileID: 0}
     - target: {fileID: 7287601044626123490, guid: 25b1913d772d8db42a4805237f476728,
         type: 3}
