@@ -56,7 +56,7 @@ public class CCHover : MonoBehaviour
     {
         Vector3 rayDir = Vector3.down + _rRb.velocity * Time.fixedDeltaTime;
         //Vector3 rayDir = Vector3.down;
-        float rayLength = HoverHeight + 3.0f;
+        float rayLength = HoverHeight + 1.0f;
 
         _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength);
 

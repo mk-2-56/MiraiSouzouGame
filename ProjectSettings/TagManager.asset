@@ -4,10 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - WorldSpace
+  - Coins
   - MeteorsCheckPoint
+<<<<<<< HEAD
   - MeteorBreakable
   - MeteorsChild
+=======
+  - WorldSpace
+>>>>>>> develop
   layers:
   - Default
   - TransparentFX
@@ -17,9 +21,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - PostProcesing
+  - collectable
+  - Player
   - 
   - 
   - 
