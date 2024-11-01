@@ -6,7 +6,6 @@ public class Launch : MonoBehaviour
 {
 
     [SerializeField] float param_LaunchSpeed = 90.0f;
-    [SerializeField] Transform param_TestTarget;
     [SerializeField] TargetManager param_TargetManager;
 
 
@@ -58,6 +57,7 @@ public class Launch : MonoBehaviour
     void EndLaunching()
     {
         _rRb.useGravity = true;
+        _rRb.velocity += Vector3.down * _rRb.velocity.y;
     }
 
     void ResetSpeed()

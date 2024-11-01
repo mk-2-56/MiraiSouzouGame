@@ -19,6 +19,7 @@ public class CCHover : MonoBehaviour
 {
     //Debug:
     MsgBuffer _debugText;
+    LayerMask _layerMask;
 
     //Property:
     public bool Grounded
@@ -45,6 +46,7 @@ public class CCHover : MonoBehaviour
     {
         _rRb = GetComponent<Rigidbody>();
         _debugText = AU.Debug.GetMsgBuffer();
+        _layerMask = LayerMask.GetMask("Terrian");
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class CCHover : MonoBehaviour
         //Vector3 rayDir = Vector3.down;
         float rayLength = HoverHeight + 1.0f;
 
-        _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength);
+        _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength, _layerMask);
 
         if (_grounded)
         {

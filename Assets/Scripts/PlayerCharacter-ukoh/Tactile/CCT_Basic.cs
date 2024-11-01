@@ -25,7 +25,11 @@ public class CCT_Basic : MonoBehaviour
 
     public Vector3 InputDirectionWorld
     { 
-        get{ return _inputDirection;}
+        get{
+            if(_nuetralInput)
+                return _rFacing.forward;
+            return _inputDirection;
+        }
     }
 
     public bool UseGravity
@@ -57,12 +61,14 @@ public class CCT_Basic : MonoBehaviour
     [SerializeField] float param_maxAngularAcc = 15.0f;
     [SerializeField] float param_jumpForce = 30.0f;
     [SerializeField] float param_acc = 10.0f;
+    [SerializeField] float param_torqueCoefficient = 0.03f;
 
 
     //_____________References
     Rigidbody _rRb;
     Transform _rCamFacing;
     Transform _rCog;
+    Transform _rFacing;
     CCHover _rCCHover;
 
     //_____________Members
@@ -100,7 +106,8 @@ public class CCT_Basic : MonoBehaviour
     {
         _rRb = GetComponent<Rigidbody>();
         _rCamFacing = transform.Find("CamFacing");
-        _rCog = transform.Find("Cog");
+        _rFacing = transform.Find("Facing");
+        _rCog = _rFacing.Find("Cog");
         _rCCHover = GetComponent<CCHover>();
 
         _debugText = AU.Debug.GetMsgBuffer();
@@ -142,7 +149,7 @@ public class CCT_Basic : MonoBehaviour
         _debugText.FixedText += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
         _debugText.FixedText += " Momentum: " + _momentum.ToString("F4");
 
-        _debugText.FixedText += "\tLaunchInput: " + _launching.ToString();
+        _debugText.FixedText += "\tGravity: " + _rRb.useGravity.ToString();
     }
 
     void TerrianCheck()
@@ -156,8 +163,10 @@ public class CCT_Basic : MonoBehaviour
             _debugText.FixedText += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
             if (!terrianClamp)
                 _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
+            _rCog.position = _rCCHover.Groundhit.point;
+            _rCog.rotation = _terrianRotation * _rFacing.rotation;
         }
-        else
+        else if(_rRb.useGravity)
             _rRb.AddForce(Vector3.down * 9.8f * 3, ForceMode.Acceleration);
     }
 
@@ -185,7 +194,7 @@ public class CCT_Basic : MonoBehaviour
 
             Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
             float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
-                * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rCog.forward));
+                * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
 
             _debugText.FixedText += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
             acc += _inputDirection * 98f * slideBuildUp;
@@ -199,7 +208,7 @@ public class CCT_Basic : MonoBehaviour
 
         if (_xzPlainVel.sqrMagnitude > 5.0f)
         {
-            _rCog.rotation = Quaternion.LookRotation(_xzPlainVel.normalized, Vector3.up);
+            _rFacing.rotation = Quaternion.LookRotation(_xzPlainVel.normalized, Vector3.up);
         }
     }
 
@@ -209,7 +218,7 @@ public class CCT_Basic : MonoBehaviour
             return;
 
         Vector3 acc;
-        float directionFector = 2.0f - Vector3.Dot(_rCog.forward, _xzPlainVel.normalized);
+        float directionFector = 2.0f - Vector3.Dot(_rFacing.forward, _xzPlainVel.normalized);
 
         if(_nuetralInput)
         {
@@ -221,7 +230,7 @@ public class CCT_Basic : MonoBehaviour
 
         if (_driftingOld)
         {
-            Vector3 targetVel = _rCog.forward * _xzSpeed * (-directionFector + 2);
+            Vector3 targetVel = _rFacing.forward * _xzSpeed * (-directionFector + 2);
             acc = targetVel - _xzPlainVel;
             acc = _terrianRotation * acc;
             _rRb.AddForce(acc, ForceMode.VelocityChange);
@@ -229,13 +238,13 @@ public class CCT_Basic : MonoBehaviour
         if (!_drifting)
             return;
 
-        Vector3 mAcc = _rCog.forward * _momentum -_xzPlainVel.normalized * (_momentum * (-directionFector + 2));
+        Vector3 mAcc = _rFacing.forward * _momentum -_xzPlainVel.normalized * (_momentum * (-directionFector + 2));
 
-        _rCog.rotation = Quaternion.RotateTowards(
-            _rCog.rotation, Quaternion.LookRotation(_inputDirection, Vector3.up),
+        _rFacing.rotation = Quaternion.RotateTowards(
+            _rFacing.rotation, Quaternion.LookRotation(_inputDirection, Vector3.up),
             param_maxAngularAcc * Time.fixedDeltaTime);
             
-        acc = _rCog.forward * (param_acc + _momentum) * (directionFector - 1);
+        acc = _rFacing.forward * (param_acc + _momentum) * (directionFector - 1);
         Vector3 appliedAcc = acc + mAcc;
         appliedAcc = _terrianRotation * appliedAcc;
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
@@ -264,9 +273,8 @@ public class CCT_Basic : MonoBehaviour
     }
     void NewSpeedSystem()
     { 
-        float k = 0.01f;
         //sigmoid function for clamping the acceleratioin
-        _accCoefficient = Mathf.Min(1.0f, 2.0f / (1 + Mathf.Pow( 2.7f , k * (_xzPlainVel.magnitude - param_maxSpeed))));
+        _accCoefficient = Mathf.Min(1.0f, 2.0f / (1 + Mathf.Pow( 2.7f , param_torqueCoefficient * (_xzPlainVel.magnitude - param_maxSpeed))));
         Boosting();
         _debugText.FixedText += " AccCoefficient: " + _accCoefficient.ToString("F4");
     }
@@ -283,7 +291,7 @@ public class CCT_Basic : MonoBehaviour
 
         Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
         float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
-            * Mathf.Max( 0, Vector3.Dot(terrianSlope, _rCog.forward));//do max with zero to negate uphill speed decrease
+            * Mathf.Max( 0, Vector3.Dot(terrianSlope, _rFacing.forward));//do max with zero to negate uphill speed decrease
         _momentum += 9.8f * slideBuildUp;
         if (_boosting)
             _momentum += buildUp * dTime;
