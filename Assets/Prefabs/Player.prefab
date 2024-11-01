@@ -454,7 +454,7 @@ MonoBehaviour:
   param_maxSpeed: 40
   param_maxMomentum: 160
   param_maxAngularAcc: 72
-  param_jumpForce: 30
+  param_jumpForce: 5
   param_acc: 20
 --- !u!114 &6364529321895390347
 MonoBehaviour:
