@@ -159,7 +159,7 @@ public class CCT_Basic : MonoBehaviour
         _terrianRotation = Quaternion.identity;
         if (_grounded)
         {
-            bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.5f);
+            bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.5f) || _terrianNormal.y < 0.5;
             _debugText.FixedText += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
             if (!terrianClamp)
                 _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
