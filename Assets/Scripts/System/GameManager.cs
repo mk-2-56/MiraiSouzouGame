@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+
     public void StartSplineEvent()
     {
         // 通常移動を無効にし、スプライン移動を開始
@@ -47,5 +48,14 @@ public class GameManager : MonoBehaviour
         splineFollower.EndSplineMovement();
         playerMovement.SetMovement(true);
         cameraManager.SetMainCamera();
+    }
+
+    public bool IsEvent()
+    {
+        return isEvent;
+    }
+
+    public void SetEvent(bool isevent){
+        isEvent = isevent;
     }
 }
