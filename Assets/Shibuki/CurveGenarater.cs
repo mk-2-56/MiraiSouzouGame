@@ -19,17 +19,19 @@ public class CurveGenerator : MonoBehaviour
     void Update()
     {
 
+
         UpdateVFXProperties();
     }
     void UpdateVFXProperties()
     {
-
+        
 
         if (visualEffect != null)
         { 
             visualEffect.SetVector3("Start", startPoint); 
             visualEffect.SetVector3("End", endPoint);
             visualEffect.SetVector3("Control", controlPoint); 
+
         }
     }
 
