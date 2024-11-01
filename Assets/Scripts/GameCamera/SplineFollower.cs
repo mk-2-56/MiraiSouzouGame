@@ -55,7 +55,6 @@ public class SplineFollower : MonoBehaviour
     public void EndSplineMovement()
     {
         isSpline = false;
-        cameraManager.SetMainCamera();
         // 他のスクリプトで通常移動に戻す処理を行う
     }
 
