@@ -24,7 +24,7 @@ public class MeteorMovement : MonoBehaviour
     // プライベート変数 
     [SerializeField] private GameObject PrefabObj;                                       // 噴石オブジェクトの取得
     private List<GameObject> Meteor = new List<GameObject>();                            // 噴石オブジェクトリスト
-    private float Speed = 0.02f;                                                         // 落下速度
+    private float Speed = 0.25f;                                                         // 落下速度
     private Vector3 Crater = new Vector3(0.0f, 0.0f, 0.0f);                              // 噴火口の中心座標
     private float Height = 50.0f;                                                        // 噴石のスポーンy座標、いくら上でスポーンさせるか、固定値
     [SerializeField] private int Interval = 300;                                         // 次の噴石の発生間隔
@@ -38,14 +38,14 @@ public class MeteorMovement : MonoBehaviour
 
     private Vector3[] MeteorsPosTank =                               // 噴石Positionの貯蔵庫
         {
-            new Vector3(0.0f, 0.0f, 20.0f),
-            new Vector3(-5.0f, 0.0f, 30.0f),
-            new Vector3(5.0f, 0.0f, 40.0f),
+            new Vector3(196.0f, 34.0f, 152.0f),
+            new Vector3(220.0f, 36.0f, 151.0f),
+            new Vector3(236.0f, 38.0f, 139.0f),
 
-            new Vector3(0.0f, 0.0f, 50.0f),
-            new Vector3(-5.0f, 0.0f, 60.0f),
-            new Vector3(5.0f, 0.0f, 70.0f),
-            new Vector3(0.0f, 0.0f, 80.0f),
+            new Vector3(330.0f, 45.0f, 131.0f),
+            new Vector3(358.0f, 44.0f, 150.0f),
+            new Vector3(372.0f, 46.0f, 153.0f),
+            new Vector3(384.0f, 45.0f, 176.0f),
 
             new Vector3(0.0f, 0.0f, 90.0f),
             new Vector3(-5.0f, 0.0f, 100.0f),
