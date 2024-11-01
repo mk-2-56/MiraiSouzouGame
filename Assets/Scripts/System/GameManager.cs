@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
     //GameManager‚ğí‚Éˆê‚Â
     public static GameManager gameManager {  get; private set; }
     //ƒQ[ƒ€ó‘Ô
     public enum GameState{ Title, Game, Paused, Result};
-    private IState currentState { get; private set; }
+    private IState currentState { get; }
     // Œ»İ‚ÌƒQ[ƒ€ó‘Ô‚ğ•Û
     private void Awake()
     {
