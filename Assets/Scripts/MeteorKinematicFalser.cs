@@ -68,7 +68,10 @@ public class MeteorKinematicFalser : MonoBehaviour
     public void ResetKinematic()
     {
         Debug.Log("reset is ok");
+
         //childRbs = GetComponentsInChildren<Rigidbody>();
+
+
         GameObject[] obj = GameObject.FindGameObjectsWithTag("MeteorBreakable");
         // 子オブジェクトのすべてのRigidbodyを取得
         Rigidbody[][] childRbs2 = new Rigidbody[obj.Length][];
