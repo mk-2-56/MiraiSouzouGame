@@ -6,18 +6,54 @@ using UnityEditor;
 public class HeightmapFromTexture : MonoBehaviour
 {
     [MenuItem("Terrain/Heightmap From Texture")]
-
-    public static void ApplyHeightmap()
+    public static void ShowWindow()
     {
-        var heightmap = Selection.activeObject as Texture2D;
+        // カスタムウィンドウを表示
+        HeightmapInputWindow window = ScriptableObject.CreateInstance<HeightmapInputWindow>();
+        window.ShowUtility();
+    }
+}
+
+public class HeightmapInputWindow : EditorWindow
+{
+    private string terrainName = "MyTerrainName"; // デフォルトのTerrain名
+    private Texture2D heightmap;
+
+    private void OnGUI()
+    {
+        GUILayout.Label("Heightmap From Texture", EditorStyles.boldLabel);
+
+        // Terrain名の入力フィールド
+        terrainName = EditorGUILayout.TextField("Terrain Name:", terrainName);
+
+        // テクスチャの選択
+        heightmap = EditorGUILayout.ObjectField("Heightmap Texture:", heightmap, typeof(Texture2D), false) as Texture2D;
+
+        if (GUILayout.Button("Apply Heightmap"))
+        {
+            ApplyHeightmap();
+        }
+    }
+
+    private void ApplyHeightmap()
+    {
         if (heightmap == null)
         {
             EditorUtility.DisplayDialog("No texture selected", "Please select a texture.", "Cancel");
             return;
         }
-        Undo.RegisterCompleteObjectUndo(Terrain.activeTerrain.terrainData, "Heightmap From Texture");
 
-        TerrainData terrain = Terrain.activeTerrain.terrainData;
+        // 指定された名前のTerrainを検索
+        Terrain myTerrain = GameObject.Find(terrainName)?.GetComponent<Terrain>();
+        if (myTerrain == null)
+        {
+            EditorUtility.DisplayDialog("Terrain not found", $"No Terrain found with the name '{terrainName}'.", "OK");
+            return;
+        }
+
+        Undo.RegisterCompleteObjectUndo(myTerrain.terrainData, "Heightmap From Texture");
+
+        TerrainData terrain = myTerrain.terrainData;
         int w = heightmap.width;
         int h = heightmap.height;
         int w2 = terrain.heightmapResolution;
