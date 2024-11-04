@@ -1,61 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
+    //GameManagerを常に一つ
+    public static GameManager gameManager {  get; private set; }
+    public CameraManager cameraManager;
     public CCT_Basic playerMovement;
     public SplineFollower splineFollower;
-    public CameraManager cameraManager;
 
-    private bool isEvent;
-    void Start()
+    //ゲーム状態
+    public enum GameState{ Title, Game, Paused, Result};
+    private IState currentState { get; }
+    // 現在のゲーム状態を保持
+    private void Awake()
     {
-        cameraManager.SetMainCamera();
-        isEvent = false;
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if(gameManager == null)
         {
-            isEvent = !isEvent;
-            Debug.Log("Spline = " + isEvent);
-
-            if (isEvent)
-            {
-                StartSplineEvent();
-            }
-            else
-            {
-                EndSplineEvent();
-            }
+            gameManager = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-
+        else
+        {
+            Destroy(gameObject);
+        }    
     }
-
-    public void StartSplineEvent()
+    private void Start()
     {
-        // 通常移動を無効にし、スプライン移動を開始
-        playerMovement.SetMovement(false);
-        splineFollower.StartSplineMovement();
-        cameraManager.SetEventCamera();
-
+        SetState(GameState.Title);
     }
 
-    public void EndSplineEvent()
+    public void SetState(GameState newState)
     {
-        // スプライン移動を終了し、通常移動を再開
-        splineFollower.EndSplineMovement();
-        playerMovement.SetMovement(true);
-        cameraManager.SetMainCamera();
+        currentState.Exit();
+        currentState.Enter();
+
+        switch (newState)
+        {
+            case GameState.Title:
+                SceneManager.LoadScene("Title");
+
+                Debug.Log("Menu");
+
+                break;
+            case GameState.Game:
+                SceneManager.LoadScene("Game");
+
+                Debug.Log("Game");
+
+                break;
+            case GameState.Paused:
+                Time.timeScale = 0.0f;
+                break;
+            case GameState.Result:
+                SceneManager.LoadScene("Result");
+                
+                Debug.Log("Result!");
+                break;
+            default:
+                break;
+        }
     }
 
-    public bool IsEvent()
+    // ゲームをリスタートするメソッド
+    public void RestartGame()
     {
-        return isEvent;
+        // ゲームをプレイ状態に変更（シーンを再ロード）
+        SetState(GameState.Game);
     }
 
-    public void SetEvent(bool isevent){
-        isEvent = isevent;
+    public void QuitGame()
+    {
+        // ゲームを終了
+        Application.Quit();
     }
+
 }
