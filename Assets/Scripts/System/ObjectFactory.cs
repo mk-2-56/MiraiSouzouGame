@@ -5,13 +5,14 @@ using static ObjectFactory;
 
 public class ObjectFactory : MonoBehaviour
 {
-    public ObjectPool rockOBJPool;
-     
+    public ObjectPool rockObjPool;
+    public ObjectPool pebbleObjPool; 
+
     public enum ObjectType
     {
-        objType_Rock,
-        objType_River,
-        objType_Coin,
+        objType_Metor,
+        objType_Pebble, // îöî≠ÇÃè¨êŒ
+        //objType_Coin,
         objType_Max,
     }
 
@@ -20,15 +21,23 @@ public class ObjectFactory : MonoBehaviour
     {
         switch (Type)
         {
-            case ObjectType.objType_Rock:
-                rockOBJPool.GetObject();
+            case ObjectType.objType_Metor:
+                rockObjPool.GetObject();
                 break;
-            case ObjectType.objType_River:
+
+            case ObjectType.objType_Pebble:
+                pebbleObjPool.GetObject(); 
                 break;
-            case ObjectType.objType_Coin:
-                break;
-            case ObjectType.objType_Max:
-                break;
+
+            //case ObjectType.objType_River:
+            //    break;
+
+            //case ObjectType.objType_Coin:
+            //    break;
+
+            //case ObjectType.objType_Max:
+            //    break;
+
             default:
                 break;
         }
@@ -38,15 +47,20 @@ public class ObjectFactory : MonoBehaviour
     {
         switch (Type)
         {
-            case ObjectType.objType_Rock:
-                rockOBJPool.GetObject(pos,rot);
+            case ObjectType.objType_Metor:
+                rockObjPool.GetObject(pos,rot);
                 break;
-            case ObjectType.objType_River:
+
+            case ObjectType.objType_Pebble:
+                pebbleObjPool.GetObject(pos, rot);
                 break;
-            case ObjectType.objType_Coin:
-                break;
-            case ObjectType.objType_Max:
-                break;
+
+            //case ObjectType.objType_River:
+            //    break;
+            //case ObjectType.objType_Coin:
+            //    break;
+            //case ObjectType.objType_Max:
+            //    break;
             default:
                 break;
         }
