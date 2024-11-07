@@ -11,9 +11,9 @@ TagManager:
   - Terrian
   - Water
   - UI
+  - PlayerControlled
   - Targets
-  - 
-  - 
+  - Interactable
   - 
   - 
   - 

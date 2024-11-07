@@ -34,7 +34,7 @@ public class CCHover : MonoBehaviour
     //Parameters:
     [SerializeField] float HoverHeight = 1.5f;
     [SerializeField] float HoverSpringStrength = 30.0f;
-    [SerializeField] float HoverDamperStrength = 30.0f;
+    [SerializeField] float HoverDamperStrength = 1.0f;
 
     //Memebers:
     Rigidbody _rRb;
@@ -66,13 +66,10 @@ public class CCHover : MonoBehaviour
         {
             float dTime = Time.fixedDeltaTime;
 
-            float verticleVel = -_rRb.velocity.y;
-
+            float verticalVel = _rRb.velocity.y;
             float x = _rayHit.distance - HoverHeight;
+            float hoverForce = x * HoverSpringStrength + verticalVel * HoverDamperStrength;
 
-            float hoverForce = x * HoverSpringStrength - verticleVel * HoverDamperStrength;
-
-            //debug.Msg = hoverForce.ToString("F4");
             _debugText.FixedText = "HoverForce: " + hoverForce.ToString("F4");
 
             _rRb.AddForce(Vector3.down * hoverForce, ForceMode.Acceleration);

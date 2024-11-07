@@ -31,11 +31,13 @@ public class TargetManager : MonoBehaviour
     }
     public void AddTarget(GameObject obj)
     {
-        _targets.Add(obj, obj.transform.position);
+        if(!_targets.ContainsKey(obj))
+            _targets.Add(obj, obj.transform.position);
     }
 
     public void RemoveTarget(GameObject obj)
     {
+        if(_targets.ContainsKey(obj))
         _targets.Remove(obj);
     }
 

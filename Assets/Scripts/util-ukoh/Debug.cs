@@ -62,9 +62,30 @@ namespace AU
         void Update()
         {
             debugMsg.text = "";
-            _bufferList.ForEach( x => { debugMsg.text += x.UpdateText + "<br>"; x.UpdateText = "";} );
-            _bufferList.ForEach( x => { debugMsg.text += x.FixedText + "<br>" ;} );
-            _bufferList.ForEach( x => { debugMsg.text += x.LateText + "<br>"  ;} );
+            _bufferList.ForEach( x => 
+            { 
+                string text = x.UpdateText;
+                debugMsg.text += text;
+                if(text != string.Empty)
+                    debugMsg.text += "<br>";
+                x.UpdateText = "";
+            } );
+            _bufferList.ForEach( x => 
+            { 
+                string text = x.FixedText;
+                debugMsg.text += text;
+                if (text != string.Empty)
+                    debugMsg.text += "<br>";
+                x.UpdateText = "";
+            } );
+            _bufferList.ForEach( x => 
+            { 
+                string text = x.LateText;
+                debugMsg.text += text;
+                if (text != string.Empty)
+                    debugMsg.text += "<br>";
+                x.UpdateText = "";
+            } );
         }
 
         private void LateUpdate()
