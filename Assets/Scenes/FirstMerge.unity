@@ -5989,6 +5989,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3626170837893797983, guid: b7a27e350d38bd946a33ba74e719acb3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5194599834359346982, guid: b7a27e350d38bd946a33ba74e719acb3,
         type: 3}
       propertyPath: m_Name
@@ -6009,6 +6014,11 @@ PrefabInstance:
       propertyPath: splineContainer
       value: 
       objectReference: {fileID: 871057356}
+    - target: {fileID: 6395678853862778863, guid: b7a27e350d38bd946a33ba74e719acb3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
