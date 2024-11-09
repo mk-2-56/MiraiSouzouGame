@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WorldSpace
   - MeteorsCheckPoint
+  - Meteor_Breakable_Parent
   layers:
   - Default
   - TransparentFX

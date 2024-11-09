@@ -24,7 +24,7 @@ public class MeteorMovement : MonoBehaviour
     // プライベート変数 
     [SerializeField] private GameObject PrefabObj;                                       // 噴石オブジェクトの取得
     private List<GameObject> Meteor = new List<GameObject>();                            // 噴石オブジェクトリスト
-    private float Speed = 0.02f;                                                         // 落下速度
+    private float Speed = 0.10f;                                                         // 落下速度
     private Vector3 Crater = new Vector3(0.0f, 0.0f, 0.0f);                              // 噴火口の中心座標
     private float Height = 50.0f;                                                        // 噴石のスポーンy座標、いくら上でスポーンさせるか、固定値
     [SerializeField] private int Interval = 300;                                         // 次の噴石の発生間隔
@@ -78,7 +78,6 @@ public class MeteorMovement : MonoBehaviour
             GameObject obj = Instantiate(PrefabObj); // オブジェクトを生成する
             Meteor.Add(obj); // リストに追加
             Meteor[i].SetActive(false); // 非表示にする
-            // ResetMeteorProperties(i); // 噴石の設定を初期化
         }
 
         // エラー確認：配列サイズ
@@ -88,19 +87,6 @@ public class MeteorMovement : MonoBehaviour
         }
 
     }
-    //private void ResetMeteorProperties(int index)
-    //{
-    //    MeteorProp[index] = new MeteorProperties
-    //    {
-    //        Pos = Vector3.zero,
-    //        SpawnPos = Vector3.zero,
-    //        Time = 0,
-    //        Use = false,
-    //        WillUse = false,
-    //        OnGround = false,
-    //        CntDespawn = 0
-    //    };
-    //}
 
     void Start()
     {
@@ -161,7 +147,7 @@ public class MeteorMovement : MonoBehaviour
                     // 噴石を落下させる
                     MeteorProp[i].Pos.y -= Speed;
 
-                    // 火口からスポーン地点へ向かう計算
+                    // 火口からスポーン地点へ向かう計算（）角度調整
                     Vector3 targetDirection = MeteorProp[i].Pos - Crater;
                     targetDirection.y = 0; // Y方向は無視する
 

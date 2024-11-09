@@ -32,14 +32,6 @@ public class MeteorsActivatePoint : MonoBehaviour
             {
                 meteor.ActivateMeteors();
                 canActivate = false; // アクティベートを無効にする
-
-                // オブジェクト破壊で飛び散った破片をリセットする
-                MeteorKinematicFalser meteorKinematicFalser;
-                meteorKinematicFalser = FindObjectOfType<MeteorKinematicFalser>();
-                if (meteorKinematicFalser != null)
-                {
-                    meteorKinematicFalser.ResetKinematic();
-                }
             }
             else
             {

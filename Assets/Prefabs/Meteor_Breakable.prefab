@@ -88,6 +88,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Meteor_Breakable
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2a6d5bbd387aa6047b245f03c4672b75,
+        type: 3}
+      propertyPath: m_TagString
+      value: Meteor_Breakable_Parent
+      objectReference: {fileID: 0}
     - target: {fileID: 2915357609019638705, guid: 2a6d5bbd387aa6047b245f03c4672b75,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -657,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036d3259514807d4793f2f6a526b3f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  despawnTime: 1500
 --- !u!54 &5739565401925246680
 Rigidbody:
   m_ObjectHideFlags: 0
