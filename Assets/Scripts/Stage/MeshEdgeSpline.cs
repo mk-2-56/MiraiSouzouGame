@@ -5,6 +5,7 @@ using UnityEngine.Splines;
 
 public class MeshEdgeSpline : MonoBehaviour
 {
+    [SerializeField] float makeWidthShorter;
     private List<Vector3> leftEdgePoints = new List<Vector3>(); // 左端のポイントを格納するリスト
     private List<Vector3> rightEdgePoints = new List<Vector3>(); // 右端のポイントを格納するリスト
     private RamSpline ramSpline; // RamSplineのインスタンス
@@ -21,7 +22,7 @@ public class MeshEdgeSpline : MonoBehaviour
         }
 
         var controlPoints = ramSpline.points;
-        float meshWidth = ramSpline.width;
+        float meshWidth = ramSpline.width - makeWidthShorter;
 
         for (int i = 0; i < controlPoints.Count - 1; i++)
         {
