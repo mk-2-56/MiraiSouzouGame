@@ -3,32 +3,27 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class TestInput : MonoBehaviour
+public class PubbleTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
     public ObjectFactory ObjectFactory;
     [SerializeField] int numberOfPebbles = 10;
     [SerializeField] float explosionForce = 10;
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
-    {
+    {//これテスト用
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
+            //隕石がプレイヤーとぶつかった後小石生成関数（パーティクルも追加予定
             TriggerExplosionEffect();
-/*            ObjectFactory.generateObj(ObjectType.objType_Pebble);
-*/        }
+        }
     }
 
     void TriggerExplosionEffect()
     {
         for (int i = 0; i < numberOfPebbles; i++)
         {
+            Debug.Log(transform.position.ToString());
             // 小石を生成
             GameObject pebble = ObjectFactory.generateObj(
                 ObjectType.objType_Pebble,
