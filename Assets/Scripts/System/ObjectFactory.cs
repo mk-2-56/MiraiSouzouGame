@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using static ObjectFactory;
 
+
+public enum ObjectType
+{
+    objType_Metor,
+    objType_Pebble, // 爆発の小石
+                    //objType_Coin,
+    objType_Max,
+}
+
 public class ObjectFactory : MonoBehaviour
 {
     public ObjectPool rockObjPool;
     public ObjectPool pebbleObjPool; 
 
-    public enum ObjectType
-    {
-        objType_Metor,
-        objType_Pebble, // 爆発の小石
-        //objType_Coin,
-        objType_Max,
-    }
-
+   
     //アクティブだけで、TransformはUnity側で設定する必要がある
     public void generateObj(ObjectType Type)
     {
@@ -43,17 +45,15 @@ public class ObjectFactory : MonoBehaviour
         }
     }
     //PosとRotを指定しアクティブ
-    public void generateObj(ObjectType Type,Vector3 pos , Quaternion rot)
+    public GameObject generateObj(ObjectType Type,Vector3 pos , Quaternion rot)
     {
         switch (Type)
         {
             case ObjectType.objType_Metor:
-                rockObjPool.GetObject(pos,rot);
-                break;
+                return rockObjPool.GetObject(pos,rot);
 
             case ObjectType.objType_Pebble:
-                pebbleObjPool.GetObject(pos, rot);
-                break;
+                return pebbleObjPool.GetObject(pos, rot);
 
             //case ObjectType.objType_River:
             //    break;
@@ -64,6 +64,8 @@ public class ObjectFactory : MonoBehaviour
             default:
                 break;
         }
+
+        return null;
     }
 
 }
