@@ -748,6 +748,52 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &648546431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 648546433}
+  - component: {fileID: 648546432}
+  m_Layer: 0
+  m_Name: ObjectFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &648546432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648546431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3b8a00202111049b97de550582fd3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockObjPool: {fileID: 0}
+  pebbleObjPool: {fileID: 2008734759}
+--- !u!4 &648546433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648546431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 140.1, y: 32.84, z: 206.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653967883
 GameObject:
   m_ObjectHideFlags: 0
@@ -5355,6 +5401,7 @@ GameObject:
   - component: {fileID: 1353403527}
   - component: {fileID: 1353403526}
   - component: {fileID: 1353403525}
+  - component: {fileID: 1353403531}
   m_Layer: 0
   m_Name: MeteorsSpawner
   m_TagString: Untagged
@@ -5478,6 +5525,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1353403531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353403524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71db89b1fb734e9468ba6922d2066095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectFactory: {fileID: 648546432}
+  numberOfPebbles: 10
+  explosionForce: 10
 --- !u!1 &1407295979
 GameObject:
   m_ObjectHideFlags: 0
@@ -6112,7 +6174,7 @@ PrefabInstance:
     - target: {fileID: 2069543707297945028, guid: b7a27e350d38bd946a33ba74e719acb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 289.55988
+      value: 289.5599
       objectReference: {fileID: 0}
     - target: {fileID: 2069543707297945028, guid: b7a27e350d38bd946a33ba74e719acb3,
         type: 3}
@@ -6296,6 +6358,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2008734758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2008734760}
+  - component: {fileID: 2008734759}
+  m_Layer: 0
+  m_Name: PubbleObjPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2008734759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008734758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e849dd5e4d70fe3498c4734f1829954f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1969192603740655825, guid: 6649b2f5cd1488d49be654766dfe7855, type: 3}
+  poolSize: 100
+--- !u!4 &2008734760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008734758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 140.1, y: 32.84, z: 206.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &2017573977 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4570168388900294301, guid: 2a2c035680a7d99479e82d1c589a9b7b,
@@ -6322,3 +6430,5 @@ SceneRoots:
   - {fileID: 511192406}
   - {fileID: 148926741}
   - {fileID: 1597519822}
+  - {fileID: 648546433}
+  - {fileID: 2008734760}
