@@ -35,11 +35,11 @@ public class BoostMark : MonoBehaviour
     // パブリック変数
     public static int MaxMarkUI = 10;                                               // UIの最大数(maxMeteorの2倍は使用中)
     public MarkProperties[] MarkProp = new MarkProperties[MaxMarkUI];               // UIの設定
+    public ObjectPool BoostMarkPool;
 
     // プライベート変数 
     [SerializeField] private MeteorMovement meteorMovement;                         // 噴石の情報を取得
-    [SerializeField] private GameObject PrefabUIObj_Cir;                            // UIオブジェクトの取得
-    private List<GameObject> MarkUI_Cir = new List<GameObject>();                   // UIオブジェクトリスト
+
     private MeteorMovement.MeteorProperties[] meteorProperties;                     // 噴石設定の情報を取得
     private Transform MainCam;                                                      // カメラの情報
     private Transform WorldSpaceCanvas;                                             // WorldSpaceCanvasの情報
@@ -56,18 +56,9 @@ public class BoostMark : MonoBehaviour
 
         for (int i = 0; i < MaxMarkUI; i++)
         {
-            GameObject obj = Instantiate(PrefabUIObj_Cir); // オブジェクトを生成する
-            MarkUI_Cir.Add(obj); // リストに追加
-            MarkUI_Cir[i].SetActive(false); // 非表示にする
-            MarkUI_Cir[i].transform.SetParent(WorldSpaceCanvas); // 親子関係を設定
-            MarkUI_Cir[i].transform.localScale = new Vector3(5, 5, 5); // サイズを設定(初期2,2,2)
-
+            BoostMarkPool.GetList()[i].transform.SetParent(WorldSpaceCanvas); // 親子関係を設定
+            BoostMarkPool.GetList()[i].transform.localScale = new Vector3(5, 5, 5); // サイズを設定(初期2,2,2)
             MarkProp[i] = new MarkProperties();
-        }
-        if (PrefabUIObj_Cir == null)
-        {
-            Debug.LogError("PrefabUI is not assigned!");
-            return;
         }
 
     }
@@ -117,8 +108,10 @@ public class BoostMark : MonoBehaviour
                             break;
                         case MarkState.Act1:
                             MarkProp[i].Usable = true;
-                            MarkUI_Cir[i].SetActive(true); // 表示する
-                            MarkUI_Cir[i].transform.localScale -= new Vector3(val, val, val);
+                            BoostMarkPool.GetList()[i].SetActive(true); // 表示する
+                            BoostMarkPool.GetList()[i].transform.localScale -= new Vector3(val, val, val);
+                            //BoostMarkPool.GetList()[i].SetActive(true); // 表示する
+                            //BoostMarkPool.GetList()[i].transform.localScale -= new Vector3(val, val, val);
 
                             MarkProp[i].Cnt++;
                             if (MarkProp[i].Cnt > waitExpand)
@@ -126,21 +119,23 @@ public class BoostMark : MonoBehaviour
                                 MarkProp[i].markState = MarkState.Act2;
                                 // 設定の初期化
                                 MarkProp[i].Cnt = 0;
-                                MarkUI_Cir[i].transform.localScale = new Vector3(5, 5, 5);
+                                BoostMarkPool.GetList()[i].transform.localScale = new Vector3(5, 5, 5);
+
+                                //BoostMarkPool.GetList()[i].transform.localScale = new Vector3(5, 5, 5);
                             }
 
                             // アニメーションなしのマーク
-                            MarkUI_Cir[i + maxMeteor].SetActive(true); // 表示する
-                            MarkUI_Cir[i + maxMeteor].transform.localScale = new Vector3(1, 1, 1);
+                            BoostMarkPool.GetList()[i + maxMeteor].SetActive(true); // 表示する
+                            BoostMarkPool.GetList()[i + maxMeteor].transform.localScale = new Vector3(1, 1, 1);
                             break;
                         case MarkState.Act2:
-                            MarkUI_Cir[i].transform.localScale -= new Vector3(val, val, val);
+                            BoostMarkPool.GetList()[i].transform.localScale -= new Vector3(val, val, val);
 
                             MarkProp[i].Cnt++;
                             if (MarkProp[i].Cnt > waitExpand)
                             {
                                 MarkProp[i].markState = MarkState.Ending;
-                                MarkUI_Cir[i].SetActive(false); // 非表示にする
+                                BoostMarkPool.GetList()[i].SetActive(false); // 非表示にする
                                 // 設定の初期化
                                 MarkProp[i].Cnt = 0;
                             }
@@ -154,7 +149,7 @@ public class BoostMark : MonoBehaviour
                     // オブジェクトの前方にUIを表示させるため、positionを調整
                     Vector3 targetDirection;
                     {
-                        targetDirection = MarkUI_Cir[i].transform.position - MainCam.transform.position;
+                        targetDirection = BoostMarkPool.GetList()[i].transform.position - MainCam.transform.position;
                         //targetDirection.y = 0; // Y方向は無視する
 
                         if (targetDirection.magnitude > 0.01f) // 小さな値より大きい場合
@@ -164,22 +159,22 @@ public class BoostMark : MonoBehaviour
                         }
                     }
 
-                    MarkUI_Cir[i].transform.position = instantiatedMeteors[i].transform.position - targetDirection;
-                    MarkUI_Cir[i].transform.rotation = Quaternion.LookRotation(MarkUI_Cir[i].transform.position - MainCam.transform.position);
+                    BoostMarkPool.GetList()[i].transform.position = instantiatedMeteors[i].transform.position - targetDirection;
+                    BoostMarkPool.GetList()[i].transform.rotation = Quaternion.LookRotation(BoostMarkPool.GetList()[i].transform.position - MainCam.transform.position);
                     // アニメーションなしのマーク
-                    MarkUI_Cir[i + maxMeteor].transform.position = instantiatedMeteors[i].transform.position - targetDirection;
-                    MarkUI_Cir[i + maxMeteor].transform.rotation = Quaternion.LookRotation(MarkUI_Cir[i].transform.position - MainCam.transform.position);
+                    BoostMarkPool.GetList()[i + maxMeteor].transform.position = instantiatedMeteors[i].transform.position - targetDirection;
+                    BoostMarkPool.GetList()[i + maxMeteor].transform.rotation = Quaternion.LookRotation(BoostMarkPool.GetList()[i].transform.position - MainCam.transform.position);
                 }
                 else
                 {
-                    MarkUI_Cir[i].SetActive(false); // 非表示にする
-                    MarkUI_Cir[i].transform.localScale = new Vector3(5, 5, 5);
+                    BoostMarkPool.GetList()[i].SetActive(false); // 非表示にする
+                    BoostMarkPool.GetList()[i].transform.localScale = new Vector3(5, 5, 5);
                     MarkProp[i].markState = MarkState.Waiting;
                     MarkProp[i].Usable = false;
 
                     // アニメーションなしのマーク
-                    MarkUI_Cir[i + maxMeteor].SetActive(false); // 表示する
-                    MarkUI_Cir[i + maxMeteor].transform.localScale = new Vector3(5, 5, 5);
+                    BoostMarkPool.GetList()[i + maxMeteor].SetActive(false); // 表示する
+                    BoostMarkPool.GetList()[i + maxMeteor].transform.localScale = new Vector3(5, 5, 5);
                     MarkProp[i + maxMeteor].markState = MarkState.Waiting;
                 }
             }
@@ -208,7 +203,7 @@ public class BoostMark : MonoBehaviour
             if (MarkProp[i].Usable)
             {
                 // オブジェクトへのベクトルを取得
-                Vector3 directionToObj = (MarkUI_Cir[i].transform.position - Camera.main.transform.position).normalized;
+                Vector3 directionToObj = (BoostMarkPool.GetList()[i].transform.position - Camera.main.transform.position).normalized;
 
                 // 角度を計算
                 float angle = Vector3.Angle(cameraForward, directionToObj);
@@ -217,7 +212,7 @@ public class BoostMark : MonoBehaviour
                 if (angle < closestAngle)
                 {
                     closestAngle = angle;
-                    pos = MarkUI_Cir[i].transform.position;
+                    pos = BoostMarkPool.GetList()[i].transform.position;
                 }
 
                 usable = true;
@@ -227,26 +222,3 @@ public class BoostMark : MonoBehaviour
         return (usable, pos);
     }
 }
-
-
-
-
-//public class Example : MonoBehaviour
-//{
-//    void Start()
-//    {
-//        var result = GetBoolAndVector();
-//        bool myBool = result.Item1;
-//        Vector3 myVector = result.Item2;
-
-//        Debug.Log($"Bool: {myBool}, Vector: {myVector}");
-//    }
-
-//    (bool, Vector3) GetBoolAndVector()
-//    {
-//        bool someCondition = true; // 任意の条件
-//        Vector3 someVector = new Vector3(1, 2, 3); // 任意のVector3
-
-//        return (someCondition, someVector);
-//    }
-//}
