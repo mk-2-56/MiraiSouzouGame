@@ -14,7 +14,7 @@ public enum ObjectType
 
 public class ObjectFactory : MonoBehaviour
 {
-    public ObjectPool rockObjPool;
+    public ObjectPool MetorObjPool;
     public ObjectPool pebbleObjPool; 
 
    
@@ -24,7 +24,7 @@ public class ObjectFactory : MonoBehaviour
         switch (Type)
         {
             case ObjectType.objType_Metor:
-                rockObjPool.GetObject();
+                MetorObjPool.GetObject();
                 break;
 
             case ObjectType.objType_Pebble:
@@ -50,7 +50,7 @@ public class ObjectFactory : MonoBehaviour
         switch (Type)
         {
             case ObjectType.objType_Metor:
-                return rockObjPool.GetObject(pos,rot);
+                return MetorObjPool.GetObject(pos,rot);
 
             case ObjectType.objType_Pebble:
                 return pebbleObjPool.GetObject(pos, rot);
