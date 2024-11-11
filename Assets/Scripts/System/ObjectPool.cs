@@ -62,4 +62,10 @@ public class ObjectPool : MonoBehaviour
     {//å©Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈÅB
         obj.SetActive (false);
     }
+
+
+    public List<GameObject> GetList()
+    {
+        return pool;
+    }
 }
