@@ -1029,7 +1029,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 22d6556b9f215d24ea6c44262f453cce, type: 3}
+      - m_Value: {fileID: 2800000, guid: 0f7c8d79f4c4a3f4e907fdc8db100a56, type: 3}
         m_Name: Mask
         m_Overridden: 1
     m_Bool:
