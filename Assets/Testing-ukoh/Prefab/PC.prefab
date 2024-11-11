@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   param_mouseSpeed: 50
   param_lerpSpeed: 0.8
+  param_lerpSpeedPos: 0.95
   param_locking: 1
 --- !u!1 &4408593095604918430
 GameObject:
@@ -338,10 +339,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param_maxSpeed: 30
-  param_maxMomentum: 160
-  param_maxAngularAcc: 72
-  param_airCoefficient: 0.2
   param_acc: 20
+  param_jumpForce: 30
+  param_torqueCoefficient: 0.03
+  param_maxAngularAcc: 72
 --- !u!1 &5443006550488801647
 GameObject:
   m_ObjectHideFlags: 0
