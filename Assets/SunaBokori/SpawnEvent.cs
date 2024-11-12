@@ -28,6 +28,7 @@ public class SpawnEvent : MonoBehaviour
     public void SendEvent()
     {
         // VFX Graphにイベントを送信
+        vfx.SendEvent("Spawn");
 
     }
 }
