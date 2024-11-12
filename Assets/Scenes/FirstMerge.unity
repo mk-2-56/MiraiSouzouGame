@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 479306293}
   - component: {fileID: 479306292}
   m_Layer: 0
-  m_Name: VolcanoSmokeRed
+  m_Name: VolcanoSmokeBlackRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
