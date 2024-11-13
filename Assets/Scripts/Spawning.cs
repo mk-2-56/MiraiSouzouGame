@@ -6,12 +6,12 @@ public class Spawning : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
 
+    TargetManager _manager;
 
     void Start()
     {
         Invoke("Spawn", 0.5f);
     }
-
     // Update is called once per frame
     void Update()
     {

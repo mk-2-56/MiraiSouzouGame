@@ -18,6 +18,7 @@ public abstract class Command
 
 public class CCT_Basic : MonoBehaviour
 {
+
     public float Speed
     {
         get{ return _xzSpeed;}
@@ -32,10 +33,9 @@ public class CCT_Basic : MonoBehaviour
         }
     }
 
-    public bool UseGravity
+    public string inputAxisPrefix
     { 
-        get{ return _rRb.useGravity;}
-        set{ _rRb.useGravity = value;}
+        get{ return _axisNamePrefix; }
     }
 
     public void ResigterLaunchModule(Command cmd)
@@ -53,6 +53,8 @@ public class CCT_Basic : MonoBehaviour
 
     //Debug:
     MsgBuffer _debugText;
+    GameObject _rDebug;
+    LineRenderer _rDebugLineRender;
     //_____________Properties
 
     //_____________Parameters
@@ -67,6 +69,9 @@ public class CCT_Basic : MonoBehaviour
     [Tooltip("ドリフト時の回転速度上限")]
     [SerializeField] float param_maxAngularAcc = 15.0f;
 
+    //temp
+    [SerializeField] int param_playerIndex = 0;
+    string _axisNamePrefix;
 
     //_____________References
     Rigidbody _rRb;
@@ -74,6 +79,7 @@ public class CCT_Basic : MonoBehaviour
     Transform _rCog;
     Transform _rFacing;
     CCHover _rCCHover;
+
 
     //_____________Members
     Quaternion _targetFacing;
@@ -87,11 +93,11 @@ public class CCT_Basic : MonoBehaviour
 
     Vector3 _inputDirection;
     Vector3 _rawInput;
+    Vector2 _lookInput;
+
     Vector3 _terrianNormal;
     Quaternion _terrianRotation;
-
-    float _yRotationCog;
-
+    
     Command _launchCommand;
 
     //______________Flags
@@ -100,10 +106,10 @@ public class CCT_Basic : MonoBehaviour
     bool _grounded;
     bool _nuetralInput;
 
-    bool _boosting;
+    bool _Accelerating;
     bool _drifting;
     bool _driftingOld;
-    bool _launching;
+    bool _Boost;
     bool _jumping;
 
     void Start()
@@ -114,7 +120,10 @@ public class CCT_Basic : MonoBehaviour
         _rCog = _rFacing.Find("Cog");
         _rCCHover = GetComponent<CCHover>();
 
-        _debugText = AU.Debug.GetMsgBuffer();
+        _debugText = AU.Debug.GetMsgBuffer(); 
+        _rDebug = transform.Find("Debug").gameObject;
+        _rDebugLineRender = _rDebug.GetComponent<LineRenderer>();
+        _axisNamePrefix = "P" + (param_playerIndex).ToString() + "_";
     }
 
     private void Awake()
@@ -132,6 +141,10 @@ public class CCT_Basic : MonoBehaviour
 
         BasicDebugInfo();
         TerrianCheck();
+        if(!_grounded) 
+            WallCheck();
+
+        _rRb.useGravity = !_grounded;
 
         NewSpeedSystem();
         MomentumSystem();
@@ -139,7 +152,7 @@ public class CCT_Basic : MonoBehaviour
         if(_jumping)
             Jumping();
 
-        if(_launching) 
+        if(_Boost) 
             _launchCommand.Execute();
 
 
@@ -156,6 +169,30 @@ public class CCT_Basic : MonoBehaviour
         _debugText.FixedText += "\tMomentum: " + _momentum.ToString("F4");
 
         _debugText.FixedText += "\tGravity: " + _rRb.useGravity.ToString();
+    }
+
+    void WallCheck()
+    {
+        bool wallhit = false;
+
+        //temp
+        LayerMask layerMask = LayerMask.GetMask("Terrian");
+        float radius = 1.0f;
+        float distance = 4.0f;
+        RaycastHit hit;
+
+
+        wallhit = Physics.SphereCast(_rRb.transform.position - _rCamFacing.forward, radius, _rCamFacing.forward,
+            out hit, distance, layerMask);
+        _debugText.FixedText += "<br>Wallhit: " + wallhit.ToString();
+        if (!wallhit)
+            return;
+
+        if (hit.normal.y < 0.3f )
+        { 
+            _grounded = true;
+            _terrianRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        }
     }
 
     void TerrianCheck()
@@ -187,15 +224,9 @@ public class CCT_Basic : MonoBehaviour
 
         float accMag = param_acc;
         Vector3 acc  = _inputDirection * accMag;
-        Vector3 mAcc = _inputDirection * _momentum - _xzPlainVel.normalized * ( _momentum * ( -directionFector + 2));
+        //Vector3 mAcc = _inputDirection * _momentum - _xzPlainVel.normalized * ( _momentum * ( -directionFector + 2));
             
-        mAcc = Vector3.zero;
-
-        if (!_grounded)
-        { 
-            mAcc = Vector3.zero;
-        }
-        else
+        if (_grounded)
         {
             acc *= directionFector * _accCoefficient;
 
@@ -206,11 +237,12 @@ public class CCT_Basic : MonoBehaviour
             _debugText.FixedText += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
             acc += _inputDirection * 98f * slideBuildUp;
         }
-        Vector3 appliedAcc = acc + mAcc ;
+        Vector3 appliedAcc = acc;
         appliedAcc = _terrianRotation * appliedAcc;
 
         _debugText.FixedText += "<br>Acc: " + acc.ToString();
-        _debugText.FixedText += "<br>MomentumAcc: " + mAcc.ToString();
+        _rDebugLineRender.SetPosition(0, _rRb.position);
+        _rDebugLineRender.SetPosition(1, _rRb.position + appliedAcc);
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
 
         if (_xzPlainVel.sqrMagnitude > 5.0f)
@@ -267,7 +299,7 @@ public class CCT_Basic : MonoBehaviour
 
     void Boosting()
     {
-        if (!_boosting)
+        if (!_Accelerating)
         {
             if (_nuetralInput && _xzSpeed > 0.5f)
                 _inputDirection = _xzPlainVel.normalized * -0.2f;
@@ -286,33 +318,6 @@ public class CCT_Basic : MonoBehaviour
         _debugText.FixedText += " AccCoefficient: " + _accCoefficient.ToString("F4");
     }
 
-    //void MomentumSystem_Old()
-    //{ //buildup when boosting, riding down slopes or with mechanism
-    //    if (!_grounded)
-    //        return;
-
-    //    float dTime = Time.fixedDeltaTime;
-    //    float currentVel = _rRb.velocity.magnitude;
-    //    float dMomentum  = (param_maxMomentum - _momentum - currentVel);
-    //    float buildUp = dMomentum * 0.2f;
-
-    //    Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
-    //    float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
-    //        * Mathf.Max( 0, Vector3.Dot(terrianSlope, _rFacing.forward));//do max with zero to negate uphill speed decrease
-    //    _momentum += 9.8f * slideBuildUp;
-    //    if (_boosting)
-    //        _momentum += buildUp * dTime;
-    //    else if (_momentum > 0)
-    //    {
-    //        int stopping = 0;
-    //        if(currentVel < param_maxSpeed)
-    //            stopping++;
-    //        _momentum -= _momentum * (0.3f + 3 * stopping) * dTime;
-    //        _momentum = Mathf.Max(0, _momentum);
-    //    }
-    //    _debugText.FixedText += "Momentum: " + _momentum.ToString("F4");
-    //}
-
     void MomentumSystem()
     {
         if (!_grounded)
@@ -323,20 +328,22 @@ public class CCT_Basic : MonoBehaviour
         float buildUp = param_acc;
 
         _momentum = Mathf.Max( 0, _xzSpeed - param_maxSpeed);
-        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
+        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _Accelerating.ToString();
     }
 
     void InputFetcher()
     {
-        _horiInput = Input.GetAxisRaw("Horizontal");
-        _vertInput = Input.GetAxisRaw("Vertical");
-        _nuetralInput = _inputDirection == Vector3.zero;
-        _rawInput = new Vector2(_vertInput, _horiInput);
-        _inputDirection = Vector3.Normalize(_rCamFacing.forward * _vertInput + _rCamFacing.right * _horiInput);
+        _Accelerating   = Input.GetButton(_axisNamePrefix + "Accele");
+        _drifting       = Input.GetButton(_axisNamePrefix + "Drift");
+        _Boost          = Input.GetButton(_axisNamePrefix + "Boost");
+        _jumping        = Input.GetButton(_axisNamePrefix + "Jump");
 
-        _boosting = Input.GetButton("Fire1");
-        _drifting = Input.GetButton("Fire2");
-        _launching = Input.GetButton("Fire3");
-        _jumping = Input.GetButton("Jump");
+        float horiInput = Input.GetAxisRaw(_axisNamePrefix + "Horizontal");
+        float vertInput = Input.GetAxisRaw(_axisNamePrefix + "Vertical");
+
+        _rawInput = new Vector2(vertInput, horiInput);
+        _nuetralInput = _rawInput == Vector3.zero;
+        
+        _inputDirection = Vector3.Normalize(_rCamFacing.forward * vertInput + _rCamFacing.right * horiInput);
     }
 }
