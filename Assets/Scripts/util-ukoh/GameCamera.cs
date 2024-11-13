@@ -4,10 +4,10 @@ using UnityEngine;
 
 /// <summary>
 /// ukoh-2024-10-28
-/// GameCamera  ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½
+/// GameCamera  ƒvƒŒƒCƒ„[ƒJƒƒ‰
 /// 
-/// ï¿½Vï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ÈƒJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½
-/// todo inertiaï¿½@ï¿½\
+/// ƒVƒ“ƒvƒ‹‚ÈƒJƒƒ‰§Œä‚È‚¾‚¯
+/// todo inertia‹@”\
 /// </summary>
 
 public class GameCamera : MonoBehaviour
@@ -24,6 +24,7 @@ public class GameCamera : MonoBehaviour
     [SerializeField] bool  param_locking = true;
 
     //_____________Members
+    Transform _rFacing;
     Transform _rCog;
     Transform _rCamFacing;
 
@@ -38,7 +39,8 @@ public class GameCamera : MonoBehaviour
     void Start()
     {
         _rCamFacing = transform.parent;
-        _rCog = transform.parent.parent.Find("Cog");
+        _rFacing = _rCamFacing.parent.Find("Facing");
+        _rCog = _rFacing.Find("Cog");
         joint = new GameObject();
         joint.transform.position = transform.position;
         transform.Find("Main Camera").SetParent(joint.transform);
@@ -50,8 +52,11 @@ public class GameCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.C))
+            param_locking = !param_locking;
+
         if(param_locking)
-            joint.transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rCog.rotation, param_lerpSpeed * Time.deltaTime);
+            joint.transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rFacing.rotation, param_lerpSpeed * Time.deltaTime);
         else
             CameraControl();
     }
