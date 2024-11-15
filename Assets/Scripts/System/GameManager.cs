@@ -1,80 +1,135 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //GameManagerを常に一つ
-    public static GameManager gameManager {  get; private set; }
-    public CameraManager cameraManager;
-    public CCT_Basic playerMovement;
-    public SplineFollower splineFollower;
+    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private CCT_Basic playerMovement;
+    [SerializeField] private PauseManager pauseManager;
 
-    //ゲーム状態
-    public enum GameState{ Title, Game, Paused, Result};
-    private IState currentState { get; }
-    // 現在のゲーム状態を保持
-    private void Awake()
+    // ゲーム状態を表すEnum
+    public enum SceneState { Title, Tutorial, Game, Result };
+    private IState currentState;
+    private StateKeeper stateKeeper; // 現在のSceneStateを保持するための変数
+
+    void Awake()
     {
-        if(gameManager == null)
+        stateKeeper = FindObjectOfType<StateKeeper>();
+        if (stateKeeper == null)
         {
-            gameManager = this;
-            DontDestroyOnLoad(gameObject);
+            Debug.LogError("stateKeeper が見つかりません。");
         }
         else
         {
-            Destroy(gameObject);
-        }    
+            // 初期状態を設定
+            SetState(stateKeeper.CurrentSceneState);
+        }
     }
-    private void Start()
+    void Start()
     {
-        SetState(GameState.Title);
+        Initialized();
     }
 
-    public void SetState(GameState newState)
+    public void Initialized()
     {
-        currentState.Exit();
-        currentState.Enter();
+        cameraManager?.Initialized();
+        audioManager?.Initialized();
+        uiManager?.Initialized();
+        pauseManager?.Initialized();
 
+        Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
+    }
+
+    public void SetState(SceneState newState)
+    {
+        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+
+        Debug.Log(newState.ToString());
+
+        // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
+        if (stateKeeper.CurrentSceneState != newState)
+        {
+            // 現在のステートを終了
+            currentState?.Exit();
+            // 新しいステートを設定
+            currentState = CreateState(newState);
+            stateKeeper.CurrentSceneState = newState;
+            currentState?.Enter();
+        }
+       
+    }
+
+    public void SetStateDontLoad(SceneState newState)
+    {
+        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+
+        Debug.Log(newState.ToString());
+
+        // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
+        if (stateKeeper.CurrentSceneState != newState)
+        {
+            // 現在のステートを終了
+            currentState?.Exit();
+            // 新しいステートを設定
+            currentState = CreateState(newState);
+
+            stateKeeper.CurrentSceneState = newState;
+            // Nullチェックを追加してエラー回避
+            currentState?.Enter();
+        }
+
+    }
+
+    private IState CreateState(SceneState newState)
+    {
         switch (newState)
         {
-            case GameState.Title:
-                SceneManager.LoadScene("Title");
-
-                Debug.Log("Menu");
-
-                break;
-            case GameState.Game:
-                SceneManager.LoadScene("Game");
-
-                Debug.Log("Game");
-
-                break;
-            case GameState.Paused:
-                Time.timeScale = 0.0f;
-                break;
-            case GameState.Result:
-                SceneManager.LoadScene("Result");
-                
-                Debug.Log("Result!");
-                break;
+            case SceneState.Title:
+                return new TitleState();
+            case SceneState.Tutorial:
+                return new TutorialState();
+            case SceneState.Game:
+                return new GameState(); // クラス名をGamePlayStateに変更
+            case SceneState.Result:
+                return new ResultState();
             default:
+                return null;
+        }
+    }
+
+    // 次の状態に遷移するメソッド
+    public void GoToNextState()
+    {
+        switch (stateKeeper.CurrentSceneState)
+        {
+            case SceneState.Title:
+                SetState(SceneState.Tutorial);
+                break;
+            case SceneState.Tutorial:
+                SetState(SceneState.Game);
+                break;
+            case SceneState.Game:
+                SetState(SceneState.Result);
+                break;
+            case SceneState.Result:
+                SetState(SceneState.Title);
                 break;
         }
     }
 
-    // ゲームをリスタートするメソッド
+    // ゲームをリスタート
     public void RestartGame()
     {
-        // ゲームをプレイ状態に変更（シーンを再ロード）
-        SetState(GameState.Game);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 現在のシーンをリロード
+
+        SetState(SceneState.Game);
     }
 
     public void QuitGame()
     {
-        // ゲームを終了
         Application.Quit();
     }
-
 }

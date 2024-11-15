@@ -14,6 +14,7 @@ public enum ObjectType
 
 public class ObjectFactory : MonoBehaviour
 {
+    public static ObjectFactory objFactory { get { return objFactory; } }
     public ObjectPool MetorObjPool;
     public ObjectPool pebbleObjPool; 
     public ObjectPool boostMarkPool;
