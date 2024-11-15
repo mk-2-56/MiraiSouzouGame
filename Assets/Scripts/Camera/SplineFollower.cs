@@ -43,8 +43,13 @@ public class SplineFollower : MonoBehaviour
         float lookAheadDistance = 0.01f;
         float nextProgress = Mathf.Clamp01(progresses[index] + lookAheadDistance);
         Vector3 nextPosition = splineContainer.EvaluatePosition(nextProgress);
+        Vector3 nPnoY = new Vector3(nextPosition.x, 0f, nextPosition.z);
+
+        Vector3 nCnoY = new Vector3(currentPosition.x, 0f, currentPosition.z);
+
         Vector3 direction = (nextPosition - currentPosition).normalized;
 
+        direction = (nPnoY - nCnoY).normalized;
         if (direction != Vector3.zero)
         {
             targets[index].rotation = Quaternion.LookRotation(direction); // ターゲットの向きを進行方向に設定
