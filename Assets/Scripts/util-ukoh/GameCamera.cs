@@ -30,26 +30,25 @@ public class GameCamera : MonoBehaviour
     float _xRotation = 0.0f;
     float _yRotation = 0.0f;
 
-    GameObject joint;
-
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         _rCamFacing = transform.parent;
         _rFacing = _rCamFacing.parent.Find("Facing");
         _rCog = _rFacing.Find("Cog");
-        joint = new GameObject();
-        joint.name = "CamOrigin";
-        joint.transform.position = transform.position;
-        _rCamXform = transform.Find("Main Camera");
-        _rCamXform.SetParent(joint.transform);
+        //joint = new GameObject();
+        //joint.name = "CamOrigin";
+        //joint.transform.position = transform.position;
+        //_rCamXform = transform.Find("Camera");
+        //_rCamXform.SetParent(joint.transform);
 
         _rMovementContoller = _rCamFacing.transform.parent.GetComponent<CCT_Basic>();
         _axisNamePrefix = _rMovementContoller.inputAxisPrefix;
 
         Cursor.visible   = false;
         Cursor.lockState = CursorLockMode.Locked;
+        transform.parent = null;
     }
 
     // Update is called once per frame
@@ -60,7 +59,7 @@ public class GameCamera : MonoBehaviour
 
         if(param_locking)
         { 
-            joint.transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rFacing.rotation, param_lerpSpeed * Time.deltaTime);
+            transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rFacing.rotation, param_lerpSpeed * Time.deltaTime);
             
         }
         else
@@ -69,7 +68,7 @@ public class GameCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        joint.transform.position = Vector3.Lerp( joint.transform.position, _rCog.position, param_lerpSpeedPos);
+        transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos);
     }
 
     void CameraControl()
@@ -78,14 +77,16 @@ public class GameCamera : MonoBehaviour
 
         //mouse
         float mouseSpeed = param_mouseSpeed * Time.deltaTime;
-        float xInput = -Input.GetAxis("P1_" + "LookY");
-        float yInput =  Input.GetAxis("P1_" + "LookX");
+        //float xInput = -Input.GetAxis("P1_" + "LookY");
+        //float yInput =  Input.GetAxis("P1_" + "LookX");
+        float xInput = -Input.GetAxis(_axisNamePrefix + "LookY");
+        float yInput =  Input.GetAxis(_axisNamePrefix + "LookX");
 
         _xRotation += xInput * mouseSpeed;
         _yRotation += yInput * mouseSpeed;
         _xRotation = Mathf.Clamp(_xRotation, -70.0f, 85.0f);
 
         _rCamFacing.rotation  = Quaternion.Euler(0, _yRotation, 0);
-        joint.transform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+        transform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
     }
 }

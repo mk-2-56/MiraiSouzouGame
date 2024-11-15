@@ -14,13 +14,13 @@ InputManager:
     altNegativeButton: a
     altPositiveButton: d
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: 3
     snap: 1
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Vertical
     descriptiveName: 
@@ -30,13 +30,13 @@ InputManager:
     altNegativeButton: s
     altPositiveButton: w
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: 3
     snap: 1
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Accele
     descriptiveName: 
@@ -46,13 +46,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: mouse 0
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Drift
     descriptiveName: 
@@ -62,13 +62,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: mouse 1
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Boost
     descriptiveName: 
@@ -78,13 +78,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: mouse 2
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Jump
     descriptiveName: 
@@ -94,13 +94,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_LookX
     descriptiveName: 
@@ -110,13 +110,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0
+    dead: 0.15
     sensitivity: 1
     snap: 0
     invert: 0
     type: 1
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_LookY
     descriptiveName: 
@@ -126,13 +126,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0
+    dead: 0.15
     sensitivity: 1
     snap: 0
     invert: 0
     type: 1
     axis: 1
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Horizontal
     descriptiveName: P1Gamepad_Hori
@@ -142,13 +142,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: 3
     snap: 1
     invert: 0
     type: 2
     axis: 0
-    joyNum: 1
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Vertical
     descriptiveName: P1Gamepad_Verti
@@ -158,13 +158,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: -3
     snap: 1
     invert: 0
     type: 2
     axis: 1
-    joyNum: 1
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Accele
     descriptiveName: P1GamePad_Accele
@@ -174,13 +174,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 9
-    joyNum: 1
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Drift
     descriptiveName: P1GamePad_Drift
@@ -190,13 +190,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 8
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Boost
     descriptiveName: P1GamePad_Boost
@@ -206,13 +206,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_Jump
     descriptiveName: P1GamePad_Jump
@@ -222,13 +222,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
-    dead: 0.001
+    dead: 0.15
     sensitivity: 1000
     snap: 0
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_LookX
     descriptiveName: P1Gampad_LookX
@@ -238,13 +238,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0.15
     sensitivity: 9
     snap: 0
     invert: 0
     type: 2
     axis: 3
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: P1_LookY
     descriptiveName: P1Gampad_LookY
@@ -254,13 +254,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0.15
     sensitivity: -9
     snap: 0
     invert: 0
     type: 2
     axis: 4
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Submit
     descriptiveName: 
@@ -270,7 +270,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0.15
     sensitivity: 1
     snap: 0
     invert: 0
@@ -286,7 +286,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0.15
     sensitivity: 1
     snap: 0
     invert: 0
@@ -302,7 +302,7 @@ InputManager:
     altNegativeButton: a
     altPositiveButton: d
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: 3
     snap: 1
     invert: 0
@@ -318,11 +318,139 @@ InputManager:
     altNegativeButton: s
     altPositiveButton: w
     gravity: 3
-    dead: 0.001
+    dead: 0.15
     sensitivity: 3
     snap: 1
     invert: 0
     type: 0
     axis: 0
     joyNum: 0
+  - serializedVersion: 3
+    m_Name: P2_Horizontal
+    descriptiveName: P2Gamepad_Hori
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.15
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_Vertical
+    descriptiveName: P2Gamepad_Verti
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.15
+    sensitivity: -3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 1
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_Accele
+    descriptiveName: P2GamePad_Accele
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1
+    dead: 0.15
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 9
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_Drift
+    descriptiveName: P2GamePad_Drift
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1
+    dead: 0.15
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 8
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_Boost
+    descriptiveName: P2GamePad_Boost
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 2
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.15
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_Jump
+    descriptiveName: P2GamePad_Jump
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 0
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.15
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_LookX
+    descriptiveName: P2Gampad_LookX
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.15
+    sensitivity: 9
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 3
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P2_LookY
+    descriptiveName: P2Gampad_LookY
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.15
+    sensitivity: -9
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 4
+    joyNum: 1
   m_UsePhysicalKeys: 1

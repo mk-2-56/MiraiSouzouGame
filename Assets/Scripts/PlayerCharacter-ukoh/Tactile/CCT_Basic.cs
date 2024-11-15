@@ -18,6 +18,16 @@ public abstract class Command
 
 public class CCT_Basic : MonoBehaviour
 {
+    public void SetPlayerIndex(int index)
+    {
+     
+        _playerIndex = index;
+        _axisNamePrefix = "P" + (_playerIndex).ToString() + "_";
+
+        Debug.Log(_axisNamePrefix + "/t" + _playerIndex);
+        //temp
+        //learn and use scripted object later
+    }
 
     public float Speed
     {
@@ -40,7 +50,7 @@ public class CCT_Basic : MonoBehaviour
 
     public void ResigterLaunchModule(Command cmd)
     { 
-        _launchCommand = cmd;
+        _launchingCommand = cmd;
     }
 
     enum State
@@ -70,7 +80,7 @@ public class CCT_Basic : MonoBehaviour
     [SerializeField] float param_maxAngularAcc = 15.0f;
 
     //temp
-    [SerializeField] int param_playerIndex = 0;
+    int    _playerIndex;
     string _axisNamePrefix;
 
     //_____________References
@@ -98,18 +108,18 @@ public class CCT_Basic : MonoBehaviour
     Vector3 _terrianNormal;
     Quaternion _terrianRotation;
     
-    Command _launchCommand;
+    Command _launchingCommand;
 
     //______________Flags
-    State _PCstate;
+    //State _PCstate;
 
     bool _grounded;
     bool _nuetralInput;
 
-    bool _Accelerating;
+    bool _boosting;
     bool _drifting;
     bool _driftingOld;
-    bool _Boost;
+    bool _launching;
     bool _jumping;
 
     void Start()
@@ -123,7 +133,6 @@ public class CCT_Basic : MonoBehaviour
         _debugText = AU.Debug.GetMsgBuffer(); 
         _rDebug = transform.Find("Debug").gameObject;
         _rDebugLineRender = _rDebug.GetComponent<LineRenderer>();
-        _axisNamePrefix = "P" + (param_playerIndex).ToString() + "_";
     }
 
     private void Awake()
@@ -152,8 +161,8 @@ public class CCT_Basic : MonoBehaviour
         if(_jumping)
             Jumping();
 
-        if(_Boost) 
-            _launchCommand.Execute();
+        if(_launching) 
+            _launchingCommand.Execute();
 
 
         Drifting();
@@ -299,10 +308,14 @@ public class CCT_Basic : MonoBehaviour
 
     void Boosting()
     {
-        if (!_Accelerating)
+        if (!_boosting)
         {
-            if (_nuetralInput && _xzSpeed > 0.5f)
+            if (!_nuetralInput)
+                return;
+            if (_xzSpeed > param_maxSpeed)
                 _inputDirection = _xzPlainVel.normalized * -0.2f;
+            else
+                _rRb.AddForce( _xzPlainVel * -0.35f, ForceMode.Acceleration);
             return;
         }
         if (_nuetralInput)
@@ -328,15 +341,19 @@ public class CCT_Basic : MonoBehaviour
         float buildUp = param_acc;
 
         _momentum = Mathf.Max( 0, _xzSpeed - param_maxSpeed);
-        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _Accelerating.ToString();
+        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
     }
 
     void InputFetcher()
     {
-        _Accelerating   = Input.GetButton(_axisNamePrefix + "Accele");
-        _drifting       = Input.GetButton(_axisNamePrefix + "Drift");
-        _Boost          = Input.GetButton(_axisNamePrefix + "Boost");
-        _jumping        = Input.GetButton(_axisNamePrefix + "Jump");
+        _debugText.UpdateText += "PlayerIndex: " + _playerIndex.ToString()
+            + "Prefix:" + _axisNamePrefix;
+        _axisNamePrefix = "P" + (_playerIndex).ToString() + "_";
+
+        _boosting  = Input.GetAxis(_axisNamePrefix + "Accele") > 0;
+        _drifting  = Input.GetAxis(_axisNamePrefix + "Drift")  > 0;
+        _launching = Input.GetAxis(_axisNamePrefix + "Boost")  > 0;
+        _jumping   = Input.GetAxis(_axisNamePrefix + "Jump")   > 0;
 
         float horiInput = Input.GetAxisRaw(_axisNamePrefix + "Horizontal");
         float vertInput = Input.GetAxisRaw(_axisNamePrefix + "Vertical");
