@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 namespace CCT
 { 
@@ -19,11 +19,11 @@ public class CCT_Hub : MonoBehaviour
 {
     struct InputActions
     { 
-        public InputAction moveAction;
-        public InputAction lookAction;
-        public InputAction dashAction;
-        public InputAction driftAction;
-        public InputAction jumpAction;
-        public InputAction boostAction;
+        //public InputAction moveAction;
+        //public InputAction lookAction;
+        //public InputAction dashAction;
+        //public InputAction driftAction;
+        //public InputAction jumpAction;
+        //public InputAction boostAction;
     }
 }
