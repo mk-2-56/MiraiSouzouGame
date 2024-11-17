@@ -9,8 +9,8 @@ using UnityEngine.VFX;
 public class CoinController : MonoBehaviour
 {
     [SerializeField] float RotSpeed;                // アイドル状態の回転アニメ速度
+    [SerializeField] VisualEffect coinEffect;
 
-    private VisualEffect coinEffect;
     private AudioSource coinSound;
     private bool isTouched;
     private Vector3 Axe = Vector3.up;
@@ -18,7 +18,6 @@ public class CoinController : MonoBehaviour
     void Start()
     {
         coinSound = GetComponent<AudioSource>();
-        coinEffect = GetComponent<VisualEffect>();
     }
 
     void Update()
@@ -29,6 +28,8 @@ public class CoinController : MonoBehaviour
 
     private void OnTriggerEnter()
     {
+        isTouched = true;
+
         // 一旦非表示に
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<BoxCollider>());
@@ -37,6 +38,7 @@ public class CoinController : MonoBehaviour
         // coinScore.AddCoin();
 
         // エフェクトと音を再生
+        coinEffect.transform.position = transform.position;
         coinEffect.SendEvent("EventCoin");
         if (coinSound != null) coinSound.PlayOneShot(coinSound.clip);
 
