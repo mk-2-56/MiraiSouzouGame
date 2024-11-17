@@ -399,7 +399,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323199258}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0bbdf9cb57fdad747b4dfa54ad286d29, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -439,7 +439,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: e94e952f31531e34099fb40d71e616b2, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 695a250a0c9496647a32004c4242f734, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -596,7 +596,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: e94e952f31531e34099fb40d71e616b2, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 695a250a0c9496647a32004c4242f734, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -2510,7 +2510,7 @@ GameObject:
   - component: {fileID: 1628121679}
   - component: {fileID: 1628121678}
   m_Layer: 3
-  m_Name: Terrain_(0.00, -100.00, -1000.00)
+  m_Name: Terrain_(0.00, -100.00, -1000.00)moto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2523,7 +2523,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628121677}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0bbdf9cb57fdad747b4dfa54ad286d29, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2545,7 +2545,7 @@ Terrain:
   m_GameObject: {fileID: 1628121677}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: ba2a5a6971a26b647ae3ecec9202d819, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -2616,7 +2616,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645671325}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0bbdf9cb57fdad747b4dfa54ad286d29, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2656,7 +2656,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: e94e952f31531e34099fb40d71e616b2, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 695a250a0c9496647a32004c4242f734, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
