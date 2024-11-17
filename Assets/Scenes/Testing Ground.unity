@@ -2545,7 +2545,7 @@ Terrain:
   m_GameObject: {fileID: 1628121677}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 0}
+  m_TerrainData: {fileID: 15600000, guid: ba2a5a6971a26b647ae3ecec9202d819, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -2563,7 +2563,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: e94e952f31531e34099fb40d71e616b2, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 695a250a0c9496647a32004c4242f734, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
