@@ -41,21 +41,17 @@ public class TargetManager : MonoBehaviour
         _targets.Remove(obj);
     }
 
-    MsgBuffer debugMsg;
-
     Dictionary<GameObject, Vector3> _targets = new Dictionary<GameObject, Vector3>();
 
     void Start()
     {
-        debugMsg = AU.Debug.GetMsgBuffer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject obj in _targets.Keys)
-        {
-            debugMsg.UpdateText += obj.name;
-        }
+        //foreach (GameObject obj in _targets.Keys)
+        //{
+        //}
     }
 }

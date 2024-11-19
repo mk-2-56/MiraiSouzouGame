@@ -17,15 +17,8 @@ using UnityEngine;
 
 public class CCHover : MonoBehaviour
 {
-    //Debug:
-    MsgBuffer _debugText;
     LayerMask _layerMask;
 
-    //Property:
-    public bool Grounded
-    { 
-        get { return _grounded;}
-    }
     public RaycastHit Groundhit
     { 
         get { return _rayHit;}
@@ -37,15 +30,22 @@ public class CCHover : MonoBehaviour
     [SerializeField] float HoverDamperStrength = 1.0f;
 
     //Memebers:
-    Rigidbody _rRb;
-
-    bool _grounded;
+    Rigidbody  _rRb;
+    Transform  _rCog;
+    Transform  _rFacing;
     RaycastHit _rayHit;
+
+    CC.TerrianHit _rTerrianHit;
 
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
-        _debugText = AU.Debug.GetMsgBuffer();
+        _rFacing = transform.Find("Facing");
+        _rCog    = _rFacing.Find("Cog");
+
+
+
+        _rTerrianHit = GetComponent<CC.Basic>().GetTerrianHit();
         _layerMask = LayerMask.GetMask("Terrian");
     }
 
@@ -60,9 +60,9 @@ public class CCHover : MonoBehaviour
         //Vector3 rayDir = Vector3.down;
         float rayLength = HoverHeight + 1.0f;
 
-        _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength, _layerMask);
+        _rTerrianHit.grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength, _layerMask);
 
-        if (_grounded)
+        if (_rTerrianHit.grounded)
         {
             float dTime = Time.fixedDeltaTime;
 
@@ -70,9 +70,26 @@ public class CCHover : MonoBehaviour
             float x = _rayHit.distance - HoverHeight;
             float hoverForce = x * HoverSpringStrength + verticalVel * HoverDamperStrength;
 
-            _debugText.FixedText = "HoverForce: " + hoverForce.ToString("F4");
-
             _rRb.AddForce(Vector3.down * hoverForce, ForceMode.Acceleration);
+        }
+
+        bool terrianWalkale   = _rayHit.normal.y > 0.5;
+        _rTerrianHit.grounded = terrianWalkale;
+
+        AU.Debug.Log(terrianWalkale, AU.LogTiming.Fixed);
+        AU.Debug.Log(_rTerrianHit.terrianNormal, AU.LogTiming.Fixed);
+
+        _rTerrianHit.terrianNormal = _rayHit.normal;
+        _rTerrianHit.terrianRotation = Quaternion.identity;
+
+        _rRb.useGravity = !_rTerrianHit.grounded;
+
+        if (_rTerrianHit.grounded)
+        {
+            _rTerrianHit.terrianRotation = Quaternion.FromToRotation(Vector3.up, _rTerrianHit.terrianNormal);
+
+            _rCog.position = _rayHit.point;
+            _rCog.rotation = _rTerrianHit.terrianRotation * _rFacing.rotation;
         }
     }
 }

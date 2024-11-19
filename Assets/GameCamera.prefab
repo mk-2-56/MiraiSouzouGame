@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d423edf6828a544a569fb7d35b20fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  param_mouseSpeed: 50
   param_lerpSpeed: 0.8
-  param_lerpSpeedPos: 0.95
+  param_lerpSpeedPos: 12
   param_locking: 1

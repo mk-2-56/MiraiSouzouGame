@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using TMPro;
 
-using System.Linq;
+using TMPro;
 
 /// <summary>
 /// ukoh-2024-10-28
@@ -14,87 +13,105 @@ using System.Linq;
 /// dependency: TextMeshPro
 /// 
 /// 使い方:
-///     1. 使用先のclassでGetMsgBuffer()呼び出し、
-///     返還値のMsgBuffer(class)のreferenceを保存
-///     
-///     2.表示したいデータを文字列として入れるだけ
-///     
-///     3.毎update/fixedUpdate/LateUpdate開始時に中身reset(前レフームデータクリア)
-///     Note: 
-///     こちらでresetしない理由:
-///     スクリプトお互いの更新処理が異なるため同期できていない？
-///     
-///     update/fixedUpdate/LateUpdateごと使い分ける必要があるかも(update-timingが違うから)
-///     todo:
-///         update/fixedUpdate/LateUpdateごと自動にresetする機能?
-///     
-/// </summary>
 /// 
-public class MsgBuffer
+/// </summary>
+///
+
+namespace System.Runtime.CompilerServices
 {
-    public string UpdateText;
-    public string FixedText;
-    public string LateText;
+    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
+    public sealed class CallerArgumentExpressionAttribute : Attribute
+    {
+        public CallerArgumentExpressionAttribute(string parameterName)
+        {
+            ParameterName = parameterName;
+        }
+
+        public string ParameterName { get; }
+    }
 }
 
 namespace AU
-{ 
+{
+    using System.Runtime.CompilerServices;
+    public enum LogTiming
+    {
+        Update,
+        Fixed,
+        Late,
+    }
+
     public class Debug : MonoBehaviour
     {
-        static public MsgBuffer GetMsgBuffer()
+
+        static MsgBuffer _debugMessage;
+
+        static public void Log(object msg, LogTiming timing, [CallerArgumentExpression("msg")] string objName = null)
         {
-            MsgBuffer buffer = new MsgBuffer();
-            _bufferList.Add(buffer);
-            return buffer;
+            string tmp = msg.ToString();
+            _debugMessage.text[timing] += "\t";
+            if(objName != null)
+                _debugMessage.text[timing] += objName + ":  ";
+
+            _debugMessage.text[timing] += tmp;
+
+            if (!(tmp == System.String.Empty))
+                _debugMessage.text[timing] += "<br>";
+            return;
         }
-    
-        TMP_Text debugMsg;
-        static List<MsgBuffer> _bufferList = new List<MsgBuffer>();
-    
+
+        static public void Log(string msg, LogTiming timing)
+        {
+            string tmp = msg;
+            _debugMessage.text[timing] += "\t" + tmp;
+
+            if (!(tmp == System.String.Empty))
+                _debugMessage.text[timing] += "<br>";
+            return;
+        }
+
+        class MsgBuffer
+        {
+            public Dictionary<LogTiming, string> text;
+            public MsgBuffer()
+            {
+                text = new Dictionary<LogTiming, string>();
+                string[] strs = new string[5];
+
+                foreach (LogTiming timing in System.Enum.GetValues(typeof(LogTiming)))
+                {
+                    text.Add(timing, strs[((int)timing)]);
+                }
+            }
+        }
+        [SerializeField] TMP_Text _rText;
+
         // Start is called before the first frame update
         void Start()
         {
-            debugMsg = transform.Find("DebugText").gameObject.GetComponent<TMP_Text>();
-            debugMsg.text = "starting";
+            _debugMessage = new MsgBuffer();
         }
-    
-        // Update is called once per frame
+        
         void Update()
         {
-            debugMsg.text = "";
-            _bufferList.ForEach( x => 
+            _rText.text = "";
+            foreach (LogTiming timing in System.Enum.GetValues(typeof(LogTiming)))
             { 
-                string text = x.UpdateText;
-                debugMsg.text += text;
-                if(text != string.Empty)
-                    debugMsg.text += "<br>";
-                x.UpdateText = "";
-            } );
-            _bufferList.ForEach( x => 
-            { 
-                string text = x.FixedText;
-                debugMsg.text += text;
-                if (text != string.Empty)
-                    debugMsg.text += "<br>";
-                x.UpdateText = "";
-            } );
-            _bufferList.ForEach( x => 
-            { 
-                string text = x.LateText;
-                debugMsg.text += text;
-                if (text != string.Empty)
-                    debugMsg.text += "<br>";
-                x.UpdateText = "";
-            } );
+                string tmp = _debugMessage.text[timing];
+                _rText.text += tmp;
+                if(!(tmp == System.String.Empty))
+                    _rText.text += "<br>";
+            }
+            _debugMessage.text[LogTiming.Update] = System.String.Empty;
+        }
+        private void FixedUpdate()
+        {
+            _debugMessage.text[LogTiming.Fixed] = System.String.Empty;
         }
 
         private void LateUpdate()
         {
-            _bufferList.ForEach(x => { x.LateText = ""; });
-        }
-        private void FixedUpdate()
-        {
-            _bufferList.ForEach(x => { x.FixedText = ""; });
+            _debugMessage.text[LogTiming.Late] = System.String.Empty;
         }
     }
 }

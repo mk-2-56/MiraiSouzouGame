@@ -4,8 +4,30 @@ using UnityEngine;
 
 namespace AU
 { 
+    using UnityEditor;
+
     public class PlayerManager : MonoBehaviour
     {
+        public void SpawnPlayer()
+        {
+            if (_curentPlayerCount > 1)
+                return;
+
+            _curentPlayerCount++;
+            GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
+            GameObject camera = Instantiate(param_cameraPrefab,
+                playerCharacter.transform.position, playerCharacter.transform.rotation);
+
+            var tmp = camera.GetComponent<GameCamera>();
+            tmp.SetPlayerReference(playerCharacter);
+            playerCharacter.SetActive(true);
+            camera.SetActive(true);
+            _players.Add(_curentPlayerCount, playerCharacter);
+            _gameCameras.Add(playerCharacter, camera);
+
+            if (_curentPlayerCount > 1)
+                AdjustGameCamera();
+        }
 
         public void ClearResetPlayers()
         {
@@ -47,23 +69,21 @@ namespace AU
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject param_cameraPrefab;
     
-        TargetManager _manager;
+        TargetManager    _manager;
 
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
         int _curentPlayerCount = 0;
 
-
         void Start()
         {
             param_playerPrefab.SetActive(false);
             param_cameraPrefab.SetActive(false);
 
-            DontDestroyOnLoad(this);
             Invoke("SpawnPlayer", 0.5f);
-            Invoke("SpawnPlayer", 3.5f);
-            Invoke("SpawnPlayer", 8.5f);
+
+            DontDestroyOnLoad(this);
         }
         // Update is called once per frame
         void Update()
@@ -71,26 +91,6 @@ namespace AU
             
         }
     
-        void SpawnPlayer()
-        { 
-            if(_curentPlayerCount > 1)
-                return;
-
-            _curentPlayerCount++;
-            GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
-            GameObject camera = Instantiate(param_cameraPrefab, 
-                playerCharacter.transform.position, playerCharacter.transform.rotation,
-                playerCharacter.transform.Find("CamFacing").transform);
-            
-            playerCharacter.GetComponent<CCT_Basic>().SetPlayerIndex(_curentPlayerCount);
-            playerCharacter.SetActive(true);
-            camera.SetActive(true);
-            _players.Add(_curentPlayerCount, playerCharacter);
-            _gameCameras.Add(playerCharacter, camera);
-
-            if (_curentPlayerCount > 1)
-                AdjustGameCamera();
-        }
 
         private void OnDestroy()
         {

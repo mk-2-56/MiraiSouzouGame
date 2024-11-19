@@ -11,13 +11,12 @@ public class Launch : MonoBehaviour
     TargetManager _targetManager;
 
     Rigidbody _rRb;
-    CCT_Basic _rMovementContoller;
+    CC.Basic _rMovementContoller;
 
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
-        _rMovementContoller = GetComponent<CCT_Basic>();
-        _rMovementContoller.ResigterLaunchModule(new LaunchCommand(this));
+        _rMovementContoller = GetComponent<CC.Basic>();
         _targetManager = GameObject.Find("TestingTargets").GetComponent<TargetManager>();
     }
 
@@ -35,7 +34,7 @@ public class Launch : MonoBehaviour
         {
             Vector3 target;
             Vector3 positionOrigin = _launchModule._rRb.position;
-            Vector3 inputDirection = _launchModule._rMovementContoller.InputDirectionWorld;
+            Vector3 inputDirection = Vector3.zero;/*_launchModule._rMovementContoller.InputDirectionWorld;*/
             if (_launchModule._targetManager.FindBestTarget(positionOrigin, inputDirection, out target))
             _launchModule.LaunchPlayerTowards(target);
             //throw new System.NotImplementedException();
