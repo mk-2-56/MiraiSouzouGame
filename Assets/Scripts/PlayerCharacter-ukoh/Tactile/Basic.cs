@@ -117,7 +117,6 @@ namespace CC
                 return;
     
             _rRb.AddForce(Vector3.up * param_jumpForce, ForceMode.VelocityChange);
-            _terrianHit.grounded = false;
             _flags.jumping = true;
             Invoke("HandleJumpEnd", 1.5f);
         }
