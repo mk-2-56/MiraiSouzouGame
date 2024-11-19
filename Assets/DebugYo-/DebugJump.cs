@@ -12,7 +12,7 @@ public class DebugJump : MonoBehaviour
         {
             player = GameObject.FindWithTag("Player");
             Debug.Log("プレイヤー検出");
-            player.transform.position = new Vector3(-30602.59f, 1942.877f, 25767.68f);
+            player.transform.position = new Vector3(-30602.59f, 1950.877f, 25767.68f);
         }
     }
 
