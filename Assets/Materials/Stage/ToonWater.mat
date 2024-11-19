@@ -20,14 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_RiverWater
+  m_Name: ToonWater
   m_Shader: {fileID: -6465566751694194690, guid: 8eef88ae773ef5f4dbe4da56da89303b,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _PERSPECTIVE
-  - _REFLECTIONS
   - _WORLD_SPACE_UV
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -40,6 +39,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BoillingNormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _CaveTexture:
         m_Texture: {fileID: 2800000, guid: cc833db1ba1caeb4bb10ff0a50364204, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -49,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 2800000, guid: 04f4ba243e87cd848825a77dd9e4d2dc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 834c2a530966bd34eb9762c13c919276, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PlanarReflectionTexture:
@@ -65,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondaryFoamTex:
-        m_Texture: {fileID: 2800000, guid: 02a526b5b20373644a6b15e705f2105f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 201c88b071ee1ab49a42d47a51409268, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Skybox:
@@ -73,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceFoamTexture:
-        m_Texture: {fileID: 2800000, guid: 02a526b5b20373644a6b15e705f2105f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 201c88b071ee1ab49a42d47a51409268, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -91,24 +94,28 @@ Material:
     m_Ints: []
     m_Floats:
     - _A_SHORT_HIKE_MODE: 0
+    - _BOILING: 0
+    - _BoilingSpeed: 0
+    - _BoilingStrength: 1
+    - _BoilingTiling: 0
     - _CaveBlend: 0
     - _CaveDistortion: 0
     - _DepthCompareDistance: 0.1
-    - _DepthFadeDistance: 28
+    - _DepthFadeDistance: 10
     - _FoamBlend: 0.09
     - _FresnelPower: 1
     - _GradientRefractionScale: 10
-    - _HorizonDistance: 18
+    - _HorizonDistance: 78
     - _IntersectionFoamBlend: 1.09
     - _IntersectionFoamCutoff: 3.57
-    - _IntersectionFoamDepth: 2.69
+    - _IntersectionFoamDepth: 2.43
     - _IntersectionFoamDirection: 0.65
     - _IntersectionFoamFade: 1.48
     - _IntersectionFoamSpeed: 0.16
-    - _IntersectionFoamTiling: 0.73
+    - _IntersectionFoamTiling: 1.27
     - _LightingHardness: 0.39
     - _LightingSmoothness: 12.34
-    - _NormalScale: 0.37
+    - _NormalScale: 1.61
     - _NormalSpeed: 0.16
     - _NormalStrength: 1.71
     - _OrthographicCamSize: 0
@@ -116,45 +123,45 @@ Material:
     - _PosterizeSteps: 0
     - _QueueControl: 1
     - _QueueOffset: -49
-    - _REFLECTIONS: 1
-    - _ReflectionBlend: 0.67
+    - _REFLECTIONS: 0
+    - _ReflectionBlend: 0.594
     - _ReflectionDistortion: 0.38
     - _RefractionScale: 10
-    - _RefractionSpeed: 0.05
-    - _RefractionStrength: 0.005
+    - _RefractionSpeed: 0.01
+    - _RefractionStrength: 0
     - _RippleStrength: 83.62
     - _SecondaryFoamBlend: 0.06
     - _SkyboxForce: 2.5
     - _Steps: 50
-    - _SurfaceFoamDirection: 1
+    - _SurfaceFoamDirection: 0
     - _SurfaceFoamDistorsion: 0.38
-    - _SurfaceFoamSpeed: 1.43
-    - _SurfaceFoamTiling: 0.69
+    - _SurfaceFoamSpeed: 0
+    - _SurfaceFoamTiling: 0.53
     - _TileSize: 200
     - _WORLD_SPACE_UV: 1
     - _WaterAlpha: 1
-    - _WaterMetallic: 0.42
-    - _WaterSmoothness: 0.29
+    - _WaterMetallic: 0.559
+    - _WaterSmoothness: 0.581
     - _WaveLength: 1.82
-    - _WaveSpeed: 0
+    - _WaveSpeed: 0.2
     - _WaveSteepness: 0
     - _WaveStepness: 0.35
     m_Colors:
     - _BaseColor: {r: 0, g: 0.1989687, b: 1.110646, a: 1}
-    - _CaveColor: {r: 0, g: 0.0014197151, b: 0.4716981, a: 0}
+    - _CaveColor: {r: 0.21881218, g: 0.21216798, b: 0.4867924, a: 0.41960785}
     - _CaveOffset: {r: -0.45, g: 0, b: 0, a: 0}
     - _CaveScale: {r: 0.01, g: 0.01, b: 0, a: 0}
     - _CaveSecondaryColor: {r: 0, g: 0, b: 0, a: 0}
-    - _DeepColor: {r: 0, g: 0, b: 0, a: 0.40392157}
+    - _DeepColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamUVsOffset: {r: 1, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 2.670157, g: 2.670157, b: 2.670157, a: 0}
     - _HorizonColor: {r: 7.3772106, g: 3.6607668, b: 6.6577153, a: 1}
     - _IntersectionFoamColor: {r: 1.1486984, g: 1.1486984, b: 1.1486984, a: 1}
     - _PositionRipples: {r: 0, g: 0, b: 0, a: 0}
-    - _SecondaryFoamColor: {r: 0.17370345, g: 1.1849058, b: 0.6515868, a: 0.011764706}
-    - _ShallowColor: {r: 0.14559627, g: 0.5396226, b: 0.16129379, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 0.2627451}
-    - _SurfaceFoamColor: {r: 0.21495599, g: 1.2830188, b: 0.7506971, a: 0.0627451}
+    - _SecondaryFoamColor: {r: 0, g: 0.002903101, b: 0.19245279, a: 0.40784314}
+    - _ShallowColor: {r: 0, g: 0.57150817, b: 0.7056604, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 0.31764707}
+    - _SurfaceFoamColor: {r: 1.7129308, g: 1.7129308, b: 1.7129308, a: 0.2784314}
     - _TopColor: {r: 0, g: 0.17848217, b: 0.5622641, a: 0.44705883}
     - _UV: {r: 0, g: 0, b: 0, a: 0}
     - _UVRipples: {r: 0, g: 0, b: 0, a: 0}
