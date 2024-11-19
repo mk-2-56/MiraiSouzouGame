@@ -19,6 +19,7 @@ public class CCHover : MonoBehaviour
 {
     //Debug:
     MsgBuffer _debugText;
+    LayerMask _layerMask;
 
     //Property:
     public bool Grounded
@@ -33,7 +34,7 @@ public class CCHover : MonoBehaviour
     //Parameters:
     [SerializeField] float HoverHeight = 1.5f;
     [SerializeField] float HoverSpringStrength = 30.0f;
-    [SerializeField] float HoverDamperStrength = 30.0f;
+    [SerializeField] float HoverDamperStrength = 1.0f;
 
     //Memebers:
     Rigidbody _rRb;
@@ -44,7 +45,8 @@ public class CCHover : MonoBehaviour
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
-        _debugText = DebugText.GetMsgBuffer();
+        _debugText = AU.Debug.GetMsgBuffer();
+        _layerMask = LayerMask.GetMask("Terrian");
     }
 
     // Update is called once per frame
@@ -58,20 +60,17 @@ public class CCHover : MonoBehaviour
         //Vector3 rayDir = Vector3.down;
         float rayLength = HoverHeight + 1.0f;
 
-        _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength);
+        _grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength, _layerMask);
 
         if (_grounded)
         {
             float dTime = Time.fixedDeltaTime;
 
-            float verticleVel = -_rRb.velocity.y;
-
+            float verticalVel = _rRb.velocity.y;
             float x = _rayHit.distance - HoverHeight;
+            float hoverForce = x * HoverSpringStrength + verticalVel * HoverDamperStrength;
 
-            float hoverForce = x * HoverSpringStrength - verticleVel * HoverDamperStrength;
-
-            //debug.Msg = hoverForce.ToString("F4");
-            _debugText.Text = "HoverForce: " + hoverForce.ToString("F4");
+            _debugText.FixedText = "HoverForce: " + hoverForce.ToString("F4");
 
             _rRb.AddForce(Vector3.down * hoverForce, ForceMode.Acceleration);
         }

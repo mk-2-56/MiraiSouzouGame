@@ -1,61 +1,135 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
-    public CCT_Basic playerMovement;
-    public SplineFollower splineFollower;
-    public CameraManager cameraManager;
+    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private CCT_Basic playerMovement;
+    [SerializeField] private PauseManager pauseManager;
 
-    private bool isEvent;
+    // ゲーム状態を表すEnum
+    public enum SceneState { Title, Tutorial, Game, Result };
+    private IState currentState;
+    private StateKeeper stateKeeper; // 現在のSceneStateを保持するための変数
+
+    void Awake()
+    {
+        stateKeeper = FindObjectOfType<StateKeeper>();
+        if (stateKeeper == null)
+        {
+            Debug.LogError("stateKeeper が見つかりません。");
+        }
+        else
+        {
+            // 初期状態を設定
+            SetState(stateKeeper.CurrentSceneState);
+        }
+    }
     void Start()
     {
-        cameraManager.SetMainCamera();
-        isEvent = false;
+        Initialized();
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            isEvent = !isEvent;
-            Debug.Log("Spline = " + isEvent);
 
-            if (isEvent)
-            {
-                StartSplineEvent();
-            }
-            else
-            {
-                EndSplineEvent();
-            }
+    public void Initialized()
+    {
+        cameraManager?.Initialized();
+        audioManager?.Initialized();
+        uiManager?.Initialized();
+        pauseManager?.Initialized();
+
+        Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
+    }
+
+    public void SetState(SceneState newState)
+    {
+        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+
+        Debug.Log(newState.ToString());
+
+        // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
+        if (stateKeeper.CurrentSceneState != newState)
+        {
+            // 現在のステートを終了
+            currentState?.Exit();
+            // 新しいステートを設定
+            currentState = CreateState(newState);
+            stateKeeper.CurrentSceneState = newState;
+            currentState?.Enter();
+        }
+       
+    }
+
+    public void SetStateDontLoad(SceneState newState)
+    {
+        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+
+        Debug.Log(newState.ToString());
+
+        // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
+        if (stateKeeper.CurrentSceneState != newState)
+        {
+            // 現在のステートを終了
+            currentState?.Exit();
+            // 新しいステートを設定
+            currentState = CreateState(newState);
+
+            stateKeeper.CurrentSceneState = newState;
+            // Nullチェックを追加してエラー回避
+            currentState?.Enter();
         }
 
-
     }
 
-    public void StartSplineEvent()
+    private IState CreateState(SceneState newState)
     {
-        // 通常移動を無効にし、スプライン移動を開始
-        playerMovement.SetMovement(false);
-        splineFollower.StartSplineMovement();
-        cameraManager.SetEventCamera();
-
+        switch (newState)
+        {
+            case SceneState.Title:
+                return new TitleState();
+            case SceneState.Tutorial:
+                return new TutorialState();
+            case SceneState.Game:
+                return new GameState(); // クラス名をGamePlayStateに変更
+            case SceneState.Result:
+                return new ResultState();
+            default:
+                return null;
+        }
     }
 
-    public void EndSplineEvent()
+    // 次の状態に遷移するメソッド
+    public void GoToNextState()
     {
-        // スプライン移動を終了し、通常移動を再開
-        splineFollower.EndSplineMovement();
-        playerMovement.SetMovement(true);
-        cameraManager.SetMainCamera();
+        switch (stateKeeper.CurrentSceneState)
+        {
+            case SceneState.Title:
+                SetState(SceneState.Tutorial);
+                break;
+            case SceneState.Tutorial:
+                SetState(SceneState.Game);
+                break;
+            case SceneState.Game:
+                SetState(SceneState.Result);
+                break;
+            case SceneState.Result:
+                SetState(SceneState.Title);
+                break;
+        }
     }
 
-    public bool IsEvent()
+    // ゲームをリスタート
+    public void RestartGame()
     {
-        return isEvent;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 現在のシーンをリロード
+
+        SetState(SceneState.Game);
     }
 
-    public void SetEvent(bool isevent){
-        isEvent = isevent;
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -25,7 +25,11 @@ public class CCT_Basic : MonoBehaviour
 
     public Vector3 InputDirectionWorld
     { 
-        get{ return _inputDirection;}
+        get{
+            if(_nuetralInput)
+                return _rFacing.forward;
+            return _inputDirection;
+        }
     }
 
     public bool UseGravity
@@ -52,17 +56,23 @@ public class CCT_Basic : MonoBehaviour
     //_____________Properties
 
     //_____________Parameters
-    [SerializeField] float param_maxSpeed    = 60.0f;
-    [SerializeField] float param_maxMomentum = 160.0f;
-    [SerializeField] float param_maxAngularAcc = 15.0f;
-    [SerializeField] float param_jumpForce = 30.0f;
+    [Tooltip("スピードのソフト上限。")]
+    [SerializeField] float param_maxSpeed = 60.0f;
+    [Tooltip("加速度/加速の速さ")]
     [SerializeField] float param_acc = 10.0f;
+    [Tooltip("Jumpの強度/高さ")]
+    [SerializeField] float param_jumpForce = 30.0f;
+    [Tooltip("スピード上限を超えた力の低下率")]
+    [SerializeField] float param_torqueCoefficient = 0.03f;
+    [Tooltip("ドリフト時の回転速度上限")]
+    [SerializeField] float param_maxAngularAcc = 15.0f;
 
 
     //_____________References
     Rigidbody _rRb;
     Transform _rCamFacing;
     Transform _rCog;
+    Transform _rFacing;
     CCHover _rCCHover;
 
     //_____________Members
@@ -83,6 +93,7 @@ public class CCT_Basic : MonoBehaviour
     float _yRotationCog;
 
     Command _launchCommand;
+
     //______________Flags
     State _PCstate;
 
@@ -95,19 +106,19 @@ public class CCT_Basic : MonoBehaviour
     bool _launching;
     bool _jumping;
 
-
-    private bool _isMovementEnabled;
     void Start()
     {
         _rRb = GetComponent<Rigidbody>();
         _rCamFacing = transform.Find("CamFacing");
-        _rCog = transform.Find("Cog");
+        _rFacing = transform.Find("Facing");
+        _rCog = _rFacing.Find("Cog");
         _rCCHover = GetComponent<CCHover>();
 
-        _debugText = DebugText.GetMsgBuffer();
+        _debugText = AU.Debug.GetMsgBuffer();
+    }
 
-        _isMovementEnabled = true;
-
+    private void Awake()
+    {
     }
 
     void Update()
@@ -116,13 +127,6 @@ public class CCT_Basic : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_isMovementEnabled == false) 
-        {
-            Debug.Log("今動けない");
-            return;
-        }
-        _debugText.Text = "";
-
         _xzPlainVel = new Vector3(_rRb.velocity.x, 0, _rRb.velocity.z);
         _xzSpeed    = _xzPlainVel.magnitude;
 
@@ -146,12 +150,12 @@ public class CCT_Basic : MonoBehaviour
 
     void BasicDebugInfo()
     {
-        _debugText.Text += "Grounded: " + _grounded.ToString();
-        _debugText.Text += " Input: " + _inputDirection.ToString();
-        _debugText.Text += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
-        _debugText.Text += " Momentum: " + _momentum.ToString("F4");
+        _debugText.FixedText += "Grounded: " + _grounded.ToString();
+        _debugText.FixedText += "\tInput: " + _inputDirection.ToString();
+        _debugText.FixedText += "<br>Speed: " + _xzPlainVel.magnitude.ToString("F4");
+        _debugText.FixedText += "\tMomentum: " + _momentum.ToString("F4");
 
-        _debugText.Text += "\tLaunchInput: " + _launching.ToString();
+        _debugText.FixedText += "\tGravity: " + _rRb.useGravity.ToString();
     }
 
     void TerrianCheck()
@@ -161,12 +165,15 @@ public class CCT_Basic : MonoBehaviour
         _terrianRotation = Quaternion.identity;
         if (_grounded)
         {
-            bool terrianClamp = !(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) < 0.5f);
-            _debugText.Text += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
+            //(Mathf.Abs(Vector3.Dot(_terrianNormal, _rRb.velocity.normalized)) > 0.5f) ||
+            bool terrianClamp =  _terrianNormal.y < 0.5;
+            _debugText.FixedText += "<br>TerrianNormalClamp :" + terrianClamp.ToString();
             if (!terrianClamp)
                 _terrianRotation = Quaternion.FromToRotation(Vector3.up, _terrianNormal);
+            _rCog.position = _rCCHover.Groundhit.point;
+            _rCog.rotation = _terrianRotation * _rFacing.rotation;
         }
-        else
+        else if(_rRb.useGravity)
             _rRb.AddForce(Vector3.down * 9.8f * 3, ForceMode.Acceleration);
     }
 
@@ -194,21 +201,21 @@ public class CCT_Basic : MonoBehaviour
 
             Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
             float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
-                * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rCog.forward));
+                * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
 
-            _debugText.Text += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
+            _debugText.FixedText += "<br>Slide: " + (98f * slideBuildUp).ToString("F4");
             acc += _inputDirection * 98f * slideBuildUp;
         }
         Vector3 appliedAcc = acc + mAcc ;
         appliedAcc = _terrianRotation * appliedAcc;
 
-        _debugText.Text += "<br>Acc: " + acc.ToString();
-        _debugText.Text += "<br>MomentumAcc: " + mAcc.ToString();
+        _debugText.FixedText += "<br>Acc: " + acc.ToString();
+        _debugText.FixedText += "<br>MomentumAcc: " + mAcc.ToString();
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
 
         if (_xzPlainVel.sqrMagnitude > 5.0f)
         {
-            _rCog.rotation = Quaternion.LookRotation(_xzPlainVel.normalized, Vector3.up);
+            _rFacing.rotation = Quaternion.LookRotation(_xzPlainVel.normalized, Vector3.up);
         }
     }
 
@@ -218,7 +225,7 @@ public class CCT_Basic : MonoBehaviour
             return;
 
         Vector3 acc;
-        float directionFector = 2.0f - Vector3.Dot(_rCog.forward, _xzPlainVel.normalized);
+        float directionFector = 2.0f - Vector3.Dot(_rFacing.forward, _xzPlainVel.normalized);
 
         if(_nuetralInput)
         {
@@ -230,7 +237,7 @@ public class CCT_Basic : MonoBehaviour
 
         if (_driftingOld)
         {
-            Vector3 targetVel = _rCog.forward * _xzSpeed * (-directionFector + 2);
+            Vector3 targetVel = _rFacing.forward * _xzSpeed * (-directionFector + 2);
             acc = targetVel - _xzPlainVel;
             acc = _terrianRotation * acc;
             _rRb.AddForce(acc, ForceMode.VelocityChange);
@@ -238,13 +245,13 @@ public class CCT_Basic : MonoBehaviour
         if (!_drifting)
             return;
 
-        Vector3 mAcc = _rCog.forward * _momentum -_xzPlainVel.normalized * (_momentum * (-directionFector + 2));
+        Vector3 mAcc = _rFacing.forward * _momentum -_xzPlainVel.normalized * (_momentum * (-directionFector + 2));
 
-        _rCog.rotation = Quaternion.RotateTowards(
-            _rCog.rotation, Quaternion.LookRotation(_inputDirection, Vector3.up),
+        _rFacing.rotation = Quaternion.RotateTowards(
+            _rFacing.rotation, Quaternion.LookRotation(_inputDirection, Vector3.up),
             param_maxAngularAcc * Time.fixedDeltaTime);
             
-        acc = _rCog.forward * (param_acc + _momentum) * (directionFector - 1);
+        acc = _rFacing.forward * (param_acc + _momentum) * (directionFector - 1);
         Vector3 appliedAcc = acc + mAcc;
         appliedAcc = _terrianRotation * appliedAcc;
         _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
@@ -262,7 +269,7 @@ public class CCT_Basic : MonoBehaviour
     {
         if (!_boosting)
         {
-            if (_nuetralInput && _xzSpeed > 0)
+            if (_nuetralInput && _xzSpeed > 0.5f)
                 _inputDirection = _xzPlainVel.normalized * -0.2f;
             return;
         }
@@ -273,39 +280,38 @@ public class CCT_Basic : MonoBehaviour
     }
     void NewSpeedSystem()
     { 
-        float k = 0.01f;
         //sigmoid function for clamping the acceleratioin
-        _accCoefficient = Mathf.Min(1.0f, 2.0f / (1 + Mathf.Pow( 2.7f , k * (_xzPlainVel.magnitude - param_maxSpeed))));
+        _accCoefficient = Mathf.Min(1.0f, 2.0f / (1 + Mathf.Pow( 2.7f , param_torqueCoefficient * (_xzPlainVel.magnitude - param_maxSpeed))));
         Boosting();
-        _debugText.Text += " AccCoefficient: " + _accCoefficient.ToString("F4");
+        _debugText.FixedText += " AccCoefficient: " + _accCoefficient.ToString("F4");
     }
 
-    void MomentumSystem_Old()
-    { //buildup when boosting, riding down slopes or with mechanism
-        if (!_grounded)
-            return;
+    //void MomentumSystem_Old()
+    //{ //buildup when boosting, riding down slopes or with mechanism
+    //    if (!_grounded)
+    //        return;
 
-        float dTime = Time.fixedDeltaTime;
-        float currentVel = _rRb.velocity.magnitude;
-        float dMomentum  = (param_maxMomentum - _momentum - currentVel);
-        float buildUp = dMomentum * 0.2f;
+    //    float dTime = Time.fixedDeltaTime;
+    //    float currentVel = _rRb.velocity.magnitude;
+    //    float dMomentum  = (param_maxMomentum - _momentum - currentVel);
+    //    float buildUp = dMomentum * 0.2f;
 
-        Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
-        float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
-            * Mathf.Max( 0, Vector3.Dot(terrianSlope, _rCog.forward));//do max with zero to negate uphill speed decrease
-        _momentum += 9.8f * slideBuildUp;
-        if (_boosting)
-            _momentum += buildUp * dTime;
-        else if (_momentum > 0)
-        {
-            int stopping = 0;
-            if(currentVel < param_maxSpeed)
-                stopping++;
-            _momentum -= _momentum * (0.3f + 3 * stopping) * dTime;
-            _momentum = Mathf.Max(0, _momentum);
-        }
-        _debugText.Text += "Momentum: " + _momentum.ToString("F4");
-    }
+    //    Vector3 terrianSlope = new Vector3(_terrianNormal.x, 0, _terrianNormal.z).normalized;
+    //    float slideBuildUp = (1 - Vector3.Dot(_terrianNormal, Vector3.up))
+    //        * Mathf.Max( 0, Vector3.Dot(terrianSlope, _rFacing.forward));//do max with zero to negate uphill speed decrease
+    //    _momentum += 9.8f * slideBuildUp;
+    //    if (_boosting)
+    //        _momentum += buildUp * dTime;
+    //    else if (_momentum > 0)
+    //    {
+    //        int stopping = 0;
+    //        if(currentVel < param_maxSpeed)
+    //            stopping++;
+    //        _momentum -= _momentum * (0.3f + 3 * stopping) * dTime;
+    //        _momentum = Mathf.Max(0, _momentum);
+    //    }
+    //    _debugText.FixedText += "Momentum: " + _momentum.ToString("F4");
+    //}
 
     void MomentumSystem()
     {
@@ -317,7 +323,7 @@ public class CCT_Basic : MonoBehaviour
         float buildUp = param_acc;
 
         _momentum = Mathf.Max( 0, _xzSpeed - param_maxSpeed);
-        _debugText.Text += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
+        _debugText.FixedText += "Momentum: " + _momentum.ToString("F4") + " Boosting: " + _boosting.ToString();
     }
 
     void InputFetcher()
@@ -332,10 +338,5 @@ public class CCT_Basic : MonoBehaviour
         _drifting = Input.GetButton("Fire2");
         _launching = Input.GetButton("Fire3");
         _jumping = Input.GetButton("Jump");
-    }
-
-    public void SetMovement(bool ismove)
-    {
-        _isMovementEnabled = ismove;
     }
 }

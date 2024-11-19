@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - EventCheckPoint
+  - Spline
   - Coins
   - MeteorsCheckPoint
   - WorldSpace
@@ -11,15 +13,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrian
   - Water
   - UI
-  - 
-  - 
-  - PostProcesing
-  - collectable
-  - Player
-  - 
+  - PlayerControlled
+  - Targets
+  - Interactable
   - 
   - 
   - 
@@ -40,6 +39,9 @@ TagManager:
   - 
   - 
   - 
+  - 
+  - 
+  - Collectable
   m_SortingLayers:
   - name: Default
     uniqueID: 0

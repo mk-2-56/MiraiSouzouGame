@@ -18,12 +18,13 @@ public class MeteorMovement : MonoBehaviour
     // グローバル変数
     /******************************************************************************************************************************************************************/
     // パブリック変数
+    public ObjectFactory factory;
+    public ObjectPool MeteorPool;
+
     public static int MaxMeteor = 5;                                                     // 噴石の最大数
     public MeteorProperties[] MeteorProp = new MeteorProperties[MaxMeteor];              // 噴石の設定
 
     // プライベート変数 
-    [SerializeField] private GameObject PrefabObj;                                       // 噴石オブジェクトの取得
-    private List<GameObject> Meteor = new List<GameObject>();                            // 噴石オブジェクトリスト
     private float Speed = 0.25f;                                                         // 落下速度
     private Vector3 Crater = new Vector3(0.0f, 0.0f, 0.0f);                              // 噴火口の中心座標
     private float Height = 50.0f;                                                        // 噴石のスポーンy座標、いくら上でスポーンさせるか、固定値
@@ -72,36 +73,8 @@ public class MeteorMovement : MonoBehaviour
     /******************************************************************************************************************************************************************/
     private void Awake()
     {
-        // オブジェクトを生成＆非表示で保管しておく
-        for (int i = 0; i < MaxMeteor; i++)
-        {
-            GameObject obj = Instantiate(PrefabObj); // オブジェクトを生成する
-            Meteor.Add(obj); // リストに追加
-            Meteor[i].SetActive(false); // 非表示にする
-            // ResetMeteorProperties(i); // 噴石の設定を初期化
-        }
-
-        // エラー確認：配列サイズ
-        if (MeteorProp.Length != Meteor.Count)
-        {
-            Debug.Log("MeteorProp & Meteor.Length has different array num, crucial error may occur ");
-        }
-
+        MeteorPool.poolSize = MaxMeteor;
     }
-    //private void ResetMeteorProperties(int index)
-    //{
-    //    MeteorProp[index] = new MeteorProperties
-    //    {
-    //        Pos = Vector3.zero,
-    //        SpawnPos = Vector3.zero,
-    //        Time = 0,
-    //        Use = false,
-    //        WillUse = false,
-    //        OnGround = false,
-    //        CntDespawn = 0
-    //    };
-    //}
-
     void Start()
     {
 
@@ -175,7 +148,7 @@ public class MeteorMovement : MonoBehaviour
             else
             {
                 allInactive++;  // すべての噴石が不使用になったか、チェック
-                Meteor[i].SetActive(false); // 非表示にする
+                MeteorPool.GetList()[i].SetActive(false); // 非表示にする
             }
         }
         if (allInactive >= MeteorProp.Length)
@@ -205,7 +178,7 @@ public class MeteorMovement : MonoBehaviour
             {
                 if (MeteorProp[i].Use)
                 {
-                    Meteor[i].transform.position = MeteorProp[i].Pos;
+                    MeteorPool.GetList()[i].transform.position = MeteorProp[i].Pos;
                 }
             }
         }
@@ -245,13 +218,18 @@ public class MeteorMovement : MonoBehaviour
             {
                 MeteorProp[i].WillUse = false;
                 MeteorProp[i].Use = true;
-                Meteor[i].SetActive(true); // 表示する
+                MeteorPool.GetList()[i].SetActive(true); // 表示する
                 MeteorProp[i].Pos = MeteorProp[i].SpawnPos;
                 return;
             }
         }
 
         Debug.Log("(SetMeteorUse) Array is full. Cannot set meteor. ");
+    }
+
+    private void SetMeteor(bool isUse, Vector3 pos)
+    {
+        factory.generateObj(ObjectType.objType_Metor, pos,Quaternion.identity);
     }
     // 噴石ギミックを初期化する
     private void InitMeteors()
@@ -293,7 +271,7 @@ public class MeteorMovement : MonoBehaviour
                 if (MeteorProp[i].Use)
                 {
                     MeteorProp[i].Use = false;
-                    Meteor[i].SetActive(false); // 非表示にする
+                    MeteorPool.GetList()[i].SetActive(false); // 非表示にする
                 }
             }
             SpawnMeteor = false;
@@ -314,7 +292,7 @@ public class MeteorMovement : MonoBehaviour
     // ゲッター・セッター
     public List<GameObject> GetInstantiatedMeteors()
     {
-        return Meteor; // インスタンス化したオブジェクトのリストを返す
+        return MeteorPool.GetList(); // インスタンス化したオブジェクトのリストを返す
     }
     public int GetMaxMeteor()
     {
