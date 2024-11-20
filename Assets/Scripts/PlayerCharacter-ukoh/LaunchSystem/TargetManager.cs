@@ -50,8 +50,11 @@ public class TargetManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //foreach (GameObject obj in _targets.Keys)
-        //{
-        //}
+        
+        AU.Debug.Log("Active Targets: " + _targets.Count.ToString(), AU.LogTiming.Update);
+        foreach (GameObject obj in _targets.Keys)
+        {
+            AU.Debug.Log(obj.name, AU.LogTiming.Update);
+        }
     }
 }

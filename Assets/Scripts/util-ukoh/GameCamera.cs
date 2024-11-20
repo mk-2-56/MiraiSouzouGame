@@ -21,6 +21,8 @@ public class GameCamera : MonoBehaviour
 
         _rCChub     = pc.GetComponent<CC.Hub>();
         _rCChub.LookEvent += Look;
+
+        transform.SetParent(null);
     }
 
     //_____________Parameters
@@ -40,6 +42,11 @@ public class GameCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(transform.parent)
+        {
+            SetPlayerReference(transform.parent.gameObject);
+        }
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.parent = null;
@@ -58,9 +65,14 @@ public class GameCamera : MonoBehaviour
         transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos * dtime);
 
         if(param_locking)
-        { 
+        {
+            Quaternion tarRot; 
+            if (_rCog.position - transform.position != Vector3.zero)
+                tarRot = Quaternion.LookRotation(_rCog.position - transform.position);
+            else
+                tarRot = _rFacing.rotation;
             transform.rotation = _rCamFacing.rotation = 
-                Quaternion.Lerp(_rCamFacing.rotation, _rFacing.rotation, param_lerpSpeed * dtime);
+                Quaternion.Lerp(_rCamFacing.rotation, tarRot, param_lerpSpeed * dtime);
             Vector3 tmp= transform.rotation.eulerAngles;
             _camRotation = new Vector2(tmp.y, -tmp.x);
             AU.Debug.Log(_camRotation, AU.LogTiming.Fixed);

@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace AU
 { 
@@ -8,6 +12,16 @@ namespace AU
 
     public class PlayerManager : MonoBehaviour
     {
+        public void OnPlayerJoined(PlayerInput input)
+        { 
+            _curentPlayerCount++;
+            GameObject player = input.gameObject;
+            SpawnGameCamera(player);
+            UnityEngine.Debug.Log("PlayerJoined");
+            if (_curentPlayerCount > 1)
+                AdjustGameCamera();
+        }
+
         public void SpawnPlayer()
         {
             if (_curentPlayerCount > 1)
@@ -15,18 +29,23 @@ namespace AU
 
             _curentPlayerCount++;
             GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
+            playerCharacter.SetActive(true);
+            _players.Add(_curentPlayerCount, playerCharacter);
+
+            SpawnGameCamera(playerCharacter);
+            if (_curentPlayerCount > 1)
+                AdjustGameCamera();
+        }
+
+        public void SpawnGameCamera(GameObject playerCharacter)
+        {
             GameObject camera = Instantiate(param_cameraPrefab,
                 playerCharacter.transform.position, playerCharacter.transform.rotation);
 
             var tmp = camera.GetComponent<GameCamera>();
-            tmp.SetPlayerReference(playerCharacter);
-            playerCharacter.SetActive(true);
+            tmp.SetPlayerReference(playerCharacter); 
             camera.SetActive(true);
-            _players.Add(_curentPlayerCount, playerCharacter);
             _gameCameras.Add(playerCharacter, camera);
-
-            if (_curentPlayerCount > 1)
-                AdjustGameCamera();
         }
 
         public void ClearResetPlayers()
@@ -81,8 +100,6 @@ namespace AU
             param_playerPrefab.SetActive(false);
             param_cameraPrefab.SetActive(false);
 
-            Invoke("SpawnPlayer", 0.5f);
-
             DontDestroyOnLoad(this);
         }
         // Update is called once per frame
@@ -90,7 +107,6 @@ namespace AU
         {
             
         }
-    
 
         private void OnDestroy()
         {
