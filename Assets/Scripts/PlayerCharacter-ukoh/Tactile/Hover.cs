@@ -34,6 +34,8 @@ namespace CC
         Transform  _rCog;
         Transform  _rFacing;
         RaycastHit _rayHit;
+
+        Vector3 _terrianDirOld;
     
         CC.PlayerMovementParams _rTerrianHit;
     
@@ -56,41 +58,79 @@ namespace CC
     
         private void FixedUpdate()
         {
-            Vector3 rayDir = Vector3.down + _rRb.velocity * Time.fixedDeltaTime;
-            //Vector3 rayDir = Vector3.down;
-            float rayLength = HoverHeight + 1.0f;
-    
-            _rTerrianHit.flags.grounded = Physics.Raycast(_rRb.position + Vector3.up, rayDir, out _rayHit, rayLength, _layerMask);
-    
-            if (_rTerrianHit.flags.grounded)
+            TerrianCheck();
+            if(_rTerrianHit.flags.grounded)
             {
-                float dTime = Time.fixedDeltaTime;
-    
-                float verticalVel = _rRb.velocity.y;
-                float x = _rayHit.distance - HoverHeight;
-                float hoverForce = x * HoverSpringStrength + verticalVel * HoverDamperStrength;
-    
-                _rRb.AddForce(Vector3.down * hoverForce, ForceMode.Acceleration);
-            }
-    
-            bool terrianWalkale   = _rayHit.normal.y > 0.5;
-            _rTerrianHit.flags.grounded = terrianWalkale;
-    
-            AU.Debug.Log(terrianWalkale, AU.LogTiming.Fixed);
-            AU.Debug.Log(_rTerrianHit.terrianNormal, AU.LogTiming.Fixed);
-    
-            _rTerrianHit.terrianNormal = _rayHit.normal;
-            _rTerrianHit.terrianRotation = Quaternion.identity;
-    
-            _rRb.useGravity = !_rTerrianHit.flags.grounded;
-    
-            if (_rTerrianHit.flags.grounded)
-            {
-                _rTerrianHit.terrianRotation = Quaternion.FromToRotation(Vector3.up, _rTerrianHit.terrianNormal);
-    
                 _rCog.position = _rayHit.point;
                 _rCog.rotation = _rTerrianHit.terrianRotation * _rFacing.rotation;
             }
+            else
+                _rCog.rotation = Quaternion.Lerp(_rCog.rotation, Quaternion.LookRotation(_rRb.velocity.normalized), 0.3f);
+        }
+
+        void TerrianCheck()
+        {
+            Vector3 rayDir;
+            rayDir = _terrianDirOld + _rRb.velocity * Time.fixedDeltaTime;
+            float rayLength = HoverHeight + 2.0f;
+
+
+            float radius = 2.0f;
+
+            if (!_rTerrianHit.flags.grounded)
+            {
+                bool hit;
+                RaycastHit temp;
+
+                hit = Physics.Raycast(_rRb.position + Vector3.up,
+                    Vector3.down, out temp, rayLength, _layerMask);
+                _rTerrianHit.flags.grounded |= hit;
+                if(hit) _rayHit = temp;
+
+                hit = Physics.SphereCast(_rRb.position, radius,
+                rayDir, out temp, rayLength, _layerMask);
+                _rTerrianHit.flags.grounded |= hit;
+                if (hit) _rayHit = temp;
+            }
+            else
+            {
+                _rTerrianHit.flags.grounded = Physics.Raycast(_rRb.position,
+                    rayDir, out _rayHit, rayLength, _layerMask);
+            }
+
+            {
+                string hitObjName = "";
+                hitObjName = _rayHit.collider?.gameObject.name;
+                AU.Debug.Log(hitObjName, AU.LogTiming.Fixed);
+                AU.Debug.Log(_terrianDirOld, AU.LogTiming.Fixed);
+                AU.Debug.Log(_rTerrianHit.terrianNormal, AU.LogTiming.Fixed);
+            }
+
+            if (!_rTerrianHit.flags.grounded)
+            {
+                _terrianDirOld = Vector3.zero;
+                _rTerrianHit.flags.groundedFlat = false;
+                _rTerrianHit.terrianNormal = Vector3.up;
+                _rTerrianHit.terrianRotation = Quaternion.identity;
+                return;
+            }
+
+            bool terrianWalkale = _rayHit.normal.y > 0.8;
+            _rTerrianHit.flags.groundedFlat = terrianWalkale;
+
+            float verticalVel = Vector3.Dot(_rRb.velocity, _rayHit.normal);
+            float x = _rayHit.distance - HoverHeight;
+            float hoverForce = x * HoverSpringStrength + verticalVel * HoverDamperStrength;
+            AU.Debug.Log(hoverForce, AU.LogTiming.Fixed);
+            AU.Debug.Log(verticalVel, AU.LogTiming.Fixed);
+
+            _rRb.AddForce(-_rayHit.normal * hoverForce, ForceMode.Acceleration);
+
+            _rTerrianHit.terrianNormal = _rayHit.normal;
+            _rTerrianHit.terrianRotation = Quaternion.FromToRotation(Vector3.up, _rTerrianHit.terrianNormal);
+
+            _terrianDirOld = -_rayHit.normal;
         }
     }
+
 }

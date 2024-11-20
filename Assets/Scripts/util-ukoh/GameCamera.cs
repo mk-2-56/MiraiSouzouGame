@@ -14,10 +14,11 @@ public class GameCamera : MonoBehaviour
 {
     public void SetPlayerReference(GameObject pc)
     {
-        _rFacing    = pc.transform.Find("Facing");
-        _rCamFacing = pc.transform.Find("CamFacing");
+        _rRb = pc.GetComponent<Rigidbody>();
 
+        _rFacing    = pc.transform.Find("Facing");
         _rCog       = _rFacing.Find("Cog");
+        _rCamFacing = pc.transform.Find("CamFacing");
 
         _rCChub     = pc.GetComponent<CC.Hub>();
         _rCChub.LookEvent += Look;
@@ -32,10 +33,13 @@ public class GameCamera : MonoBehaviour
 
     //_____________Members
     CC.Hub      _rCChub;
+
+    Rigidbody   _rRb;
     Transform   _rFacing;
     Transform   _rCog;
     Transform   _rCamFacing;
 
+    Vector2 _input = Vector2.zero;
     Vector2 _camRotation = Vector2.zero;
 
 
@@ -63,32 +67,38 @@ public class GameCamera : MonoBehaviour
     {
         float dtime = Time.fixedDeltaTime;
         transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos * dtime);
+        CamControl();
 
-        if(param_locking)
+        if (param_locking)
         {
-            Quaternion tarRot; 
-            if (_rCog.position - transform.position != Vector3.zero)
-                tarRot = Quaternion.LookRotation(_rCog.position - transform.position);
-            else
-                tarRot = _rFacing.rotation;
+            Quaternion tarRot;
+            Vector3 dv = _rFacing.forward;
+            dv.y = 0;
+                dv.y = _rRb.velocity.y * dtime;
+                tarRot = Quaternion.LookRotation(dv);
             transform.rotation = _rCamFacing.rotation = 
                 Quaternion.Lerp(_rCamFacing.rotation, tarRot, param_lerpSpeed * dtime);
             Vector3 tmp= transform.rotation.eulerAngles;
             _camRotation = new Vector2(tmp.y, -tmp.x);
             AU.Debug.Log(_camRotation, AU.LogTiming.Fixed);
         }
-
     }
 
-    void Look(Vector2 input)
+    void CamControl()
     {
         if (param_locking)
             return;
 
-        _camRotation += input;
+        _camRotation += _input;
         _camRotation.y = Mathf.Clamp(_camRotation.y, -70.0f, 85.0f);
 
         _rCamFacing.rotation = Quaternion.Euler(0, _camRotation.x, 0);
-        transform.rotation   = Quaternion.Euler(-_camRotation.y, _camRotation.x, 0);
+        transform.rotation = Quaternion.Euler(-_camRotation.y, _camRotation.x, 0);
+    }
+
+
+    void Look(Vector2 input)
+    {
+        _input = input;
     }
 }
