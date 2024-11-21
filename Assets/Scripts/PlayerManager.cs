@@ -14,41 +14,46 @@ namespace AU
     {
         public void OnPlayerJoined(PlayerInput input)
         { 
-            _curentPlayerCount++;
+            _currentPlayerCount++;
             GameObject player = input.gameObject;
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
 
-            SpawnGameCamera(player);
-            player.AddComponent<TargetManager>();
-            if (_curentPlayerCount > 1)
+            GameObject camera = SpawnGameCamera(player);
+
+            var tmanager = player.AddComponent<TargetManager>();
+            camera.GetComponent<TargetUI>().SetTargetManager(tmanager);
+
+            if (_currentPlayerCount > 1)
                 AdjustGameCamera();
         }
 
         public void SpawnPlayer()
         {
-            if (_curentPlayerCount > 1)
+            if (_currentPlayerCount > 1)
                 return;
 
-            _curentPlayerCount++;
+            _currentPlayerCount++;
             GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
             playerCharacter.SetActive(true);
-            _players.Add(_curentPlayerCount, playerCharacter);
+            _players.Add(_currentPlayerCount, playerCharacter);
 
             SpawnGameCamera(playerCharacter);
-            if (_curentPlayerCount > 1)
+            if (_currentPlayerCount > 1)
                 AdjustGameCamera();
         }
 
-        public void SpawnGameCamera(GameObject playerCharacter)
+        public GameObject SpawnGameCamera(GameObject playerCharacter)
         {
             GameObject camera = Instantiate(param_cameraPrefab,
                 playerCharacter.transform.position, playerCharacter.transform.rotation);
 
             var tmp = camera.GetComponent<GameCamera>();
+
             tmp.SetPlayerReference(playerCharacter);
             camera.SetActive(true);
             _gameCameras.Add(playerCharacter, camera);
+            return camera;
         }
 
         public void ClearResetPlayers()
@@ -63,14 +68,14 @@ namespace AU
                 if(_gameCameras[entry.Value])
                     Destroy(_gameCameras[entry.Value]);
             }
-            _curentPlayerCount = 0;
+            _currentPlayerCount = 0;
             _players.Clear();
             _gameCameras.Clear();
         }
         
         public void RemovePlayer(int index)
         { 
-            if(_curentPlayerCount < 1)
+            if(_currentPlayerCount < 1)
                 return;
 
             if(_players.ContainsKey(index))
@@ -82,8 +87,8 @@ namespace AU
                 }
                 _players.Remove(index);
                 Destroy(_players[index]);
-                _curentPlayerCount--;
-                if (_curentPlayerCount < 2)
+                _currentPlayerCount--;
+                if (_currentPlayerCount < 2)
                     AdjustGameCamera();
             }
         }
@@ -96,7 +101,7 @@ namespace AU
         //Key: PlayerGameObject,  Value: CameraGameObject
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
-        int _curentPlayerCount = 0;
+        int _currentPlayerCount = 0;
 
         void Start()
         {
@@ -117,7 +122,7 @@ namespace AU
 
         private void AdjustGameCamera()
         {
-            if(_curentPlayerCount > 1)
+            if(_currentPlayerCount > 1)
             { 
                 int i = 0;
                 foreach(KeyValuePair<GameObject, GameObject> item in _gameCameras)
