@@ -122,52 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &16156822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 16156824}
-  - component: {fileID: 16156823}
-  m_Layer: 0
-  m_Name: BoostMarkPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &16156823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16156822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e849dd5e4d70fe3498c4734f1829954f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 6451703064718190499, guid: 210964e0aebc7754ca214f0bf46136d5, type: 3}
-  poolSize: 20
---- !u!4 &16156824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16156822}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1893063227}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &40119694
 Mesh:
   m_ObjectHideFlags: 0
@@ -6110,6 +6064,52 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &912908597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 912908598}
+  - component: {fileID: 912908599}
+  m_Layer: 0
+  m_Name: BoostMarkPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &912908598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912908597}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5341.4297, y: -557.09, z: 7801.689}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1893063227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &912908599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912908597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e849dd5e4d70fe3498c4734f1829954f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6451703064718190499, guid: 210964e0aebc7754ca214f0bf46136d5, type: 3}
+  poolSize: 20
 --- !u!1 &987362384
 GameObject:
   m_ObjectHideFlags: 0
@@ -6139,7 +6139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c188570a84936048b0384c4294832df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markPool: {fileID: 16156823}
+  markPool: {fileID: 912908599}
   worldSpaceCanvas: {fileID: 1511104196}
   mainCamera: {fileID: 1716532151}
 --- !u!4 &987362386
@@ -11681,7 +11681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MetorObjPool: {fileID: 1844422775}
   pebbleObjPool: {fileID: 1726412150}
-  boostMarkPool: {fileID: 16156823}
+  boostMarkPool: {fileID: 912908599}
 --- !u!4 &1893063227
 Transform:
   m_ObjectHideFlags: 0
@@ -11697,7 +11697,7 @@ Transform:
   m_Children:
   - {fileID: 1844422776}
   - {fileID: 1726412151}
-  - {fileID: 16156824}
+  - {fileID: 912908598}
   m_Father: {fileID: 1449188300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2073900200
@@ -13129,8 +13129,8 @@ SceneRoots:
   - {fileID: 493318326}
   - {fileID: 75075123783360598}
   - {fileID: 1599771733024024556}
+  - {fileID: 987362386}
   - {fileID: 1888774508}
   - {fileID: 1449188300}
-  - {fileID: 987362386}
   - {fileID: 1511104196}
   - {fileID: 643418637}

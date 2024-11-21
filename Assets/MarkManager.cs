@@ -54,12 +54,6 @@ public class MarkManager : MonoBehaviour
     /// <returns>追加したMarkオブジェクト</returns>
     public Mark AddMark(Transform target)
     {
-        if (markPool == null)
-        {
-            Debug.LogError("MarkPool is not assigned!");
-            return null;
-        }
-
         GameObject markObject = markPool.GetObject();
         if (markObject == null)
         {
@@ -67,29 +61,21 @@ public class MarkManager : MonoBehaviour
             return null;
         }
 
+        // Canvas の子として配置
         markObject.transform.SetParent(worldSpaceCanvas, false);
-        // ターゲットの上に配置
-        Vector3 targetWorldPosition = target.position;
-        markObject.transform.position = mainCamera.WorldToScreenPoint(targetWorldPosition); // ワールド座標 → スクリーン座標
 
-        // スケールをリセット
-        markObject.transform.localScale = Vector3.one;
-
-        // カメラ方向に向ける（必要であれば）
-        markObject.transform.LookAt(Camera.main.transform);
-
-
+        // Mark コンポーネントを初期化
         Mark mark = markObject.GetComponent<Mark>();
-        if (mark == null)
+        if (mark != null)
+        {
+            mark.Initialize(target, mainCamera);
+            activeMarks.Add(mark);
+        }
+        else
         {
             Debug.LogError("The object from the pool does not have a Mark component!");
             markPool.ReturnObject(markObject);
-            return null; // エラー時は早期リターン
         }
-
-        mark.Initialize(target, mainCamera); // マークを初期化
-        activeMarks.Add(mark); // リストに追加
-
         return mark;
     }
 

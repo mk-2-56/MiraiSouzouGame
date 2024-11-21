@@ -5,44 +5,38 @@ public class Mark : MonoBehaviour
     public enum MarkState
     {
         Waiting,    // マークが待機中
-        Active,     // マークが表示中（アニメーション中）
-        Expanding,  // アニメーション終了後
+        Active,     // マークが表示中（追従中）
         Ending      // マークが終了状態（非表示になる準備）
     }
 
-    [Header("References")]
-    [SerializeField] private GameObject mark;   // 三角マークの GameObject（プレハブの子）
-
     [Header("Settings")]
-    [SerializeField] private float waitAppear = 0.5f;   // 表示までの待機時間
-    [SerializeField] private float expandDuration = 1.5f; // 拡大アニメーションの時間
-    [SerializeField] private Vector3 initialScale = new Vector3(2f, 2f, 2f); // 初期スケール
-    [SerializeField] private Vector3 targetScale = new Vector3(1f, 1f, 1f);   // 最終スケール
     [SerializeField] private Vector3 offset = Vector3.up * 2f; // ターゲットからのオフセット位置
+    [SerializeField] private float waitAppear = 0.5f;         // 表示までの待機時間
 
-    private MarkState markState = MarkState.Waiting;    // 現在の状態
-    private Transform targetObject;                    // 追従するターゲット
-    private Camera mainCamera;                         // プレイヤーカメラ
-    private float stateTimer = 0f;                     // ステートの経過時間
+    private MarkState markState = MarkState.Waiting;          // 現在の状態
+    private Transform targetObject;                          // 追従するターゲット
+    private Camera mainCamera;                               // メインカメラ
+    private float stateTimer = 0f;                           // ステート用のタイマー
+    private RectTransform rectTransform;                     // マークの RectTransform
+    private RectTransform canvasRectTransform;               // 親 Canvas の RectTransform
 
     /// <summary>
-    /// マークを初期化
+    /// 初期化
     /// </summary>
-    /// <param name="target">追従するターゲット</param>
-    /// <param name="camera">追従するカメラ</param>
     public void Initialize(Transform target, Camera camera)
     {
         targetObject = target;
         mainCamera = camera;
-        markState = MarkState.Waiting;
         stateTimer = 0f;
-        transform.localScale = initialScale;
-        gameObject.SetActive(true);
+        markState = MarkState.Waiting;
+
+        // RectTransform を取得
+        rectTransform = GetComponent<RectTransform>();
+        canvasRectTransform = rectTransform.parent.GetComponent<RectTransform>();
+
+        gameObject.SetActive(true); // マークをアクティブ化
     }
 
-    /// <summary>
-    /// マークの状態を更新
-    /// </summary>
     public void UpdateMark()
     {
         if (targetObject == null || mainCamera == null)
@@ -51,10 +45,10 @@ public class Mark : MonoBehaviour
             return;
         }
 
-        // ターゲットに追従しカメラ方向を向く
+        // ターゲットに追従し、カメラ方向に向ける
         FollowTarget();
 
-        // 現在のステートに応じて処理を切り替え
+        // ステートごとの処理
         stateTimer += Time.deltaTime;
         switch (markState)
         {
@@ -66,23 +60,29 @@ public class Mark : MonoBehaviour
                 HandleActiveState();
                 break;
 
-            case MarkState.Expanding:
-                HandleExpandingState();
-                break;
-
             case MarkState.Ending:
-                HandleEndingState();
+                ResetMark();
                 break;
         }
     }
 
     /// <summary>
-    /// ターゲットを追従しカメラ方向を向く
+    /// ターゲットを追従
     /// </summary>
     private void FollowTarget()
     {
-        transform.position = targetObject.position + offset;
-        transform.LookAt(mainCamera.transform);
+        // ターゲットの上のワールド座標を取得
+        Vector3 worldPosition = targetObject.position + offset;
+
+        // ワールド座標をスクリーン座標に変換
+        Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
+
+        // スクリーン座標を Canvas 内のローカル座標に変換
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRectTransform, screenPosition, mainCamera, out Vector2 localPosition))
+        {
+            rectTransform.anchoredPosition = localPosition; // マークの位置を更新
+        }
     }
 
     /// <summary>
@@ -98,33 +98,11 @@ public class Mark : MonoBehaviour
     }
 
     /// <summary>
-    /// アクティブ状態の処理（拡大アニメーション）
+    /// アクティブな状態の処理（特別な演出などをここで追加可能）
     /// </summary>
     private void HandleActiveState()
     {
-        transform.localScale = Vector3.Lerp(initialScale, targetScale, stateTimer / expandDuration);
-        if (stateTimer >= expandDuration)
-        {
-            stateTimer = 0f;
-            markState = MarkState.Expanding;
-        }
-    }
-
-    /// <summary>
-    /// 拡大後のステート処理
-    /// </summary>
-    private void HandleExpandingState()
-    {
-        // 将来的に必要な追加処理をここに記述
-        // 例: 他のエフェクトや状態管理
-    }
-
-    /// <summary>
-    /// 終了時のステート処理
-    /// </summary>
-    private void HandleEndingState()
-    {
-        ResetMark();
+        // 必要に応じて、マークのアクティブ状態での処理を記述
     }
 
     /// <summary>
@@ -135,11 +113,11 @@ public class Mark : MonoBehaviour
         targetObject = null;
         markState = MarkState.Waiting;
         stateTimer = 0f;
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); // プールに戻す際に非アクティブ化
     }
 
     /// <summary>
-    /// マークが使用可能かを判定
+    /// マークが使用可能かどうかを判定
     /// </summary>
     /// <returns>マークが使用可能かどうか</returns>
     public bool IsUsable()
