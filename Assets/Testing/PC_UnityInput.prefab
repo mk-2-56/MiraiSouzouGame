@@ -522,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverHeight: 1.5
   HoverSpringStrength: 100
-  HoverDamperStrength: 0.7
+  HoverDamperStrength: 1
 --- !u!114 &4445887014146143736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48266f8d15b8ddc409e617add5cfed25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timescale: 0
 --- !u!114 &7767342710225284964
 MonoBehaviour:
   m_ObjectHideFlags: 0

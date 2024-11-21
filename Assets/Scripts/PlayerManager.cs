@@ -16,8 +16,11 @@ namespace AU
         { 
             _curentPlayerCount++;
             GameObject player = input.gameObject;
+            player.transform.position = transform.position;
+            player.transform.rotation = transform.rotation;
+
             SpawnGameCamera(player);
-            UnityEngine.Debug.Log("PlayerJoined");
+            player.AddComponent<TargetManager>();
             if (_curentPlayerCount > 1)
                 AdjustGameCamera();
         }
@@ -43,7 +46,7 @@ namespace AU
                 playerCharacter.transform.position, playerCharacter.transform.rotation);
 
             var tmp = camera.GetComponent<GameCamera>();
-            tmp.SetPlayerReference(playerCharacter); 
+            tmp.SetPlayerReference(playerCharacter);
             camera.SetActive(true);
             _gameCameras.Add(playerCharacter, camera);
         }
@@ -87,10 +90,10 @@ namespace AU
 
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject param_cameraPrefab;
-    
-        TargetManager    _manager;
 
+        //Key:      playerindex,  Value: PlayerGameObject
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
+        //Key: PlayerGameObject,  Value: CameraGameObject
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
         int _curentPlayerCount = 0;
@@ -120,7 +123,7 @@ namespace AU
                 foreach(KeyValuePair<GameObject, GameObject> item in _gameCameras)
                 {
                     if (!item.Key)
-                    {   
+                    {
                         Destroy(item.Value);
                         _gameCameras.Remove(item.Key);
                         return;

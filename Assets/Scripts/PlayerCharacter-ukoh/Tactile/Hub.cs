@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using UnityEditor;
 /// <summary>
 /// ukoh-2024-10-28
 /// ÉvÉåÉCÉÑÅ[Controller ì¸óÕÇ‚stateä«óùÇ»Ç«Ç™
@@ -15,6 +16,23 @@ using UnityEngine.InputSystem;
 namespace CC
 {
     using System;
+    [CustomEditor(typeof(Hub))]
+    public class HubUI : Editor
+    {
+        SerializedProperty timescale;
+        void OnEnable()
+        { 
+            timescale = serializedObject.FindProperty("_timescale");
+        }
+        public override void OnInspectorGUI()
+        { 
+            DrawDefaultInspector();
+            EditorGUILayout.Slider(timescale, 0.01f, 1.0f, new GUIContent("TimeScale"));
+
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
 
@@ -32,6 +50,10 @@ namespace CC
 
         Vector2 _moveRawInput;
         Vector2 _lookRawInput;
+
+
+        [SerializeField] float _timescale = 1;
+        float _timescaleOld;
 
         public void OnDash(InputAction.CallbackContext context)
         {
@@ -95,14 +117,10 @@ namespace CC
             }
         }
 
-        private void Start()
+        private void Update()
         {
-            //if(_playerInput == null)
-            //{ 
-            //    _playerInput = new PlayerInputActions();
-            //    _playerInput.Player.SetCallbacks(instance:this);
-            //}
-            //_playerInput.Player.Enable();
+            if(_timescale != _timescaleOld)
+                Time.timeScale = _timescale;
         }
     }
 }

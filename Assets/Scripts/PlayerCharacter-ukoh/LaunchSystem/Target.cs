@@ -9,7 +9,6 @@ public class Target : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _manager = transform.parent.GetComponent<TargetManager>();
     }
 
     // Update is called once per frame
@@ -18,13 +17,4 @@ public class Target : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        _manager.AddTarget(this.gameObject);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        _manager.RemoveTarget(this.gameObject);
-    }
 }

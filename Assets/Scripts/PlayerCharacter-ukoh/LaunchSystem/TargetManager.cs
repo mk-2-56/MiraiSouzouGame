@@ -12,7 +12,6 @@ public class TargetManager : MonoBehaviour
         bool findCandidate = false;
 
         foreach (Vector3 pos in _targets.Values)
-        //_targets.ForEach( pos => 
         {
             float a = Vector3.Dot((pos - positionPC).normalized, inputDIreciton);
             if (a > closiestDot)
@@ -56,5 +55,14 @@ public class TargetManager : MonoBehaviour
         {
             AU.Debug.Log(obj.name, AU.LogTiming.Update);
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        AddTarget(other.gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        RemoveTarget(other.gameObject);
     }
 }
