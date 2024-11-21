@@ -8,10 +8,13 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace AU
 {
+    using Unity.VisualScripting;
     using UnityEditor;
 
     public class PlayerManager : MonoBehaviour
     {
+        private  CameraManager cameraManager;
+
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -19,11 +22,11 @@ namespace AU
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
 
-            SpawnGameCamera(player);
+            cameraManager.SpawnGameCamera(player);
             player.AddComponent<TargetManager>();
 
             if (_curentPlayerCount > 1)
-                AdjustGameCamera();
+                cameraManager.AdjustGameCamera(_curentPlayerCount);
         }
 
         public void SpawnPlayer()
@@ -36,12 +39,12 @@ namespace AU
             playerCharacter.SetActive(true);
             _players.Add(_curentPlayerCount, playerCharacter);
 
-            SpawnGameCamera(playerCharacter);
+            cameraManager.SpawnGameCamera(playerCharacter);
             if (_curentPlayerCount > 1)
-                AdjustGameCamera();
+                cameraManager.AdjustGameCamera(_curentPlayerCount);
         }
 
-        public void SpawnGameCamera(GameObject playerCharacter)
+      /*  public void SpawnGameCamera(GameObject playerCharacter)
         {
             GameObject camera = Instantiate(param_cameraPrefab,
                 playerCharacter.transform.position, playerCharacter.transform.rotation);
@@ -50,7 +53,7 @@ namespace AU
             tmp.SetPlayerReference(playerCharacter);
             camera.SetActive(true);
             _gameCameras.Add(playerCharacter, camera);
-        }
+        }*/
 
         public void ClearResetPlayers()
         {
@@ -85,13 +88,11 @@ namespace AU
                 Destroy(_players[index]);
                 _curentPlayerCount--;
                 if (_curentPlayerCount < 2)
-                    AdjustGameCamera();
+                    cameraManager.AdjustGameCamera(_curentPlayerCount);
             }
         }
 
         [SerializeField] GameObject param_playerPrefab;
-        [SerializeField] GameObject param_cameraPrefab;
-
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
@@ -100,10 +101,16 @@ namespace AU
         void Start()
         {
             param_playerPrefab.SetActive(false);
-            param_cameraPrefab.SetActive(false);
 
             DontDestroyOnLoad(this);
         }
+
+        public void Initialized()
+        {
+            cameraManager = FindObjectOfType<CameraManager>();
+
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -114,7 +121,7 @@ namespace AU
         {
         }
 
-        private void AdjustGameCamera()
+       /* private void AdjustGameCamera()
         {
             if (_curentPlayerCount > 1)
             {
@@ -135,6 +142,6 @@ namespace AU
                     i++;
                 }
             }
-        }
+        }*/
     }
 }

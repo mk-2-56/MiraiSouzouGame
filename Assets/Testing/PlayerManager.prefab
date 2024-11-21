@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1208619557399123264}
   - component: {fileID: 745772473819860383}
+  - component: {fileID: 6844568148447995568}
   - component: {fileID: 2791821559727664168}
   m_Layer: 0
   m_Name: PlayerManager
@@ -49,6 +50,20 @@ MonoBehaviour:
     type: 3}
   param_cameraPrefab: {fileID: 9046263754495487634, guid: 65a7ed39d20e9a841bf69f9236460d7c,
     type: 3}
+--- !u!114 &6844568148447995568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281027265446590023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418576e134453d940a32a1abcd532c57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  param_playerPrefab: {fileID: 0}
+  param_cameraPrefab: {fileID: 0}
 --- !u!114 &2791821559727664168
 MonoBehaviour:
   m_ObjectHideFlags: 0
