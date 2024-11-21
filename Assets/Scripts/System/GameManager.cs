@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private CCT_Basic playerMovement;
+    [SerializeField] private CC.Basic playerMovement;
     [SerializeField] private PauseManager pauseManager;
 
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum

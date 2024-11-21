@@ -3,12 +3,12 @@ using UnityEngine;
 public class JumpBoard : MonoBehaviour
 {
     [SerializeField] float jumpBoardForce = 10.0f; // ‰Šú’l‚ğ‘å‚«‚ß‚Éİ’è
-    private CCT_Basic playerController;
+    private CC.Basic playerController;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerController = other.GetComponent<CCT_Basic>();
+            playerController = other.GetComponent<CC.Basic>();
             Debug.Log("Player triggered the jump board!");
 
             Rigidbody playerRb = other.gameObject.GetComponent<Rigidbody>();

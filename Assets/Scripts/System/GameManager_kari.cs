@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class GameManager_kari : MonoBehaviour
 {
-    public CCT_Basic playerMovement;
+    public CC.Basic playerMovement;
     public SplineFollower splineFollower;
     public CameraManager cameraManager;
 

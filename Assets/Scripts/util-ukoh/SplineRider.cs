@@ -10,8 +10,6 @@ public class SplineRider : MonoBehaviour
 
     [SerializeField] SplineContainer param_container;
     
-    MsgBuffer _debug;
-
     bool inUse;
     GameObject _rider;
     Rigidbody _rRiderRB;
@@ -31,17 +29,10 @@ public class SplineRider : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
-    private void Awake()
-    {
-        _debug = AU.Debug.GetMsgBuffer();
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
         _lineRenderer.enabled = inUse;
-
-        _debug.FixedText = "InRange:" + inUse.ToString();
 
         if(!inUse)
             return;
@@ -54,6 +45,7 @@ public class SplineRider : MonoBehaviour
             param_container.Spline, _rider.transform.position - transform.position,
             out outPosition, out t, _resolution, 4);
         Vector3 direction = Vector3.Normalize(param_container.EvaluateTangent(t));
+        //Vector3 direction = Vector3.Normalize(param_container.EvaluateAcceleration(t));
 
         debug_resultPosition = (Vector3)outPosition;
         debug_resultDirection = debug_resultPosition + direction;
@@ -61,12 +53,13 @@ public class SplineRider : MonoBehaviour
         _lineRenderer.SetPosition(1, _rider.transform.position);
         _lineRenderer.SetPosition(2, _rider.transform.position + 12 * direction);
 
+        //_rRiderRB.velocity = _rRiderRB.velocity.magnitude * direction;
+
         float directionDot = Vector3.Dot(direction, _rRiderRB.velocity);
-        bool applyForce = directionDot < 30.0f;
-        _debug.FixedText += "\tApplyingForce: " + applyForce.ToString();
+        bool applyForce = directionDot < 60.0f;
         if (applyForce)
         { 
-            float forceMag = 30.0f * ( 3 - 2 * Vector3.Dot(direction, _rRiderRB.velocity.normalized));
+            float forceMag = 60.0f * ( 3 - 2 * Vector3.Dot(direction, _rRiderRB.velocity.normalized));
             _rRiderRB.AddForce(direction * forceMag, ForceMode.Acceleration);
         }
     }
