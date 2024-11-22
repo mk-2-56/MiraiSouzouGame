@@ -1,4 +1,3 @@
-using AU;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManager   audioManager;
     [SerializeField] private UIManager      uiManager;
     [SerializeField] private PauseManager   pauseManager;
-    [SerializeField] private PlayerManager  playerManager;
+    [SerializeField] private AU.PlayerManager  playerManager;
     [SerializeField] private CameraManager cameraManager;
 
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
