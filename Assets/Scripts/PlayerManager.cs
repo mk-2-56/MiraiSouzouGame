@@ -16,7 +16,10 @@ namespace AU
         { 
             _currentPlayerCount++;
             GameObject player = input.gameObject;
-            player.transform.position = transform.position;
+            LayerMask mask = LayerMask.GetMask("Terrian");
+            RaycastHit hit;
+            Physics.SphereCast(transform.position, 10.0f, Vector3.down, out hit, 100.0f, mask);
+            player.transform.position = hit.point;
             player.transform.rotation = transform.rotation;
 
             GameObject camera = SpawnGameCamera(player);

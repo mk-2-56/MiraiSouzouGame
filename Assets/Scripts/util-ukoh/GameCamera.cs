@@ -110,7 +110,7 @@ public class GameCamera : MonoBehaviour
 
     void Look(Vector2 input)
     {
-        _camPivotInput = _input = input;
+        _camPivotInput = _input = input.normalized;
         _camPivotInput *= param_pivotAngle;
     }
 }

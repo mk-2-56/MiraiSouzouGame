@@ -37,37 +37,68 @@ public class TargetUI : MonoBehaviour
         renderer.transform.SetParent(_rCanvas.transform);
         renderer.SetActive(false);
     }
-
     void Update()
     {
-        _counter++;
-        _counter %= 3;
         int activeTargetCount  = _rTransformsList.Count;
         int spriteRendereCount = _spritRenderes.Count;
-
-        if (_counter == 1)
-        {   if (spriteRendereCount < activeTargetCount)
-            {
-                int dCount = activeTargetCount -spriteRendereCount;
-                for (int i = 0; i < dCount; i++)
-                {
-                    AddSpriteRenederer();
-                }
-            }
-        }
-
-        
+        int dCount = activeTargetCount - spriteRendereCount;
 
         if (activeTargetCount > 0)
         { 
             int i = 0;
             foreach (Transform xform in _rTransformsList.Values)
             { 
-                if(i > spriteRendereCount)
-                    return;
-                Vector3 screenPoint = _rCamera.WorldToScreenPoint(xform.position);
-                _spritRenderes[i].transform.position = screenPoint;
-                _spritRenderes[i].SetActive(true);
+                if(i < spriteRendereCount)
+                {
+                    Vector3 screenPoint = _rCamera.WorldToScreenPoint(xform.position);
+                    _spritRenderes[i].transform.position = screenPoint;
+                    _spritRenderes[i].SetActive(true);
+                }
+                i++;
+            }
+        }
+
+        if (dCount < 0)
+        {
+            for (int i = activeTargetCount; i < spriteRendereCount; i++)
+            {
+                _spritRenderes[i].SetActive(false);
+            }
+        }
+
+        AU.Debug.Log(activeTargetCount, AU.LogTiming.Update);
+        AU.Debug.Log(spriteRendereCount, AU.LogTiming.Update);
+    }
+
+    void FixedUpdate()
+    {
+        int activeTargetCount = _rTransformsList.Count;
+        int spriteRendereCount = _spritRenderes.Count;
+        int dCount = activeTargetCount - spriteRendereCount;
+
+        _counter++;
+        _counter %= 12000;
+        AU.Debug.Log(_counter, AU.LogTiming.Fixed);
+        if (_counter % 3 == 1)
+        {
+            if (_counter == 1)
+            {   //Re-assess the list size only at every 12000 update
+                //Avoid excessive memory re-allocations;
+                int minsize = 4;
+                if (dCount < Mathf.Min( -minsize, activeTargetCount * -2))
+                {
+                    int tarCapacity = Mathf.Max( spriteRendereCount / 2, minsize);
+                    for (int i = activeTargetCount + minsize; i < spriteRendereCount; i++)
+                    { 
+                        Destroy(_spritRenderes[i]);
+                    }
+                    _spritRenderes.RemoveRange(activeTargetCount + minsize, spriteRendereCount - (activeTargetCount + minsize));
+                    _spritRenderes.Capacity = tarCapacity;
+                }
+            }
+            for (int i = 0; i < dCount; i++)
+            {
+                AddSpriteRenederer();
             }
         }
     }
