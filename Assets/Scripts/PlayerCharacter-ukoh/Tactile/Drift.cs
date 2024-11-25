@@ -14,23 +14,21 @@ namespace CC
         
         PlayerMovementParams _rMovementParams;
 
+        bool _driftInput;
+        bool _driftingOld;
+
         Rigidbody _rRb;
         Transform _rCamFacing;
         Transform _rFacing;
 
         void HandleDriftStart()
         {
-            _rMovementParams.flags.drifting = true;
+            _rMovementParams.flags.drifting = _driftInput = true;
         }
         void HandleDriftEnd()
         {
-            _rMovementParams.flags.drifting = false;
-            //Vector3 acc;
-            //float directionFector = 2.0f - Vector3.Dot(_rFacing.forward, _rMovementParams.xzPlainVel.normalized);
-            //Vector3 targetVel = _rFacing.forward * _rMovementParams.xzSpeed * (- directionFector + 2);
-            //acc = targetVel - _rMovementParams.xzPlainVel;
-            //acc = _rMovementParams.terrianRotation * acc;
-            //_rRb.AddForce(acc, ForceMode.VelocityChange);
+            _driftInput = false;
+            //_rMovementParams.flags.drifting = false;
         }
 
         // Start is called before the first frame update
@@ -46,14 +44,18 @@ namespace CC
             CC.Basic temp = GetComponent<CC.Basic>();
             _rMovementParams = temp.GetPlayerMovementParams();
             _acc = temp.acc;
-
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
+            if(_driftingOld)
+                _rMovementParams.flags.drifting = _driftInput || 
+                    Vector3.Dot(_rMovementParams.xzPlainVel.normalized, _rFacing.forward) < 0.90f;
+
             if (_rMovementParams.flags.grounded && _rMovementParams.flags.drifting)
                 Drifting();
+            _driftingOld = _rMovementParams.flags.drifting;
         }
 
         void Drifting()
@@ -75,7 +77,7 @@ namespace CC
 
             _rFacing.rotation = Quaternion.RotateTowards(
                 _rFacing.rotation, Quaternion.LookRotation(_rMovementParams.inputs.inputDirection, Vector3.up),
-                param_maxAngularAcc * Time.fixedDeltaTime);
+                param_maxAngularAcc * Time.deltaTime);
 
             acc = _rFacing.forward * (_acc + _rMovementParams.momentum) * (directionFector - 1);
             Vector3 appliedAcc = acc + mAcc;

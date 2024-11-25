@@ -58,6 +58,8 @@ namespace CC
     
         private void FixedUpdate()
         {
+            float dtime = Time.deltaTime;
+
             TerrianCheck();
             if(_rMovementPrama.flags.grounded)
             {
@@ -65,7 +67,10 @@ namespace CC
                 _rCog.rotation = _rMovementPrama.terrianRotation * _rFacing.rotation;
             }
             else
-                _rCog.rotation = Quaternion.Lerp(_rCog.rotation, Quaternion.LookRotation(_rRb.velocity.normalized), 0.3f);
+                if(_rRb.velocity != Vector3.zero)
+                    _rCog.rotation = Quaternion.Lerp(_rCog.rotation, Quaternion.LookRotation(_rRb.velocity.normalized), 3 * dtime);
+
+            AU.Debug.Log(_rCog.forward, AU.LogTiming.Fixed);
         }
 
         void TerrianCheck()
@@ -86,31 +91,16 @@ namespace CC
             {
                 if (!_rMovementPrama.flags.grounded)
                 {
-                    bool hit;
-                    RaycastHit temp;
-
-                    //hit = Physics.Raycast(_rRb.position + Vector3.up * 2,
-                    //    Vector3.down, out temp, rayLength, _layerMask);
-                    //_rMovementPrama.flags.grounded |= hit;
-                    //if (hit) _rayHit = temp;
-
-                    hit = Physics.SphereCast(_rRb.position - offsetVec, radius,
-                    rayDir, out temp, rayLength, _layerMask);
-                    _rMovementPrama.flags.grounded |= hit;
-                    if (hit) _rayHit = temp;
-                }
-                
-                _rMovementPrama.flags.grounded = Physics.Raycast(_rRb.position - offsetVec,
+                    _rMovementPrama.flags.grounded = Physics.SphereCast(_rRb.position - offsetVec, radius,
                     rayDir, out _rayHit, rayLength, _layerMask);
+                }
+                    _rMovementPrama.flags.grounded = Physics.Raycast(_rRb.position - offsetVec,
+                        rayDir, out _rayHit, rayLength, _layerMask);
             }
 
             {
                 string hitObjName = "";
                 hitObjName = _rayHit.collider?.gameObject.name;
-
-                AU.Debug.Log(hitObjName, AU.LogTiming.Fixed);
-                AU.Debug.Log(_terrianDirOld, AU.LogTiming.Fixed);
-                AU.Debug.Log(_rMovementPrama.terrianNormal, AU.LogTiming.Fixed);
             }
 
             if (!_rMovementPrama.flags.grounded)
@@ -134,9 +124,6 @@ namespace CC
             float verticalVel = Vector3.Dot(_rRb.velocity, _rayHit.normal);
             float x = -(_rayHit.distance - offset - HoverHeight);
             float hoverForce = x * HoverSpringStrength - verticalVel * HoverDamperStrength;
-            AU.Debug.Log(x, AU.LogTiming.Fixed);
-            AU.Debug.Log(hoverForce, AU.LogTiming.Fixed);
-            AU.Debug.Log(verticalVel, AU.LogTiming.Fixed);
 
             _rRb.AddForce(_rayHit.normal * hoverForce, ForceMode.Acceleration);
         }

@@ -110,8 +110,6 @@ namespace AU
         {
             param_playerPrefab.SetActive(false);
             param_cameraPrefab.SetActive(false);
-
-            DontDestroyOnLoad(this);
         }
         // Update is called once per frame
         void Update()

@@ -523,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverHeight: 1.5
   HoverSpringStrength: 100
-  HoverDamperStrength: 1
+  HoverDamperStrength: 6
 --- !u!114 &4445887014146143736
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,14 +20,34 @@ namespace CC
     public class HubUI : Editor
     {
         SerializedProperty timescale;
+        SerializedProperty disableInput;
+
+        bool freezed = false;
+
+        string _target;
+
         void OnEnable()
         { 
-            timescale = serializedObject.FindProperty("_timescale");
+            timescale    = serializedObject.FindProperty("_timescale");
+            disableInput = serializedObject.FindProperty("_disableInput");
+            _target = this.target.GetType().ToString();
         }
         public override void OnInspectorGUI()
         { 
             DrawDefaultInspector();
+
+            GUILayout.Label(_target);
+
             EditorGUILayout.Slider(timescale, 0.01f, 1.0f, new GUIContent("TimeScale"));
+            if (GUILayout.Button(new GUIContent("DsiableInput")))
+            { disableInput.boolValue = !disableInput.boolValue;}
+            if (GUILayout.Button(new GUIContent("Freeze")))
+            {
+                if (freezed = !freezed)
+                    this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
+                else
+                    this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -35,6 +55,22 @@ namespace CC
 
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
+        public bool disableInput
+        { 
+            set{ _disableInput = value;}
+        }
+
+        public void FreezePlayer()
+        {
+            _oldVelocity = _rRb.velocity;
+            _rRb.isKinematic = true;
+        }
+
+        public void UnfreezePlayer()
+        {
+            _rRb.isKinematic = false;
+            _rRb.velocity = _oldVelocity;
+        }
 
         public event System.Action<Vector3> MoveEvent;
         public event System.Action<Vector2> LookEvent;
@@ -46,22 +82,32 @@ namespace CC
         public event System.Action DriftEndEvent;
         public event System.Action DashEvent;
 
-        PlayerInputActions _playerInput;
+        public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
+        public event AdditionFixedOperation FixedEvent;
 
+        [SerializeField] bool  _disableInput;
+        [SerializeField] float _timescale = 1;
+
+        Rigidbody _rRb;
         Vector2 _moveRawInput;
         Vector2 _lookRawInput;
 
+        PlayerMovementParams _rMovementParams;
 
-        [SerializeField] float _timescale = 1;
         float _timescaleOld;
+        Vector3 _oldVelocity;
 
         public void OnDash(InputAction.CallbackContext context)
         {
+            if(_disableInput)
+                return;
             DashEvent();
         }
         public void OnJump(InputAction.CallbackContext context)
-        { 
-            switch(context.phase)
+        {
+            if (_disableInput)
+                return;
+            switch (context.phase)
             { 
                 case InputActionPhase.Started:
                 case InputActionPhase.Performed:
@@ -74,7 +120,8 @@ namespace CC
         }
         public void OnBoost(InputAction.CallbackContext context)
         {
-
+            if (_disableInput)
+                return;
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -94,17 +141,29 @@ namespace CC
         { }
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (_disableInput)
+            {
+                _moveRawInput = Vector2.zero;
+                return;
+            }
             _moveRawInput = context.ReadValue<Vector2>();
             MoveEvent(_moveRawInput);
         }
         public void OnLook(InputAction.CallbackContext context)
         {
+            if (_disableInput)
+            {
+                _moveRawInput = Vector2.zero;
+                return;
+            }
             _lookRawInput = context.ReadValue<Vector2>();
             LookEvent(_lookRawInput);
         }
 
         public void OnDrift(InputAction.CallbackContext ctx)
         {
+            if (_disableInput)
+                return;
             switch (ctx.phase)
             {
                 case InputActionPhase.Started:
@@ -117,10 +176,21 @@ namespace CC
             }
         }
 
+        private void Start()
+        {
+            _rRb = GetComponent<Rigidbody>();
+            _rMovementParams = GetComponent<CC.Basic>().GetPlayerMovementParams();
+        }
+
         private void Update()
         {
             if(_timescale != _timescaleOld)
                 Time.timeScale = _timescale;
+        }
+
+        private void FixedUpdate()
+        {
+            FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
         }
     }
 }

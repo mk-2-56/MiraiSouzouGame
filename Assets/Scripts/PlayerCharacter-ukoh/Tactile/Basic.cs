@@ -153,11 +153,12 @@ namespace CC
 
         private void FixedUpdate()
         {
-
+            //input direction to Camera Space
             _movementParams.inputs.inputDirection = 
                 _inputDirection = Vector3.Normalize(_rCamFacing.forward * _rawInput.y + _rCamFacing.right * _rawInput.x);
-            BasicDebugInfo();
 
+            //noGravity conditions
+            //On Ground, or fast enough or jumping
             _movementParams.flags.antiGrav =
                 _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _movementParams.momentum > 0.0f)
                 || _movementParams.flags.jumping || _movementParams.flags.minJumping;
@@ -170,28 +171,28 @@ namespace CC
                 {
                     Vector3 facingV = _movementParams.xzPlainVel.normalized;
 
-                    _rFacing.rotation = Quaternion.Lerp(_rFacing.rotation,
-                        Quaternion.LookRotation(facingV, Vector3.up), 3.0f * Time.fixedDeltaTime);
+                    _rFacing.rotation = Quaternion.Lerp(_rFacing.rotation, Quaternion.LookRotation(facingV, Vector3.up), 3f * Time.deltaTime);
                 }
                 Locomovtive();
             }
 
             if (_movementParams.flags.grounded)
                 return;
-            if (_rRb.useGravity)
+            if (_rRb.useGravity)//Extra Grav
                 _rRb.AddForce(Vector3.down * 9.8f * 3, ForceMode.Acceleration);
+
+            BasicDebugInfo();
         }
-    
+
         void Locomovtive()
         {
-
             float directionFector = 3.0f - 2 * Vector3.Dot(_inputDirection, _movementParams.xzPlainVel.normalized);
     
             float accMag = param_acc;
             Vector3 acc  = _inputDirection * accMag * directionFector * _movementParams.accCoefficient;
                 
             if (_movementParams.flags.groundedFlat && !_movementParams.flags.noInput)
-            {
+            {//ŽÎ–Ê‚É‚æ‚é‰Á‘¬/Œ¸‘¬Œø‰Ê
                 Vector3 terrianSlope = new Vector3(_movementParams.terrianNormal.x, 0, _movementParams.terrianNormal.z).normalized;
                 float slideBuildUp = (1 - Vector3.Dot(_movementParams.terrianNormal, Vector3.up))
                     * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
@@ -201,12 +202,14 @@ namespace CC
             Vector3 appliedAcc = acc;
             if(_movementParams.flags.antiGrav)
                 appliedAcc = _movementParams.terrianRotation * appliedAcc;
-            
-            Vector3 p0 = _rRb.position + _movementParams.terrianNormal;
-            Vector3 p1 = p0 + appliedAcc;
-            _rDebugLineRender.SetPosition(0, p0);
-            _rDebugLineRender.SetPosition(1, p1);
             _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
+
+            {//debug
+                Vector3 p0 = _rRb.position + _movementParams.terrianNormal;
+                Vector3 p1 = p0 + appliedAcc;
+                _rDebugLineRender.SetPosition(0, p0);
+                _rDebugLineRender.SetPosition(1, p1);
+            }
             AU.Debug.Log(appliedAcc.magnitude, AU.LogTiming.Fixed);
         }
         void SpeedSystem()
@@ -222,12 +225,12 @@ namespace CC
             _movementParams.momentum = Mathf.Max(0, _movementParams.xzSpeed - param_maxSpeed);
 
             if (!_movementParams.flags.grounded)
-            {
+            {//‹ó’†Žž‚Ì„i—ÍŒ¸­
                 _movementParams.accCoefficient = _movementParams.accCoefficient * _movementParams.airCoefficient;
             }
 
             if (_movementParams.flags.boosting)
-            {
+            {//BoostŽž‚Ì„i—Í‘‘å
                 if (_movementParams.flags.noInput)
                     _inputDirection = _movementParams.xzPlainVel.normalized;
 
@@ -236,7 +239,7 @@ namespace CC
             }
 
             if (_movementParams.flags.noInput)
-            { 
+            {//Adjust input behaviour when no input from player
                 if (_movementParams.xzSpeed > param_maxSpeed)
                     _inputDirection = _movementParams.xzPlainVel.normalized * -0.2f;
                 else
@@ -251,7 +254,8 @@ namespace CC
             float speed = _movementParams.xzSpeed;
             AU.Debug.Log(speed, AU.LogTiming.Fixed);
             AU.Debug.Log(_movementParams.xzPlainVel, AU.LogTiming.Fixed);
-            AU.Debug.Log(_movementParams.flags.antiGrav, AU.LogTiming.Fixed);
+
+            AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
         }
     }
 }
