@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     public void Initialized()
     {
-        cameraManager?.Initialized();
-        audioManager?.Initialized();
+/*        cameraManager?.Initialized();
+*/        audioManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
 
