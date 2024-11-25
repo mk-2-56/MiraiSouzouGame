@@ -12,41 +12,48 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour
 {
-    public Vector3 CameraDirection
+    public void SetPlayerReference(GameObject pc)
     {
-        get { return joint.transform.forward;}
+        _rRb = pc.GetComponent<Rigidbody>();
+
+        _rFacing    = pc.transform.Find("Facing");
+        _rCog       = _rFacing.Find("Cog");
+        _rCamFacing = pc.transform.Find("CamFacing");
+
+        _rCChub     = pc.GetComponent<CC.Hub>();
+        _rCChub.LookEvent += Look;
+
+        transform.SetParent(null);
     }
 
     //_____________Parameters
-    [SerializeField] float param_mouseSpeed = 50.0f;
-    [SerializeField] float param_lerpSpeed = 0.8f;
+    [SerializeField] float param_lerpSpeed  = 0.8f;
     [SerializeField] float param_lerpSpeedPos = 0.95f;
     [SerializeField] bool  param_locking = true;
 
     //_____________Members
-    Transform _rFacing;
-    Transform _rCog;
-    Transform _rCamFacing;
+    CC.Hub      _rCChub;
 
-    float m_xRotation = 0.0f;
-    float m_yRotation = 0.0f;
-    Vector2 m_mouseInput;
+    Rigidbody   _rRb;
+    Transform   _rFacing;
+    Transform   _rCog;
+    Transform   _rCamFacing;
 
-    GameObject joint;
+    Vector2 _input = Vector2.zero;
+    Vector2 _camRotation = Vector2.zero;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _rCamFacing = transform.parent;
-        _rFacing = _rCamFacing.parent.Find("Facing");
-        _rCog = _rFacing.Find("Cog");
-        joint = new GameObject();
-        joint.transform.position = transform.position;
-        transform.Find("Main Camera").SetParent(joint.transform);
+        if(transform.parent)
+        {
+            SetPlayerReference(transform.parent.gameObject);
+        }
 
-        Cursor.visible   = false;
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        transform.parent = null;
     }
 
     // Update is called once per frame
@@ -54,30 +61,44 @@ public class GameCamera : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.C))
             param_locking = !param_locking;
-
-        if(param_locking)
-            joint.transform.rotation = _rCamFacing.rotation = Quaternion.Lerp(_rCamFacing.rotation, _rFacing.rotation, param_lerpSpeed * Time.deltaTime);
-        else
-            CameraControl();
     }
 
     private void FixedUpdate()
     {
-        joint.transform.position = Vector3.Lerp( joint.transform.position, _rCog.position, param_lerpSpeedPos);
+        float dtime = Time.fixedDeltaTime;
+        transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos * dtime);
+        CamControl();
+
+        if (param_locking)
+        {
+            Quaternion tarRot;
+            Vector3 dv = _rFacing.forward;
+            dv.y = 0;
+                dv.y = _rRb.velocity.y * dtime;
+                tarRot = Quaternion.LookRotation(dv);
+            transform.rotation = _rCamFacing.rotation = 
+                Quaternion.Lerp(_rCamFacing.rotation, tarRot, param_lerpSpeed * dtime);
+            Vector3 tmp= transform.rotation.eulerAngles;
+            _camRotation = new Vector2(tmp.y, -tmp.x);
+            AU.Debug.Log(_camRotation, AU.LogTiming.Fixed);
+        }
     }
 
-    void CameraControl()
+    void CamControl()
     {
-        //mouse
-        float mouseSpeed = param_mouseSpeed * Time.deltaTime;
-        float xInput = -Input.GetAxis("Mouse Y");
-        float yInput =  Input.GetAxis("Mouse X");
+        if (param_locking)
+            return;
 
-        m_xRotation += xInput * mouseSpeed;
-        m_yRotation += yInput * mouseSpeed;
-        m_xRotation = Mathf.Clamp(m_xRotation, -70.0f, 85.0f);
+        _camRotation += _input;
+        _camRotation.y = Mathf.Clamp(_camRotation.y, -70.0f, 85.0f);
 
-        _rCamFacing.rotation  = Quaternion.Euler(0, m_yRotation, 0);
-        joint.transform.rotation = Quaternion.Euler(m_xRotation, m_yRotation, 0);
+        _rCamFacing.rotation = Quaternion.Euler(0, _camRotation.x, 0);
+        transform.rotation = Quaternion.Euler(-_camRotation.y, _camRotation.x, 0);
+    }
+
+
+    void Look(Vector2 input)
+    {
+        _input = input;
     }
 }

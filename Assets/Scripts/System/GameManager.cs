@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private CameraManager cameraManager;
-    [SerializeField] private AudioManager audioManager;
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private CCT_Basic playerMovement;
-    [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private AudioManager   audioManager;
+    [SerializeField] private UIManager      uiManager;
+    [SerializeField] private PauseManager   pauseManager;
+    [SerializeField] private AU.PlayerManager  playerManager;
+    [SerializeField] private CameraManager  cameraManager;
 
     // ゲーム状態を表すEnum
     public enum SceneState { Title, Tutorial, Game, Result };
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         stateKeeper = FindObjectOfType<StateKeeper>();
         if (stateKeeper == null)
         {
-            Debug.LogError("stateKeeper が見つかりません。");
+            UnityEngine.Debug.LogError("stateKeeper が見つかりません。");
         }
         else
         {
@@ -35,19 +35,20 @@ public class GameManager : MonoBehaviour
 
     public void Initialized()
     {
-/*        cameraManager?.Initialized();
-*/        audioManager?.Initialized();
+        cameraManager?.Initialized();
+        audioManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
+        playerManager?.Initialized();
 
-        Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
+        UnityEngine.Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
     }
 
     public void SetState(SceneState newState)
     {
-        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+        UnityEngine.Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
 
-        Debug.Log(newState.ToString());
+        UnityEngine.Debug.Log(newState.ToString());
 
         // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
         if (stateKeeper.CurrentSceneState != newState)
@@ -64,9 +65,9 @@ public class GameManager : MonoBehaviour
 
     public void SetStateDontLoad(SceneState newState)
     {
-        Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
+        UnityEngine.Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
 
-        Debug.Log(newState.ToString());
+        UnityEngine.Debug.Log(newState.ToString());
 
         // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
         if (stateKeeper.CurrentSceneState != newState)

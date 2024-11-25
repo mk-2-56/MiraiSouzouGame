@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PlayerSplineHandler : MonoBehaviour
 {
-    private CCT_Basic playerController;    // プレイヤーの通常操作スクリプト
+    private CC.Basic playerController;    // プレイヤーの通常操作スクリプト
     private SplineFollower splineFollower; // スプライン移動スクリプト
 
     private void Start()
     {
-        playerController = GetComponentInParent<CCT_Basic>(); // プレイヤー操作スクリプトの取得
+        playerController = GetComponentInParent<CC.Basic>(); // プレイヤー操作スクリプトの取得
     }
 
     private void OnTriggerEnter(Collider other)
