@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private AudioManager   audioManager;
+    [SerializeField] private SoundManager   soundManager;
     [SerializeField] private UIManager      uiManager;
     [SerializeField] private PauseManager   pauseManager;
     [SerializeField] private AU.PlayerManager  playerManager;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public void Initialized()
     {
         cameraManager?.Initialized();
-        audioManager?.Initialized();
+        soundManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
         playerManager?.Initialized();
