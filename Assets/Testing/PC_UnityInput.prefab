@@ -28,7 +28,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4055385618152630573}
   m_Father: {fileID: 1504031378695867277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &419670767782845024
@@ -522,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverHeight: 1.5
   HoverSpringStrength: 100
-  HoverDamperStrength: 0.7
+  HoverDamperStrength: 6
 --- !u!114 &4445887014146143736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48266f8d15b8ddc409e617add5cfed25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timescale: 0
 --- !u!114 &7767342710225284964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,10 +928,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4774203081668884494}
+  m_Father: {fileID: 7512859313302930809}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &253207077657663612
 BoxCollider:
@@ -950,8 +952,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 90, y: 60, z: 90}
-  m_Center: {x: 0, y: 30, z: 45}
+  m_Size: {x: 120, y: 90, z: 90}
+  m_Center: {x: 0, y: 0, z: 45}
 --- !u!1 &8134858386823690948
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +984,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1032183857497388787}
-  - {fileID: 4055385618152630573}
   m_Father: {fileID: 346576382950402495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

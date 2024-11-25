@@ -18,7 +18,7 @@ namespace CC
         {
             _rRb = GetComponent<Rigidbody>();
             _rMovementParams = GetComponent<CC.Basic>().GetPlayerMovementParams();
-            _targetManager = GameObject.Find("TestingTargets").GetComponent<TargetManager>();
+            _targetManager = this.GetComponent<TargetManager>();
 
             CC.Hub CChub = GetComponent<CC.Hub>();
             CChub.DashEvent += HandleDash;

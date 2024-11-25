@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    public Dictionary<GameObject, Transform> GetTargetList()
+    { 
+        return _targets;
+    }
+
     public bool FindBestTarget(Vector3 positionPC, Vector3 inputDIreciton, out Vector3 target)
     {
         float closiestDot = 0f;
@@ -11,9 +16,9 @@ public class TargetManager : MonoBehaviour
         Vector3 closiest = Vector3.zero;
         bool findCandidate = false;
 
-        foreach (Vector3 pos in _targets.Values)
-        //_targets.ForEach( pos => 
+        foreach (Transform xform in _targets.Values)
         {
+            Vector3 pos = xform.position;
             float a = Vector3.Dot((pos - positionPC).normalized, inputDIreciton);
             if (a > closiestDot)
             {
@@ -32,7 +37,7 @@ public class TargetManager : MonoBehaviour
     public void AddTarget(GameObject obj)
     {
         if(!_targets.ContainsKey(obj))
-            _targets.Add(obj, obj.transform.position);
+            _targets.Add(obj, obj.transform);
     }
 
     public void RemoveTarget(GameObject obj)
@@ -41,7 +46,7 @@ public class TargetManager : MonoBehaviour
         _targets.Remove(obj);
     }
 
-    Dictionary<GameObject, Vector3> _targets = new Dictionary<GameObject, Vector3>();
+    Dictionary<GameObject, Transform> _targets = new Dictionary<GameObject, Transform>();
 
     void Start()
     {
@@ -57,9 +62,13 @@ public class TargetManager : MonoBehaviour
             AU.Debug.Log(obj.name, AU.LogTiming.Update);
         }
     }
-
-    public Dictionary<GameObject, Vector3> GetTargetDictionary()
+    private void OnTriggerEnter(Collider other)
     {
-        return _targets;
+        AddTarget(other.gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        RemoveTarget(other.gameObject);
     }
 }

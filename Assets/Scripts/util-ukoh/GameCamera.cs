@@ -29,7 +29,9 @@ public class GameCamera : MonoBehaviour
     //_____________Parameters
     [SerializeField] float param_lerpSpeed  = 0.8f;
     [SerializeField] float param_lerpSpeedPos = 0.95f;
+    [SerializeField] float param_lerpSpeedPivot = 0.95f;
     [SerializeField] bool  param_locking = true;
+    [SerializeField] Vector2 param_pivotAngle = new Vector2(30, 45);
 
     //_____________Members
     CC.Hub      _rCChub;
@@ -39,8 +41,13 @@ public class GameCamera : MonoBehaviour
     Transform   _rCog;
     Transform   _rCamFacing;
 
+    Quaternion _baseRotation;
+
     Vector2 _input = Vector2.zero;
     Vector2 _camRotation = Vector2.zero;
+
+    Vector2 _camPivot      = Vector2.zero;
+    Vector2 _camPivotInput = Vector2.zero;
 
 
     // Start is called before the first frame update
@@ -54,6 +61,7 @@ public class GameCamera : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.parent = null;
+        _baseRotation = _rFacing.rotation;
     }
 
     // Update is called once per frame
@@ -71,14 +79,17 @@ public class GameCamera : MonoBehaviour
 
         if (param_locking)
         {
+            _camPivot = Vector2.Lerp( _camPivot, _camPivotInput ,param_lerpSpeedPivot * dtime);
+
             Quaternion tarRot;
             Vector3 dv = _rFacing.forward;
             dv.y = 0;
-                dv.y = _rRb.velocity.y * dtime;
-                tarRot = Quaternion.LookRotation(dv);
-            transform.rotation = _rCamFacing.rotation = 
-                Quaternion.Lerp(_rCamFacing.rotation, tarRot, param_lerpSpeed * dtime);
-            Vector3 tmp= transform.rotation.eulerAngles;
+            dv.y = 2 * _rRb.velocity.y * dtime;
+            tarRot = Quaternion.LookRotation(dv);
+            _baseRotation = Quaternion.Lerp(_baseRotation, tarRot, param_lerpSpeed * dtime);
+            _rCamFacing.rotation = transform.rotation = _baseRotation * Quaternion.Euler(-_camPivot.y, _camPivot.x,  0);
+
+            Vector3 tmp = transform.rotation.eulerAngles;
             _camRotation = new Vector2(tmp.y, -tmp.x);
             AU.Debug.Log(_camRotation, AU.LogTiming.Fixed);
         }
@@ -93,12 +104,13 @@ public class GameCamera : MonoBehaviour
         _camRotation.y = Mathf.Clamp(_camRotation.y, -70.0f, 85.0f);
 
         _rCamFacing.rotation = Quaternion.Euler(0, _camRotation.x, 0);
-        transform.rotation = Quaternion.Euler(-_camRotation.y, _camRotation.x, 0);
+        transform.rotation   = Quaternion.Euler(-_camRotation.y, _camRotation.x, 0);
     }
 
 
     void Look(Vector2 input)
     {
-        _input = input;
+        _camPivotInput = _input = input.normalized;
+        _camPivotInput *= param_pivotAngle;
     }
 }
