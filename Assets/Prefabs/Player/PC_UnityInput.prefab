@@ -395,7 +395,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 695a250a0c9496647a32004c4242f734, type: 2}
+  - {fileID: 2100000, guid: 1d733fe8b6f768a45b2ebe188b0c9129, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -469,7 +469,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -537,9 +537,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param_maxSpeed: 40
-  param_acc: 20
-  param_jumpForce: 10
-  param_torqueCoefficient: 0.03
+  param_acc: 30
+  param_jumpForce: 6
+  param_torqueCoefficient: 0.02
+  param_minAirTime: 0.1
+  param_maxAirTime: 0.4
 --- !u!114 &4955483750236158470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,6 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48266f8d15b8ddc409e617add5cfed25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _disableInput: 0
   _timescale: 0
 --- !u!114 &7767342710225284964
 MonoBehaviour:

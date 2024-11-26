@@ -20,6 +20,8 @@ namespace CC
 { 
     public class PlayerMovementParams
     {
+        public bool enabled = true;
+
         public Vector3 xzPlainVel;
         public float   xzSpeed;
         public float   momentum;
@@ -74,7 +76,10 @@ namespace CC
         [SerializeField] float param_acc = 10.0f;
         [SerializeField] float param_jumpForce = 30.0f;
         [SerializeField] float param_torqueCoefficient = 0.03f;
+        [SerializeField] float param_minAirTime = 0.1f;
+        [SerializeField] float param_maxAirTime = 0.9f;
 
+        [SerializeField] float param_extraGrav = 3.0f;
         //Debug:
         GameObject   _rDebug;
         LineRenderer _rDebugLineRender;
@@ -129,9 +134,8 @@ namespace CC
             _rRb.AddForce(Vector3.up * param_jumpForce, ForceMode.VelocityChange);
             _movementParams.flags.jumping    = true;
             _movementParams.flags.minJumping = true;
-            float minimalAirTime = 0.2f;
-            Invoke("EndMinimalJump", minimalAirTime);
-            Invoke("HandleJumpEnd", 1.5f);
+            Invoke("EndMinimalJump", param_minAirTime);
+            Invoke("HandleJumpEnd", param_maxAirTime);
         }
         void HandleJumpEnd()
         {
@@ -153,6 +157,8 @@ namespace CC
 
         private void FixedUpdate()
         {
+            if (!_movementParams.enabled)
+                return;
             //input direction to Camera Space
             _movementParams.inputs.inputDirection = 
                 _inputDirection = Vector3.Normalize(_rCamFacing.forward * _rawInput.y + _rCamFacing.right * _rawInput.x);
@@ -179,7 +185,7 @@ namespace CC
             if (_movementParams.flags.grounded)
                 return;
             if (_rRb.useGravity)//Extra Grav
-                _rRb.AddForce(Vector3.down * 9.8f * 3, ForceMode.Acceleration);
+                _rRb.AddForce(Vector3.down * 9.8f * param_extraGrav, ForceMode.Acceleration);
 
             BasicDebugInfo();
         }
@@ -210,7 +216,6 @@ namespace CC
                 _rDebugLineRender.SetPosition(0, p0);
                 _rDebugLineRender.SetPosition(1, p1);
             }
-            AU.Debug.Log(appliedAcc.magnitude, AU.LogTiming.Fixed);
         }
         void SpeedSystem()
         {

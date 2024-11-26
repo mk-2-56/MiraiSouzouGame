@@ -49,6 +49,8 @@ namespace CC
         // Update is called once per frame
         void FixedUpdate()
         {
+            if(!_rMovementParams.enabled)
+                return;
             if(_driftingOld)
                 _rMovementParams.flags.drifting = _driftInput || 
                     Vector3.Dot(_rMovementParams.xzPlainVel.normalized, _rFacing.forward) < 0.90f;
@@ -60,7 +62,6 @@ namespace CC
 
         void Drifting()
         {
-
             Vector3 acc;
             float directionFector = 2.0f - Vector3.Dot(_rFacing.forward, _rMovementParams.xzPlainVel.normalized);
 

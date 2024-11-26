@@ -64,12 +64,14 @@ namespace CC
         {
             _oldVelocity = _rRb.velocity;
             _rRb.isKinematic = true;
+            _rMovementParams.enabled = false;
         }
 
         public void UnfreezePlayer()
         {
             _rRb.isKinematic = false;
             _rRb.velocity = _oldVelocity;
+            _rMovementParams.enabled = true;
         }
 
         public event System.Action<Vector3> MoveEvent;
@@ -89,6 +91,8 @@ namespace CC
         [SerializeField] float _timescale = 1;
 
         Rigidbody _rRb;
+        Transform _rFacing;
+        Transform _rCog;
         Vector2 _moveRawInput;
         Vector2 _lookRawInput;
 
@@ -180,6 +184,9 @@ namespace CC
         {
             _rRb = GetComponent<Rigidbody>();
             _rMovementParams = GetComponent<CC.Basic>().GetPlayerMovementParams();
+
+            _rFacing = transform.Find("Facing");
+            _rCog = _rFacing.Find("Cog");
         }
 
         private void Update()
@@ -191,6 +198,8 @@ namespace CC
         private void FixedUpdate()
         {
             FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
+            AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
+            AU.Debug.Log(_rCog.forward   , AU.LogTiming.Fixed);
         }
     }
 }
