@@ -5,7 +5,6 @@ public class MeteorsManager : MonoBehaviour
 {
     [Header("Meteor Settings")]
     [SerializeField] private ObjectPool meteorPool;         // 隕石のオブジェクトプール
-    [SerializeField] private MarkManager markManager;
     [SerializeField] private Transform[] spawnPositions;    // スポーン地点を指定するTransform配列
     [SerializeField] private float spawnHeight = 50f;       // スポーンする高さ
     [SerializeField] private float fallSpeed = 10f;         // 落下速度
@@ -39,7 +38,7 @@ public class MeteorsManager : MonoBehaviour
 
             GameObject meteor = meteorPool.GetObject(spawnPosition, Quaternion.identity);
             activeMeteors.Add(meteor); // アクティブな隕石リストに追加
-            markManager.AddMark(meteor.transform);
+            //markManager.AddMark(meteor.transform);
         }
     }
 
@@ -48,14 +47,14 @@ public class MeteorsManager : MonoBehaviour
     /// </summary>
     private void ResetMeteor(GameObject meteor)
     {
-        if (markManager != null)
-        {
-            Mark mark = meteor.GetComponentInChildren<Mark>();
-            if (mark != null)
-            {
-                markManager.RemoveMark(mark);
-            }
-        }
+        //if (markManager != null)
+        //{
+        //    Mark mark = meteor.GetComponentInChildren<Mark>();
+        //    if (mark != null)
+        //    {
+        //        markManager.RemoveMark(mark);
+        //    }
+        //}
 
         meteor.SetActive(false); // 非アクティブ化
         activeMeteors.Remove(meteor); // リストから削除

@@ -44,17 +44,6 @@ namespace AU
                 cameraManager.AdjustGameCamera(_curentPlayerCount);
         }
 
-      /*  public void SpawnGameCamera(GameObject playerCharacter)
-        {
-            GameObject camera = Instantiate(param_cameraPrefab,
-                playerCharacter.transform.position, playerCharacter.transform.rotation);
-
-            var tmp = camera.GetComponent<GameCamera>();
-            tmp.SetPlayerReference(playerCharacter);
-            camera.SetActive(true);
-            _gameCameras.Add(playerCharacter, camera);
-        }*/
-
         public void ClearResetPlayers()
         {
             foreach (KeyValuePair<int, GameObject> entry in _players)
@@ -121,27 +110,5 @@ namespace AU
         {
         }
 
-       /* private void AdjustGameCamera()
-        {
-            if (_curentPlayerCount > 1)
-            {
-                int i = 0;
-                foreach (KeyValuePair<GameObject, GameObject> item in _gameCameras)
-                {
-                    if (!item.Key)
-                    {
-                        Destroy(item.Value);
-                        _gameCameras.Remove(item.Key);
-                        return;
-                    }
-
-                    Camera cam = item.Value.transform.Find("Camera").GetComponent<Camera>();
-                    Vector2 pos = new Vector2(0.0f, 0.5f) * i;
-                    Vector2 size = new Vector2(1.0f, 0.5f);
-                    cam.rect = new Rect(pos, size);
-                    i++;
-                }
-            }
-        }*/
     }
 }
