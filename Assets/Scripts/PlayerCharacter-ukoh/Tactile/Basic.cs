@@ -17,22 +17,24 @@ public abstract class Command
 };
 
 namespace CC
-{ 
+{
     public class PlayerMovementParams
     {
-        public Vector3 xzPlainVel;
-        public float   xzSpeed;
-        public float   momentum;
-        public float   accCoefficient;
-        public float   airCoefficient = 0.5f;
-        public Flags   flags;
-        public Input   inputs;
+        public bool enabled = true;
 
-        public Vector3    terrianNormal;
+        public Vector3 xzPlainVel;
+        public float xzSpeed;
+        public float momentum;
+        public float accCoefficient;
+        public float airCoefficient = 0.5f;
+        public Flags flags;
+        public Input inputs;
+
+        public Vector3 terrianNormal;
         public Quaternion terrianRotation;
 
         public struct Input
-        { 
+        {
             public Vector3 raw;
             public Vector3 inputDirection;
         }
@@ -56,17 +58,17 @@ namespace CC
     {
         public Vector3 inutDIrectionWorld
         {
-            get{ return _movementParams.inputs.inputDirection;}
+            get { return _movementParams.inputs.inputDirection; }
         }
 
         public PlayerMovementParams GetPlayerMovementParams()
-        { 
+        {
             return _movementParams;
         }
 
         public float acc
-        {  
-            get{ return param_acc;}
+        {
+            get { return param_acc; }
         }
 
         //_____________Parameters
@@ -74,9 +76,10 @@ namespace CC
         [SerializeField] float param_acc = 10.0f;
         [SerializeField] float param_jumpForce = 30.0f;
         [SerializeField] float param_torqueCoefficient = 0.03f;
-
+        [SerializeField] float param_minAirTime = 0.1f;
+        [SerializeField] float param_maxAirTime = 0.9f;
         //Debug:
-        GameObject   _rDebug;
+        GameObject _rDebug;
         LineRenderer _rDebugLineRender;
 
         //_____________References
@@ -84,35 +87,35 @@ namespace CC
         Transform _rFacing;
         Transform _rCamFacing;
 
-        CC.Hub  _rCChub;
+        CC.Hub _rCChub;
         //_____________Members
-    
+
         Vector3 _rawInput;
         Vector3 _inputDirection;
-    
+
         PlayerMovementParams _movementParams = new PlayerMovementParams();
 
         void Start()
         {
             _rRb = GetComponent<Rigidbody>();
-            _rFacing    = transform.Find("Facing");
+            _rFacing = transform.Find("Facing");
             _rCamFacing = transform.Find("CamFacing");
 
-            _rCChub   = GetComponent<CC.Hub>(); 
+            _rCChub = GetComponent<CC.Hub>();
             RegisterActions();
 
             _rDebug = transform.Find("Debug").gameObject;
             _rDebugLineRender = _rDebug.GetComponent<LineRenderer>();
             //_rDebug.gameObject.SetActive(false);
         }
-        
+
         void RegisterActions()
         {
             _rCChub.MoveEvent += HandleMove;
             _rCChub.JumpStartEvent += HandleJumpStart;
-            _rCChub.JumpEndEvent   += HandleJumpEnd;
+            _rCChub.JumpEndEvent += HandleJumpEnd;
             _rCChub.BoostStartEvent += HandleBoostStart;
-            _rCChub.BoostEndEvent   += HandleBoostEnd;
+            _rCChub.BoostEndEvent += HandleBoostEnd;
         }
 
         void HandleMove(Vector3 input)
@@ -125,13 +128,12 @@ namespace CC
         {
             if (!_movementParams.flags.grounded)
                 return;
-    
+
             _rRb.AddForce(Vector3.up * param_jumpForce, ForceMode.VelocityChange);
-            _movementParams.flags.jumping    = true;
+            _movementParams.flags.jumping = true;
             _movementParams.flags.minJumping = true;
-            float minimalAirTime = 0.2f;
-            Invoke("EndMinimalJump", minimalAirTime);
-            Invoke("HandleJumpEnd", 1.5f);
+            Invoke("EndMinimalJump", param_minAirTime);
+            Invoke("HandleJumpEnd", param_maxAirTime);
         }
         void HandleJumpEnd()
         {
@@ -153,8 +155,10 @@ namespace CC
 
         private void FixedUpdate()
         {
-            //input direction to World Space
-            _movementParams.inputs.inputDirection = 
+            if (!_movementParams.enabled)
+                return;
+            //input direction to Camera Space
+            _movementParams.inputs.inputDirection =
                 _inputDirection = Vector3.Normalize(_rCamFacing.forward * _rawInput.y + _rCamFacing.right * _rawInput.x);
 
             //noGravity conditions
@@ -187,20 +191,20 @@ namespace CC
         void Locomovtive()
         {
             float directionFector = 3.0f - 2 * Vector3.Dot(_inputDirection, _movementParams.xzPlainVel.normalized);
-    
+
             float accMag = param_acc;
-            Vector3 acc  = _inputDirection * accMag * directionFector * _movementParams.accCoefficient;
-                
+            Vector3 acc = _inputDirection * accMag * directionFector * _movementParams.accCoefficient;
+
             if (_movementParams.flags.groundedFlat && !_movementParams.flags.noInput)
             {//ŽÎ–Ê‚É‚æ‚é‰Á‘¬/Œ¸‘¬Œø‰Ê
                 Vector3 terrianSlope = new Vector3(_movementParams.terrianNormal.x, 0, _movementParams.terrianNormal.z).normalized;
                 float slideBuildUp = (1 - Vector3.Dot(_movementParams.terrianNormal, Vector3.up))
                     * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
-    
+
                 acc += _inputDirection * 98f * slideBuildUp;
             }
             Vector3 appliedAcc = acc;
-            if(_movementParams.flags.antiGrav)
+            if (_movementParams.flags.antiGrav)
                 appliedAcc = _movementParams.terrianRotation * appliedAcc;
             _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
 
@@ -210,7 +214,6 @@ namespace CC
                 _rDebugLineRender.SetPosition(0, p0);
                 _rDebugLineRender.SetPosition(1, p1);
             }
-            AU.Debug.Log(appliedAcc.magnitude, AU.LogTiming.Fixed);
         }
         void SpeedSystem()
         {
@@ -220,8 +223,8 @@ namespace CC
             _movementParams.xzSpeed = _movementParams.xzPlainVel.magnitude;
 
             //sigmoid function for clamping the acceleratioin
-            _movementParams.accCoefficient = Mathf.Min(1.0f, 2.0f / 
-                (1 + Mathf.Pow( 2.7f , param_torqueCoefficient * (_movementParams.xzPlainVel.magnitude - param_maxSpeed))));
+            _movementParams.accCoefficient = Mathf.Min(1.0f, 2.0f /
+                (1 + Mathf.Pow(2.7f, param_torqueCoefficient * (_movementParams.xzPlainVel.magnitude - param_maxSpeed))));
             _movementParams.momentum = Mathf.Max(0, _movementParams.xzSpeed - param_maxSpeed);
 
             if (!_movementParams.flags.grounded)
@@ -248,13 +251,14 @@ namespace CC
             }
 
         }
-    
+
         void BasicDebugInfo()
         {
             float speed = _movementParams.xzSpeed;
             AU.Debug.Log(speed, AU.LogTiming.Fixed);
             AU.Debug.Log(_movementParams.xzPlainVel, AU.LogTiming.Fixed);
-            AU.Debug.Log(_movementParams.flags.antiGrav, AU.LogTiming.Fixed);
+
+            AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
         }
     }
 }

@@ -22,17 +22,32 @@ namespace CC
         SerializedProperty timescale;
         SerializedProperty disableInput;
 
+        bool freezed = false;
+
+        string _target;
+
         void OnEnable()
-        { 
-            timescale    = serializedObject.FindProperty("_timescale");
+        {
+            timescale = serializedObject.FindProperty("_timescale");
             disableInput = serializedObject.FindProperty("_disableInput");
+            _target = this.target.GetType().ToString();
         }
         public override void OnInspectorGUI()
-        { 
+        {
             DrawDefaultInspector();
+
+            GUILayout.Label(_target);
+
             EditorGUILayout.Slider(timescale, 0.01f, 1.0f, new GUIContent("TimeScale"));
             if (GUILayout.Button(new GUIContent("DsiableInput")))
-            { disableInput.boolValue = !disableInput.boolValue;}
+            { disableInput.boolValue = !disableInput.boolValue; }
+            if (GUILayout.Button(new GUIContent("Freeze")))
+            {
+                if (freezed = !freezed)
+                    this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
+                else
+                    this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -41,20 +56,22 @@ namespace CC
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
         public bool disableInput
-        { 
-            set{ _disableInput = value;}
+        {
+            set { _disableInput = value; }
         }
 
         public void FreezePlayer()
         {
             _oldVelocity = _rRb.velocity;
             _rRb.isKinematic = true;
+            _rMovementParams.enabled = false;
         }
 
         public void UnfreezePlayer()
         {
             _rRb.isKinematic = false;
             _rRb.velocity = _oldVelocity;
+            _rMovementParams.enabled = true;
         }
 
         public event System.Action<Vector3> MoveEvent;
@@ -70,10 +87,12 @@ namespace CC
         public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
         public event AdditionFixedOperation FixedEvent;
 
-        [SerializeField] bool  _disableInput;
+        [SerializeField] bool _disableInput;
         [SerializeField] float _timescale = 1;
 
         Rigidbody _rRb;
+        Transform _rFacing;
+        Transform _rCog;
         Vector2 _moveRawInput;
         Vector2 _lookRawInput;
 
@@ -84,7 +103,7 @@ namespace CC
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if(_disableInput)
+            if (_disableInput)
                 return;
             DashEvent();
         }
@@ -93,7 +112,7 @@ namespace CC
             if (_disableInput)
                 return;
             switch (context.phase)
-            { 
+            {
                 case InputActionPhase.Started:
                 case InputActionPhase.Performed:
                     JumpStartEvent();
@@ -165,17 +184,22 @@ namespace CC
         {
             _rRb = GetComponent<Rigidbody>();
             _rMovementParams = GetComponent<CC.Basic>().GetPlayerMovementParams();
+
+            _rFacing = transform.Find("Facing");
+            _rCog = _rFacing.Find("Cog");
         }
 
         private void Update()
         {
-            if(_timescale != _timescaleOld)
+            if (_timescale != _timescaleOld)
                 Time.timeScale = _timescale;
         }
 
         private void FixedUpdate()
         {
             FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
+            AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
+            AU.Debug.Log(_rCog.forward, AU.LogTiming.Fixed);
         }
     }
 }

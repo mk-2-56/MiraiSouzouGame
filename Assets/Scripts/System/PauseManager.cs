@@ -9,7 +9,7 @@ public class PauseManager : MonoBehaviour
     public void Initialized()
     {
         // ポーズメニューを非表示にして開始
-        pauseMenuPanel.SetActive(false);
+        pauseMenuPanel?.SetActive(false);
         isPaused = false;
     }
 
@@ -31,6 +31,7 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
+        if (pauseMenuPanel == null) return;
         // ゲームを一時停止し、ポーズメニューを表示
         Time.timeScale = 0f;
         isPaused = true;
@@ -39,6 +40,7 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        if (pauseMenuPanel == null) return;
         // ゲームを再開し、ポーズメニューを非表示
         Time.timeScale = 1f;
         isPaused = false;
