@@ -48,6 +48,9 @@ public class CameraManager : MonoBehaviour
         GameObject camera = Instantiate(param_cameraPrefab,
             gameObject.transform.position, gameObject.transform.rotation);
 
+        var tmanager = gameObject.AddComponent<TargetManager>();
+        camera.GetComponent<TargetUI>().SetTargetManager(tmanager);
+
         var tmp = camera.GetComponent<GameCamera>();
         tmp.SetPlayerReference(gameObject);
         camera.SetActive(true);
