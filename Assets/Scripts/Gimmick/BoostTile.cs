@@ -13,14 +13,18 @@ public class BoostTile : MonoBehaviour
     [SerializeField] BoostMode param_mode;
     [SerializeField] float     param_targetSpeed;
     [SerializeField] float     param_acc;
-    Vector3   _direction;
+    [SerializeField] Transform param_direction;
+
+    Vector3 _direction;
     Rigidbody _other;
 
     float minAcc = 10.0f;
 
     private void Start()
     {
-        _direction = transform.forward;
+        if(param_direction == null)
+        param_direction = transform;
+        _direction = param_direction.forward;
     }
 
     void Burst()
@@ -31,10 +35,11 @@ public class BoostTile : MonoBehaviour
 
     void Acclerate(Rigidbody other, Quaternion terrrianRot)
     {
-        //Vector3 terrianAcc = terrrianRot * _direction;
-        //float accMag = Mathf.Max(minAcc, param_targetSpeed - Vector3.Dot(other.velocity, terrianAcc));
-        //Vector3 acc = other.velocity.normalized * param_targetSpeed;
-        //other.AddForce(accMag * terrianAcc, ForceMode.Acceleration);
+
+        Vector3 terrianAcc = terrrianRot * _direction;
+        float accMag = Mathf.Max(minAcc, param_targetSpeed - Vector3.Dot(other.velocity, terrianAcc));
+        Vector3 acc = other.velocity.normalized * param_targetSpeed;
+        other.AddForce(accMag * terrianAcc, ForceMode.Acceleration);
     }
 
     void StartAccelerate(CC.Hub other)
