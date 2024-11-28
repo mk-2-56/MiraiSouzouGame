@@ -975,6 +975,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2104300270224526098, guid: e4431ba0006d43f4284bf1062a6c68b8,
         type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104300270224526098, guid: e4431ba0006d43f4284bf1062a6c68b8,
+        type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
@@ -1213,7 +1218,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1121552514}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1223766493}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf459d8f5f3509743aa38623e12e4818, type: 3}
@@ -9063,7 +9068,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7307027639276000084, guid: 2813339204016b5479a39500cf00c959,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1223766494}
   m_SourcePrefab: {fileID: 100100000, guid: 2813339204016b5479a39500cf00c959, type: 3}
 --- !u!1001 &1199307546
 PrefabInstance:
@@ -9313,6 +9322,27 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1223766493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7307027639276000084, guid: 2813339204016b5479a39500cf00c959,
+    type: 3}
+  m_PrefabInstance: {fileID: 1121552514}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1223766494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223766493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71db89b1fb734e9468ba6922d2066095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectFactory: {fileID: 2114095544}
+  numberOfPebbles: 10
+  explosionForce: 10
 --- !u!1001 &1241281109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10316,15 +10346,15 @@ MonoBehaviour:
   - {x: -38785.29, y: 128.5108, z: 15962.488, w: 29.5}
   - {x: -38835.992, y: 95.25275, z: 16040.913, w: 29.5}
   - {x: -38761.89, y: 77.88406, z: 16071.934, w: 29.5}
-  - {x: -38707.46, y: 63.163048, z: 16006.702, w: 29.5}
-  - {x: -38659.773, y: 45.573017, z: 16068.457, w: 29.5}
+  - {x: -38707.46, y: 63.16305, z: 16006.702, w: 29.5}
+  - {x: -38659.773, y: 45.57302, z: 16068.457, w: 29.5}
   controlPointsRotations:
   - {x: 0, y: 0, z: 0, w: 1}
   - {x: 0, y: 0, z: 0, w: 1}
-  - {x: 0.0008421715, y: -0.0015287508, z: -0.48251757, w: 0.87588465}
+  - {x: 0.0008421714, y: -0.0015287505, z: -0.4825175, w: 0.87588453}
   - {x: -0.34468204, y: 0.096982785, z: -0.069841385, w: -0.93108046}
-  - {x: 0.00018413483, y: 0.0004905354, z: -0.35143322, w: -0.93621296}
-  - {x: 0, y: 0, z: 0, w: 1.0000001}
+  - {x: 0.0001841348, y: 0.00049053534, z: -0.3514332, w: -0.93621284}
+  - {x: 0, y: 0, z: 0, w: 1}
   controlPointsOrientation:
   - {x: 0.105318815, y: 0.25878307, z: -0.028397536, w: 0.9597567}
   - {x: 0.16492814, y: -0.032136608, z: 0.0053767576, w: 0.98576725}
