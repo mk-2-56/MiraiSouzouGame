@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5257052136735510885}
   - component: {fileID: 5547011025651948505}
+  - component: {fileID: 2055902048137551163}
   m_Layer: 0
   m_Name: GameCamera
   m_TagString: Untagged
@@ -175,4 +176,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   param_lerpSpeed: 0.8
   param_lerpSpeedPos: 12
+  param_lerpSpeedPivot: 0.95
   param_locking: 1
+  param_pivotAngle: {x: 30, y: 45}
+--- !u!114 &2055902048137551163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046263754495487634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbd594b192283f448594ed1e1ae8e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  param_spritFile: {fileID: 21300000, guid: 4527cc3a5bdef984288d93d3659007b4, type: 3}
+  _rManager: {fileID: 0}
+  _rCanvas: {fileID: 0}

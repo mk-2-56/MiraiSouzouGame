@@ -23,7 +23,7 @@ public class TargetUI : MonoBehaviour
 
     private void Start()
     {
-        _rCanvas = GameObject.Find("UI/Canvas").GetComponent<Canvas>();
+        _rCanvas = GameObject.Find("RealtimeDebugDisplay").GetComponent<Canvas>();
         _rCamera = transform.Find("Camera").GetComponent<Camera>();
         AddSpriteRenederer();
     }

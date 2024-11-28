@@ -5,16 +5,18 @@ using UnityEngine.Events;
 
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-
+using Cinemachine;
 namespace AU
 {
     using Unity.VisualScripting;
     using UnityEditor;
+    using UnityEditor.Purchasing;
 
     public class PlayerManager : MonoBehaviour
     {
         private  CameraManager cameraManager;
-
+        [SerializeField] List<CinemachineSmoothPath> dollyPath;
+        public float dollySpeed = 10f;
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -36,6 +38,12 @@ namespace AU
 
             _curentPlayerCount++;
             GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
+            CinemachineDollyCart dollyCart = playerCharacter.AddComponent<CinemachineDollyCart>();
+            // Dolly Cartの設定
+            dollyCart.m_Path = dollyPath[0]; // スプラインを設定
+            dollyCart.m_Position = 0; // スプラインの開始位置
+            dollyCart.m_Speed = dollySpeed; // 移動速度を設定
+
             playerCharacter.SetActive(true);
             _players.Add(_curentPlayerCount, playerCharacter);
 
@@ -109,6 +117,7 @@ namespace AU
         private void OnDestroy()
         {
         }
+
 
     }
 }
