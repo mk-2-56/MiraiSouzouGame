@@ -12,11 +12,11 @@ public class PubbleTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {//これテスト用
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            //隕石がプレイヤーとぶつかった後小石生成関数（パーティクルも追加予定
-            TriggerExplosionEffect();
-        }
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    //隕石がプレイヤーとぶつかった後小石生成関数（パーティクルも追加予定
+        //    TriggerExplosionEffect();
+        //}
     }
 
     void TriggerExplosionEffect()

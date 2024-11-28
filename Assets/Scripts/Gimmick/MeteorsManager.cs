@@ -9,7 +9,6 @@ public class MeteorsManager : MonoBehaviour
     [SerializeField] private float spawnHeight = 50f;       // スポーンする高さ
     [SerializeField] private float fallSpeed = 10f;         // 落下速度
     [SerializeField] private float groundY = 0f;            // 地面の高さ（隕石が非表示になる高さ）
-
     private List<GameObject> activeMeteors = new List<GameObject>(); // 現在アクティブな隕石リスト
 
     private void Update()
