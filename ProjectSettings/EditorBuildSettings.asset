@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Result.unity
     guid: f65da157a4905054a827262654e05a9c
+  - enabled: 1
+    path: Assets/Scenes/CourseDemo.unity
+    guid: 8de70def3f060154c8de661be964c14f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: aee9590cb6a320c43ba2733e84e6769c,
       type: 3}
