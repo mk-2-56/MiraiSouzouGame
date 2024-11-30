@@ -15,7 +15,9 @@ public class JumpBoard : MonoBehaviour
             if (playerRb != null)
             {
                 // ジャンプ力をプレイヤーに適用
-                playerRb.AddForce((playerRb.velocity * jumpBoardForce +  Vector3.up * jumpBoardForce), ForceMode.Impulse);
+                playerRb.AddForce((
+                    playerController.GetPlayerMovementParams().xzPlainVel.normalized * jumpBoardForce 
+                    + 2 * Vector3.up * jumpBoardForce), ForceMode.VelocityChange);
             }
             else
             {
