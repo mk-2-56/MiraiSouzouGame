@@ -1247,8 +1247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param_mode: 0
-  param_targetSpeed: 120
-  param_acc: 65
+  param_targetSpeed: 50
+  param_acc: 40
+  param_direction: {fileID: 0}
 --- !u!65 &7334062264973056571
 BoxCollider:
   m_ObjectHideFlags: 0
