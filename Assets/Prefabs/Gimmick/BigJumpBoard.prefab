@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1440068729760086757
+--- !u!1 &1330019670335486478
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,83 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1576940982313429069}
-  - component: {fileID: 1780558835080440178}
-  - component: {fileID: 2600925001458502924}
-  - component: {fileID: 1862435791120102796}
-  - component: {fileID: 7236464488547451440}
-  m_Layer: 9
-  m_Name: BigJumpBoard
-  m_TagString: EventCheckPoint
+  - component: {fileID: 4756049557911131873}
+  m_Layer: 0
+  m_Name: BigJumpSpline1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1576940982313429069
+--- !u!4 &4756049557911131873
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440068729760086757}
+  m_GameObject: {fileID: 1330019670335486478}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35959.94, y: 1385.48, z: 33574.95}
-  m_LocalScale: {x: 3.917088, y: 0.26248, z: 4.6744}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.23965418, y: 3.5759702, z: 86.51776}
+  m_LocalScale: {x: 0.014856933, y: 0.012900326, z: 0.23672548}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 588059435533381575}
+  - {fileID: 4756982616740245891}
+  - {fileID: 5702352383595007260}
+  m_Father: {fileID: 4888907744366779123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6838028147648056626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4888907744366779123}
+  - component: {fileID: 1172817747768944224}
+  - component: {fileID: 2182842784032466442}
+  - component: {fileID: 4852637130648617071}
+  - component: {fileID: 5385274409714998816}
+  m_Layer: 9
+  m_Name: BigJumpBoard
+  m_TagString: BigJump
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4888907744366779123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838028147648056626}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 858.216, y: 13.2, z: 508.6}
+  m_LocalScale: {x: 67.30864, y: 77.51742, z: 4.2243023}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4756049557911131873}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1780558835080440178
+--- !u!33 &1172817747768944224
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440068729760086757}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2600925001458502924
+  m_GameObject: {fileID: 6838028147648056626}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2182842784032466442
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440068729760086757}
-  m_Enabled: 1
+  m_GameObject: {fileID: 6838028147648056626}
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -86,13 +119,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1862435791120102796
-CapsuleCollider:
+--- !u!65 &4852637130648617071
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440068729760086757}
+  m_GameObject: {fileID: 6838028147648056626}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -104,25 +137,24 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7236464488547451440
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5385274409714998816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440068729760086757}
+  m_GameObject: {fileID: 6838028147648056626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f07ac51624f974fbc79e126b47c720, type: 3}
+  m_Script: {fileID: 11500000, guid: 14e68a4b249a8ea4790d3e838d828a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splineFollower: {fileID: 2970537138915591101}
---- !u!1 &8756834600991854469
+  trackPath: {fileID: 9059216688203139805}
+  trackSpeed: 50
+--- !u!1 &6978291372890354743
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,142 +162,111 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 588059435533381575}
-  - component: {fileID: 3222016245951250560}
-  - component: {fileID: 2970537138915591101}
+  - component: {fileID: 5702352383595007260}
+  - component: {fileID: 1061055064284249817}
   m_Layer: 0
-  m_Name: Spline
+  m_Name: BigJumpCart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &588059435533381575
+--- !u!4 &5702352383595007260
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756834600991854469}
+  m_GameObject: {fileID: 6978291372890354743}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3724177, y: -18.050575, z: -5.847174}
-  m_LocalScale: {x: 0.2552917, y: 3.809814, z: 0.2139312}
+  m_LocalRotation: {x: -0.5988889, y: -0.02923038, z: -0.0224098, w: 0.79998475}
+  m_LocalPosition: {x: 20.66797, y: -275.37268, z: -357.5859}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1576940982313429069}
+  m_Father: {fileID: 4756049557911131873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3222016245951250560
+--- !u!114 &1061055064284249817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756834600991854469}
+  m_GameObject: {fileID: 6978291372890354743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Script: {fileID: 11500000, guid: 99a9c787e5d1bbf48a389834c4a9641c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Spline:
-    m_EditModeType: 1
-    m_Knots: []
-    m_MetaData: []
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Splines:
-  - m_EditModeType: 1
-    m_Knots:
-    - Position:
-        x: 0
-        y: 0
-        z: 0
-      TangentIn:
-        x: -0
-        y: -0
-        z: -2
-      TangentOut:
-        x: 0
-        y: 0
-        z: 2
-      Rotation:
-        value:
-          x: 0.0030099927
-          y: 0.70710033
-          z: 0.0030099927
-          w: 0.70710033
-    - Position:
-        x: 20
-        y: 0
-        z: 0
-      TangentIn:
-        x: -0
-        y: -0
-        z: -6.6915193
-      TangentOut:
-        x: 0
-        y: 0
-        z: 7.957602
-      Rotation:
-        value:
-          x: 0.07876023
-          y: 0.82773095
-          z: 0.05262591
-          w: 0.5530721
-    - Position:
-        x: 40
-        y: 0
-        z: -20
-      TangentIn:
-        x: -0
-        y: -0
-        z: -2.828427
-      TangentOut:
-        x: 0
-        y: 0
-        z: 2.828427
-      Rotation:
-        value:
-          x: 0.00055742945
-          y: 0.9238793
-          z: 0.00023089482
-          w: 0.38268334
-    m_MetaData:
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Knots:
-    m_KnotsLink: []
---- !u!114 &2970537138915591101
+  m_Path: {fileID: 9059216688203139805}
+  m_UpdateMethod: 1
+  m_PositionUnits: 1
+  m_Speed: 80
+  m_Position: 0
+--- !u!1 &7697428626245891411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4756982616740245891}
+  - component: {fileID: 9059216688203139805}
+  m_Layer: 0
+  m_Name: BigJumpTrack1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4756982616740245891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7697428626245891411}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0072491625, y: -0.036825795, z: -0.00068919075, w: 0.9992952}
+  m_LocalPosition: {x: 20.30005, y: -275.3, z: -352.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4756049557911131873}
+  m_LocalEulerAnglesHint: {x: -0.833, y: -4.221, z: -0.048}
+--- !u!114 &9059216688203139805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756834600991854469}
+  m_GameObject: {fileID: 7697428626245891411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e72acd783ba6f7042bbffd701a914087, type: 3}
+  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splineContainer: {fileID: 3222016245951250560}
-  speed: 20
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 2.61
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 0, y: 0, z: -5}
+    roll: 0
+  - position: {x: 0, y: 92.19733, z: 27.967773}
+    roll: 0
+  - position: {x: 0, y: 157.33546, z: 73.81793}
+    roll: 0
+  - position: {x: 0, y: 212.00188, z: 140.86469}
+    roll: 0
+  - position: {x: 0, y: 233.7477, z: 222.64609}
+    roll: 0
+  - position: {x: -0.000018417275, y: 220.28809, z: 284.51968}
+    roll: 0
+  - position: {x: -0.00019891164, y: 184.62358, z: 325.31796}
+    roll: 0
+  - position: {x: -0.00013229404, y: 150.18628, z: 350.88223}
+    roll: 0
