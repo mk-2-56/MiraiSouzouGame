@@ -473,7 +473,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -725,7 +725,8 @@ MonoBehaviour:
   visualEffect: {fileID: 6248492984701904320}
   paramName_Scale: Scale
   paramName_Velocity: Velocity
-  speedToVelocityMultiplier: 0.6
+  speedToLengthMultiplier: 1
+  speedToThicknessMultiplier: 1
 --- !u!1 &4741191670068862375
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpBoardForce: 25
+  param_direction: {fileID: 0}
+  heightForce: 2
+  forwardForce: 2
 --- !u!65 &3295153823475092636
 BoxCollider:
   m_ObjectHideFlags: 0

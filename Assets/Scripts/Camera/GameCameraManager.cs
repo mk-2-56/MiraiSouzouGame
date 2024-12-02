@@ -5,12 +5,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
+
+
+namespace GameCameraMode
+{
+    enum SplitMode
+    {
+        Horizontal,
+        Vertical,
+    }
+}
 public class GameCameraManager : CameraManager
 {
     // Start is called before the first frame update
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private float[] switchTimes; // 切り替えのタイミング（秒）
+    [SerializeField] GameCameraMode.SplitMode param_splitMode;
 
     //PlayerManager↓
     [SerializeField] GameObject param_cameraPrefab;
@@ -43,6 +54,17 @@ public class GameCameraManager : CameraManager
         DontDestroyOnLoad(this);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            param_splitMode++;
+            if (param_splitMode > GameCameraMode.SplitMode.Vertical)
+                param_splitMode = 0;
+        }
+    }
+
+
     public override void SpawnGameCamera(GameObject gameObject)//->playerCharacter
     {
         GameObject camera = Instantiate(param_cameraPrefab,
@@ -59,7 +81,22 @@ public class GameCameraManager : CameraManager
 
     public override void AdjustGameCamera(int curPlayerCount)
     {
-        if (curPlayerCount <= 1) return;
+        Vector2 pos = new Vector2(0.0f, 0.0f);
+        Vector2 size = new Vector2(0.0f, 0.0f);
+        Vector2 posPerPlayer = new Vector2();
+        Vector2 sizePerPlayer = new Vector2();
+
+        posPerPlayer = sizePerPlayer = new Vector2(1.0f, 1.0f) / curPlayerCount;
+        if (param_splitMode == GameCameraMode.SplitMode.Horizontal)
+        {
+            posPerPlayer.y = 0;
+            sizePerPlayer.y = 1;
+        }
+        else
+        {
+            posPerPlayer.x = 0;
+            sizePerPlayer.x = 1;
+        }
 
         int i = 0;
         foreach (KeyValuePair<GameObject, GameObject> item in _gameCameras)
@@ -72,12 +109,12 @@ public class GameCameraManager : CameraManager
             }
 
             Camera cam = item.Value.transform.Find("Camera").GetComponent<Camera>();
-            Vector2 pos = new Vector2(0.0f, 0.5f) * i;
-            Vector2 size = new Vector2(1.0f, 0.5f);
+
+            pos += posPerPlayer * i;
+            size = sizePerPlayer;
             cam.rect = new Rect(pos, size);
             i++;
         }
-
     }
     private IEnumerator SwitchVCameras()
     {

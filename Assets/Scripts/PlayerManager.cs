@@ -141,6 +141,10 @@ namespace AU
         void Update()
         {
 
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                cameraManager.AdjustGameCamera(_curentPlayerCount);
+            }
         }
 
         private void OnDestroy()
