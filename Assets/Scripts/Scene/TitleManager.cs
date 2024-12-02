@@ -15,8 +15,8 @@ public class TitleManager : BaseSceneManager
     }
     void Start()
     {
-/*        SoundManager.Instance?.PlayBGM(bgm);
-*/    }
+        SoundManager.Instance?.PlayBGM(bgm);
+    }
 
     void Update()
     {
