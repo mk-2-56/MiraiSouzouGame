@@ -9193,7 +9193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param_mode: 0
-  param_targetSpeed: 60
+  param_targetSpeed: 80
   param_acc: 50
   param_direction: {fileID: 5488089843354987274}
 --- !u!65 &6610488125898328452
