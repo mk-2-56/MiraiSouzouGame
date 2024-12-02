@@ -86,6 +86,7 @@ public class SoundManager : MonoBehaviour
             // AudioClip‚Æ‰¹—Ê‚ğİ’è‚µ‚ÄÄ¶
             curBgmAudioSource.clip = bgmData.audioClip;
             curBgmAudioSource.volume = bgmData.volume * bgmMasterVolume * masterVolume;
+            curBgmAudioSource.loop = bgmData.loop;
             curBgmAudioSource.Play();
         }
         else
@@ -190,6 +191,7 @@ public class BGMSoundData
     public AudioClip audioClip;
     [Range(0, 1)]
     public float volume = 1;
+    public bool loop = false;
 }
 
 [System.Serializable]
