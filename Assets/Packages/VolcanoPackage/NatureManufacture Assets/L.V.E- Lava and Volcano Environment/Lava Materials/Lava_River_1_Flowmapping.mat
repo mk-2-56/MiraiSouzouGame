@@ -21,9 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Lava_River_1_Flowmapping
-  m_Shader: {fileID: -6465566751694194690, guid: 8eef88ae773ef5f4dbe4da56da89303b,
-    type: 3}
-  m_Parent: {fileID: 2100000, guid: 6159cfc90b1b4a34cb330b68346b906e, type: 2}
+  m_Shader: {fileID: 4800000, guid: c0dfe728864ec2447a8672eec7e6bdd0, type: 3}
+  m_Parent: {fileID: 2100000, guid: 971efaf64130f6143a9fe24a766fe30f, type: 2}
   m_ModifiedSerializedProperties: 22
   m_ValidKeywords: []
   m_InvalidKeywords:

@@ -23,7 +23,7 @@ public class CoinController : MonoBehaviour
     void Update()
     {
         // ‰ñ“]‚³‚¹‚Ä‚¨‚­
-        if(!isTouched) transform.RotateAround(transform.localPosition, Axe, RotSpeed);
+        if (!isTouched) transform.RotateAround(transform.position, Axe, RotSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter()
