@@ -14,18 +14,34 @@ namespace AU
 
     public class PlayerManager : MonoBehaviour
     {
-        private  CameraManager cameraManager;
-        [SerializeField] List<CinemachineSmoothPath> dollyPath;
-        public float dollySpeed = 10f;
+        private CameraManager cameraManager;
+        //[SerializeField] List<CinemachineSmoothPath> dollyPaths;
+        //List<CinemachineDollyCart>  dollyCarts;
+        //Dictionary<int, List<CinemachineDollyCart>> _playerDollyCarts;
+        //[SerializeField] private float dollySpeed;
+        [SerializeField] GameObject respawnPos;
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
             GameObject player = input.gameObject;
-            player.transform.position = transform.position;
-            player.transform.rotation = transform.rotation;
+
+            {
+                float radius = 15.0f;
+                RaycastHit hit;
+                Vector3 pos = transform.position;
+                Quaternion rot = transform.rotation;
+                if (respawnPos != null)
+                    pos = respawnPos.transform.position;
+                rot = respawnPos.transform.rotation;
+
+                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit))
+                    pos = hit.point;
+
+                player.transform.position = pos;
+                player.transform.rotation = rot;
+            }
 
             cameraManager.SpawnGameCamera(player);
-            player.AddComponent<TargetManager>();
 
             if (_curentPlayerCount > 1)
                 cameraManager.AdjustGameCamera(_curentPlayerCount);
@@ -37,13 +53,26 @@ namespace AU
                 return;
 
             _curentPlayerCount++;
-            GameObject playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
-            CinemachineDollyCart dollyCart = playerCharacter.AddComponent<CinemachineDollyCart>();
-            // Dolly Cartの設定
-            dollyCart.m_Path = dollyPath[0]; // スプラインを設定
-            dollyCart.m_Position = 0; // スプラインの開始位置
-            dollyCart.m_Speed = dollySpeed; // 移動速度を設定
 
+            GameObject playerCharacter;// = Instantiate(param_playerPrefab, transform.position, transform.rotation);
+
+            if (respawnPos) playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
+            else playerCharacter = Instantiate(param_playerPrefab, respawnPos.transform.position, respawnPos.transform.rotation);
+
+            //{//CineMachine処理
+            //    foreach (CinemachineSmoothPath path in dollyPaths)
+            //    {
+            //        CinemachineDollyCart dollyCart = playerCharacter.AddComponent<CinemachineDollyCart>();
+            //        // Dolly Cartの設定
+            //        dollyCart.m_Path = path; // スプラインを設定
+            //        dollyCart.m_Position = 0; // スプラインの開始位置
+            //        dollyCart.m_Speed = 0; // 移動速度を設定
+            //        dollyCart.m_UpdateMethod = CinemachineDollyCart.UpdateMethod.FixedUpdate;
+            //        dollyCarts.Add(dollyCart);
+            //    }
+            //    _playerDollyCarts[_curentPlayerCount] = dollyCarts;
+            //    playerCharacter.GetComponent<TrackFollower>()?.Initialized();
+            //}
             playerCharacter.SetActive(true);
             _players.Add(_curentPlayerCount, playerCharacter);
 
@@ -118,6 +147,14 @@ namespace AU
         {
         }
 
+        //public List<CinemachineSmoothPath> GetPath()
+        //{
+        //    return dollyPaths;
+        //}
 
+        //public float GetDollySpeed()
+        //{
+        //    return dollySpeed;
+        //}
     }
 }

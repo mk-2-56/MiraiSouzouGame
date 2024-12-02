@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/fw_CourseDemo.unity.meta
 guid: a518b18f480a5254d964f012807efde8
+========
+guid: 9576bf537561b45469d9363f264ea6a2
+folderAsset: yes
+>>>>>>>> develop:Assets/Prefabs/Stage/Materials.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

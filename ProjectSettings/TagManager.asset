@@ -9,6 +9,7 @@ TagManager:
   - Coins
   - MeteorsCheckPoint
   - WorldSpace
+  - BigJump
   layers:
   - Default
   - TransparentFX
