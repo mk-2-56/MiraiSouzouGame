@@ -18,6 +18,7 @@ public class PauseManager : MonoBehaviour
         // ESCキーでポーズのオン/オフを切り替える
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Select);
             if (isPaused)
             {
                 ResumeGame();
@@ -36,6 +37,21 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
         pauseMenuPanel.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Click);
+        }
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Select);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Cancel);
+        }
+
     }
 
     public void ResumeGame()
