@@ -251,11 +251,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4395254212728331632, guid: 85cf7100841106049952cff3a3ee25a3,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 890516528}
+      addedObject: {fileID: 1697470788}
     - targetCorrespondingSourceObject: {fileID: 4395254212728331632, guid: 85cf7100841106049952cff3a3ee25a3,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1697470788}
+      addedObject: {fileID: 890516528}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85cf7100841106049952cff3a3ee25a3, type: 3}
 --- !u!1001 &349037486
@@ -266,10 +266,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2120562752}
     m_Modifications:
+    - target: {fileID: 237110604088000790, guid: 6a41ac43c7ee45643950dc361508dfb5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1364351669852300667, guid: 6a41ac43c7ee45643950dc361508dfb5,
         type: 3}
       propertyPath: m_Name
       value: LoadSceneUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364351669852300667, guid: 6a41ac43c7ee45643950dc361508dfb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507815147021700229, guid: 6a41ac43c7ee45643950dc361508dfb5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6233567309810042562, guid: 6a41ac43c7ee45643950dc361508dfb5,
         type: 3}
@@ -1340,7 +1355,7 @@ PrefabInstance:
     - target: {fileID: 9036161308960926348, guid: cd0732e622708664f8b935b4ddab8ba1,
         type: 3}
       propertyPath: NextScene
-      value: CourseDemo 1
+      value: Game
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
