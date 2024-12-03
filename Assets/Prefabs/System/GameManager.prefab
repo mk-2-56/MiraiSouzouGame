@@ -51,7 +51,6 @@ MonoBehaviour:
   - bgm: 0
     audioClip: {fileID: 0}
     volume: 0
-    loop: 0
   seSoundDatas:
   - se: 0
     audioClip: {fileID: 0}
@@ -152,12 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019df073eb7932a4abf2adbf8b171688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 8289678888499794307}
+  uiManager: {fileID: 2660234023685942098}
   pauseManager: {fileID: 0}
-  soundManager: {fileID: 0}
-  uiManager: {fileID: 0}
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 3720980731835673546}
   cameraManager: {fileID: 0}
-  sceneManager: {fileID: 0}
 --- !u!1 &3640690638801035875
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +440,6 @@ MonoBehaviour:
   switchTimes:
   - 4
   - 4
-  param_splitMode: 0
   param_cameraPrefab: {fileID: 9046263754495487634, guid: 65a7ed39d20e9a841bf69f9236460d7c,
     type: 3}
   playerManager: {fileID: 3720980731835673546}
