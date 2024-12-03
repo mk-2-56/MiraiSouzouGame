@@ -4,12 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private SoundManager   soundManager;
     [SerializeField] private UIManager      uiManager;
-    [SerializeField] private PauseManager   pauseManager;
-    [SerializeField] private AU.PlayerManager  playerManager;
     [SerializeField] private CameraManager  cameraManager;
     [SerializeField] private BaseSceneManager sceneManager;
+    [SerializeField] private AU.PlayerManager playerManager;
+
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
     public enum SceneState { Title, Tutorial, Game, Result };
     private IState currentState;
