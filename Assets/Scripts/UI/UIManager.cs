@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
         
     }*/
     //_“î«‚ğ•Û‚Â‚½‚ßAwake‚ÆStart‚ÍInitialized‚Å‘‚­
-    public void Initialized()
+    public virtual void Initialized()
     {
 
     }

@@ -3,7 +3,19 @@ using UnityEngine;
 public class JumpBoard : MonoBehaviour
 {
     [SerializeField] float jumpBoardForce = 10.0f; // 初期値を大きめに設定
+    [SerializeField] Transform param_direction;
+    [SerializeField] float heightForce = 1f;
+    [SerializeField] float forwardForce = 1f;
+    private Vector3 _direction;
     private CC.Basic playerController;
+
+    private void Start()
+    {
+        if (param_direction != null)
+        {
+            _direction = param_direction.forward;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -14,10 +26,13 @@ public class JumpBoard : MonoBehaviour
             Rigidbody playerRb = other.gameObject.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
-                // ジャンプ力をプレイヤーに適用
-                playerRb.AddForce((
-                    playerController.GetPlayerMovementParams().xzPlainVel.normalized * jumpBoardForce 
-                    + 2 * Vector3.up * jumpBoardForce), ForceMode.VelocityChange);
+                if (param_direction == null)
+                    _direction = playerController.GetPlayerMovementParams().xzPlainVel.normalized * jumpBoardForce
+                        + heightForce * Vector3.up * jumpBoardForce;
+                else
+                    _direction = _direction.normalized * jumpBoardForce * forwardForce + Vector3.up * jumpBoardForce * heightForce;
+                playerRb.AddForce(_direction, ForceMode.VelocityChange);
+
             }
             else
             {
