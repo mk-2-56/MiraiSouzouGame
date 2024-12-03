@@ -1,21 +1,26 @@
-using System.Collections;
+using System
+    .Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource curBgmAudioSource;
-    [SerializeField] private AudioSource curSeAudioSource;
-
     [SerializeField] List<BGMSoundData> bgmSoundDatas;
     [SerializeField] List<SESoundData> seSoundDatas;
+
+    [SerializeField] private AudioSource curBgmAudioSource;
+    [SerializeField] private AudioSource curSeAudioSource;
+    private List<AudioSource> bgmAudioSources = new List<AudioSource>();
+    private List<AudioSource> seAudioSources = new List<AudioSource>();
+
+    
 
     public static SoundManager Instance { get; private set; }
     public float masterVolume;
     public float bgmMasterVolume;
     public float seMasterVolume;
-
+    private int audioSourceMax = 8;
     private void Awake()
     {
         if (Instance == null)
@@ -27,8 +32,6 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        Initialized();
     }
 
     public void Initialized()
@@ -37,18 +40,32 @@ public class SoundManager : MonoBehaviour
         masterVolume = 1;
         bgmMasterVolume = 1;
         seMasterVolume = 1;
-    }
 
-    private void Update()
-    {
-        for (int i = 0; i < bgmSoundDatas.Count; i++)
+        // AudioSourceプール用の親オブジェクトを作成
+        GameObject bgmParent = new GameObject("BGM_AudioSources");
+        GameObject seParent = new GameObject("SE_AudioSources");
+        bgmParent.transform.parent = this.transform;
+        seParent.transform.parent = this.transform;
+
+        for (int i = 0; i < audioSourceMax; i++)
         {
-            curBgmAudioSource.volume = bgmSoundDatas[i].volume * seMasterVolume * masterVolume;
-        }
+            // BGM用AudioSourceを生成してプールに追加
+            AudioSource tempBGM = bgmParent.AddComponent<AudioSource>();
+            tempBGM.clip = null;
+            tempBGM.loop = false;
+            tempBGM.volume = 0;
+            tempBGM.playOnAwake = false;
+            tempBGM.mute = false;
+            bgmAudioSources.Add(tempBGM);
 
-        for (int i = 0; i < seSoundDatas.Count; i++)
-        {
-
+            // SE用AudioSourceを生成してプールに追加
+            AudioSource tempSE = seParent.AddComponent<AudioSource>();
+            tempSE.clip = null;
+            tempSE.loop = false;
+            tempSE.volume = 0;
+            tempSE.playOnAwake = false; 
+            tempSE.mute = false;
+            seAudioSources.Add(tempSE);
         }
     }
 
@@ -84,11 +101,18 @@ public class SoundManager : MonoBehaviour
 
         if (bgmData != null)
         {
-            // AudioClipと音量を設定して再生
-            curBgmAudioSource.clip = bgmData.audioClip;
-            curBgmAudioSource.volume = bgmData.volume * bgmMasterVolume * masterVolume;
-            curBgmAudioSource.loop = bgmData.loop;
-            curBgmAudioSource.Play();
+            foreach (AudioSource bgmAC in bgmAudioSources)
+            {
+                if (!bgmAC.isPlaying || bgmAC.clip == null)
+                {
+                    bgmAC.clip = bgmData.audioClip;
+                    bgmAC.volume = bgmData.volume * bgmMasterVolume * masterVolume;
+                    bgmAC.loop = bgmData.loop;
+                    bgmAC.mute = false;
+                    bgmAC.Play();
+                    return;
+                }
+            }
         }
         else
         {
@@ -123,15 +147,23 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySE(SESoundData.SE seType)
     {
-        // 対応するBGMデータを取得
         SESoundData seData = seSoundDatas.Find(data => data.se == seType);
 
         if (seData != null)
         {
-            // AudioClipと音量を設定して再生
-            curSeAudioSource.clip = seData.audioClip;
-            curSeAudioSource.volume = seData.volume * seMasterVolume * masterVolume;
-            curSeAudioSource.Play();
+            foreach (AudioSource seAC in seAudioSources)
+            {
+                if (!seAC.isPlaying || seAC.clip == null)
+                {
+                    seAC.clip = seData.audioClip;
+                    seAC.volume = seData.volume * seMasterVolume * masterVolume;
+                    seAC.mute = false;
+                    seAC.Play();
+                    return;
+                }
+            }
+
+            Debug.LogWarning("すべてのSE AudioSourceが使用中です。新しいSEを再生できません。");
         }
         else
         {
@@ -147,6 +179,7 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         bgmMasterVolume = Mathf.Clamp01(volume);
+        Debug.Log($"SetBGMVolume called with value: {volume}");
         UpdateVolumes();
     }
 
@@ -158,20 +191,28 @@ public class SoundManager : MonoBehaviour
 
     private void UpdateVolumes()
     {
-        // 現在再生中のBGMの音量を更新
-        if (curBgmAudioSource != null && curBgmAudioSource.isPlaying)
+        foreach (AudioSource bgmAC in bgmAudioSources)
         {
-            BGMSoundData currentBGM = bgmSoundDatas.Find(data => data.audioClip == curBgmAudioSource.clip);
-            if (currentBGM != null)
+            if (bgmAC.clip != null)
             {
-                curBgmAudioSource.volume = currentBGM.volume * bgmMasterVolume * masterVolume;
+                BGMSoundData bgmData = bgmSoundDatas.Find(data => data.audioClip == bgmAC.clip);
+                if (bgmData != null)
+                {
+                    bgmAC.volume = bgmData.volume * bgmMasterVolume * masterVolume;
+                }
             }
         }
 
-        // 効果音用AudioSourceの音量も更新（必要なら複数対応）
-        if (curSeAudioSource != null)
+        foreach (AudioSource seAC in seAudioSources)
         {
-            curSeAudioSource.volume = seMasterVolume * masterVolume;
+            if (seAC.clip != null)
+            {
+                SESoundData seData = seSoundDatas.Find(data => data.audioClip == seAC.clip);
+                if (seData != null)
+                {
+                    seAC.volume = seData.volume * seMasterVolume * masterVolume;
+                }
+            }
         }
     }
 }
