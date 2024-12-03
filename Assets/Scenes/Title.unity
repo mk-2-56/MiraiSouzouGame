@@ -1001,6 +1001,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TitleLogo
       objectReference: {fileID: 0}
+    - target: {fileID: 6700078046160836588, guid: 6bde35acfb858da4eb028af1eaa64ecd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -769
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700078046160836588, guid: 6bde35acfb858da4eb028af1eaa64ecd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -311
+      objectReference: {fileID: 0}
     - target: {fileID: 8331319444692125777, guid: 6bde35acfb858da4eb028af1eaa64ecd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1009,7 +1019,7 @@ PrefabInstance:
     - target: {fileID: 8331319444692125777, guid: 6bde35acfb858da4eb028af1eaa64ecd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1462.0516
+      value: 1316
       objectReference: {fileID: 0}
     - target: {fileID: 8331319444692125777, guid: 6bde35acfb858da4eb028af1eaa64ecd,
         type: 3}
@@ -1246,9 +1256,9 @@ MonoBehaviour:
   pauseManager: {fileID: 946259981}
   soundManager: {fileID: 764817477723336924}
   uiManager: {fileID: 663341469}
+  playerManager: {fileID: 0}
   cameraManager: {fileID: 977407091}
   sceneManager: {fileID: 1312852583}
-  playerManager: {fileID: 0}
 --- !u!1 &1617697754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1418,7 @@ Transform:
   m_GameObject: {fileID: 2038717747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1126.1561, y: -1349.6589, z: 1973.7621}
+  m_LocalPosition: {x: 1126.1561, y: -1638, z: 1973.7621}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1755,6 +1765,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.92549026
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387526011650083463, guid: 96229d7eccb79ad48b8b7e389588dfdb,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387526011650083463, guid: 96229d7eccb79ad48b8b7e389588dfdb,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 5386429259413253163, guid: 96229d7eccb79ad48b8b7e389588dfdb,
         type: 3}
