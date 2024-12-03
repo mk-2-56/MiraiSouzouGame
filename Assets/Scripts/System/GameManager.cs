@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private SoundManager   soundManager;
     [SerializeField] private UIManager      uiManager;
+    [SerializeField] private AU.PlayerManager playerManager;
     [SerializeField] private CameraManager  cameraManager;
     [SerializeField] private BaseSceneManager sceneManager;
-    [SerializeField] private AU.PlayerManager playerManager;
 
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
     public enum SceneState { Title, Tutorial, Game, Result };
@@ -37,11 +37,11 @@ public class GameManager : MonoBehaviour
     public void Initialized()
     {
         soundManager?.Initialized();
+        playerManager?.Initialized();
         cameraManager?.Initialized();
         sceneManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
-        playerManager?.Initialized();
 
         UnityEngine.Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
     }
