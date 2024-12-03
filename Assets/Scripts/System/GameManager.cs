@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseManager   pauseManager;
     [SerializeField] private AU.PlayerManager  playerManager;
     [SerializeField] private CameraManager  cameraManager;
-
+    [SerializeField] private BaseSceneManager sceneManager;
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
     public enum SceneState { Title, Tutorial, Game, Result };
     private IState currentState;
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void Initialized()
     {
+        sceneManager?.Initialized();
         cameraManager?.Initialized();
         soundManager?.Initialized();
         uiManager?.Initialized();

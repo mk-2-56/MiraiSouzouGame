@@ -16,8 +16,6 @@ public class SceneLoader : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           
-
             Load();
         }
 
@@ -34,12 +32,14 @@ public class SceneLoader : MonoBehaviour
     public void Load()
     {
 
-
         StartCoroutine(LoadScene());
 
     }
     IEnumerator LoadScene()
     {
+        SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneSwith);
+        SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneLoading);
+
         outUI.SetActive(true);
 
 

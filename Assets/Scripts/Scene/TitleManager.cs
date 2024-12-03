@@ -4,40 +4,47 @@ using UnityEngine;
 
 public class TitleManager : BaseSceneManager
 {
-    // Start is called before the first frame update
-    [SerializeField] AudioSource bgm;
-    [SerializeField] AudioSource clickButton;
+    //// Start is called before the first frame update
+    //[SerializeField] AudioSource bgm;
+    //[SerializeField] AudioSource clickButton;
     [SerializeField] GameManager gameManager;
 
     public override void Initialized()
     {
-        SoundManager.Instance?.PlayBGM(bgm,BGMSoundData.BGM.BGM_Title);
+        // SoundManager‚ÉBGM_Title‚ğw’è‚µ‚ÄÄ¶
+        SoundManager.Instance.PlayBGM(BGMSoundData.BGM.BGM_Title);
+        /*        SoundManager.Instance?.PlayBGM(bgm,BGMSoundData.BGM.BGM_Title);
+        */
     }
     void Start()
     {
-        SoundManager.Instance?.PlayBGM(bgm);
+
     }
 
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Click);
+            //if (gameManager != null)
+            //{
 
-            if (gameManager != null)
-            {
-                gameManager.GoToNextState();
-            }
-            else
-            {
-                Debug.LogError("GameManager‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
-            }
+            //    gameManager.GoToNextState();
+            //}
+            //else
+            //{
+            //    Debug.LogError("GameManager‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+            //}
+        }
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Select);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //“ü—ÍSE
-            SoundManager.Instance?.PlaySE(clickButton, SESoundData.SE.SE_COIN);
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Cancel);
         }
     }
 }

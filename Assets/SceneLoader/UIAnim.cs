@@ -12,6 +12,7 @@ public class UIAnim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneSwith);
         AnimIndex = 0;
         targetMaterial.SetFloat("_AnimIndex", 0);
 
