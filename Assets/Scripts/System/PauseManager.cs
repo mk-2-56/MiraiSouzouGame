@@ -3,11 +3,29 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+
     [SerializeField] private GameObject pauseMenuPanel;
     private bool isPaused = false;
 
+    public static PauseManager Instance { get; private set; } 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Initialized()
     {
+        if (PauseManager.Instance == null) return;
+        if (pauseMenuPanel == null) return;
+
         // ポーズメニューを非表示にして開始
         pauseMenuPanel?.SetActive(false);
         isPaused = false;

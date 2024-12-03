@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour
 
     public void Initialized()
     {
+        if (SoundManager.Instance == null) return;
         masterVolume = 1;
         bgmMasterVolume = 1;
         seMasterVolume = 1;
