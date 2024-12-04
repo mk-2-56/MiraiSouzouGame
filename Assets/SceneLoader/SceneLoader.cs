@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject outUI;
-    [SerializeField] GameObject ui;
+    [SerializeField] private GameObject ui;
+
     [SerializeField] Slider slider;
     [SerializeField] string NextScene;
     private string sceneName;

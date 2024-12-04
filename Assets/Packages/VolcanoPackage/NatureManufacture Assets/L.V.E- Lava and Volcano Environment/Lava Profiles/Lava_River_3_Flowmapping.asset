@@ -193,6 +193,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maskCarve:
+    serializedVersion: 2
+    m_Bits: 0
   noiseCarve: 0
   noiseMultiplierInside: 1
   noiseMultiplierOutside: 0.25

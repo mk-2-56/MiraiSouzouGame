@@ -21,7 +21,7 @@ public class GameCameraManager : CameraManager
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private float[] switchTimes; // 切り替えのタイミング（秒）
-    [SerializeField] GameCameraMode.SplitMode param_splitMode;
+    [SerializeField] private GameCameraMode.SplitMode param_splitMode;
 
     //PlayerManager↓
     [SerializeField] GameObject param_cameraPrefab;
