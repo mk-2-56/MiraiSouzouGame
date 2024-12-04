@@ -302,8 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d9db97e533fb24183ec17ba50c47f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curBgmAudioSource: {fileID: 3820228381094424254}
-  curSeAudioSource: {fileID: 4481470486423514716}
   bgmSoundDatas:
   - bgm: 0
     audioClip: {fileID: 8300000, guid: 9afe88275021b4c42b0b15c520b474fb, type: 3}
@@ -321,8 +319,16 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 5aaf18136f93a904b8f98cc6f8708483, type: 3}
     volume: 1
     loop: 1
-  - bgm: 3
-    audioClip: {fileID: 8300000, guid: 5aaf18136f93a904b8f98cc6f8708483, type: 3}
+  - bgm: 4
+    audioClip: {fileID: 8300000, guid: 0d750e437644fc041bd793198aaf0f2b, type: 3}
+    volume: 1
+    loop: 1
+  - bgm: 5
+    audioClip: {fileID: 8300000, guid: c2e851724c670e145a53f5944bdd2b9b, type: 3}
+    volume: 1
+    loop: 1
+  - bgm: 6
+    audioClip: {fileID: 8300000, guid: 92b14c9bb8fac9e499396c52420ce852, type: 3}
     volume: 1
     loop: 1
   seSoundDatas:
@@ -341,6 +347,8 @@ MonoBehaviour:
   - se: 5
     audioClip: {fileID: 8300000, guid: a3490dc7e3b157a49a5ca68db002b37e, type: 3}
     volume: 1
+  curBgmAudioSource: {fileID: 3820228381094424254}
+  curSeAudioSource: {fileID: 4481470486423514716}
   masterVolume: 1
   bgmMasterVolume: 1
   seMasterVolume: 1

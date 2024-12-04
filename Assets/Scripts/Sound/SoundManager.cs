@@ -226,6 +226,9 @@ public class BGMSoundData
         BGM_Tutorial,
         BGM_Game, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
         BGM_Result,
+        BGM_Wind,
+        BGM_Maguma1,
+        BGM_Maguma2,
         BGM_Max,
     }
 
