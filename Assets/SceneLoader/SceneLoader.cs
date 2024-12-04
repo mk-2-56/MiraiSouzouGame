@@ -37,6 +37,9 @@ public class SceneLoader : MonoBehaviour
     }
     IEnumerator LoadScene()
     {
+        // BGMをフェードアウト
+        SoundManager.Instance.FadeOutAllSounds(1.5f); // 1.5秒でフェードアウト
+
         SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneSwith);
         SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneLoading);
 

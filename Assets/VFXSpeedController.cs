@@ -34,8 +34,8 @@ public class VFXSpeedController : MonoBehaviour
     private void FixedUpdate()
     {
         float objSpeed = rigidbody.velocity.magnitude;
-        Debug.Log("Player Current Speed : " + objSpeed.ToString());
-
+/*        Debug.Log("Player Current Speed : " + objSpeed.ToString());
+*/
         float trailVelZ = 0f, trailScaleY = 0f;
         if (objSpeed < thresholdSpeed)
         {

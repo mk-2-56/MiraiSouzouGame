@@ -32,11 +32,14 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Initialized();
     }
 
     public void Initialized()
     {
         if (SoundManager.Instance == null) return;
+        UnityEngine.Debug.Log("SoundManager Initialized");
         masterVolume = 1;
         bgmMasterVolume = 1;
         seMasterVolume = 1;
@@ -92,6 +95,38 @@ public class SoundManager : MonoBehaviour
         curBgmAudioSource = bgmSource;
         curBgmAudioSource.volume = data.volume * bgmMasterVolume * masterVolume;
         curBgmAudioSource.Play();
+    }
+
+    public void PlayBGM(BGMSoundData.BGM bgmType, bool stopPrevious)
+    {
+        BGMSoundData bgmData = bgmSoundDatas.Find(data => data.bgm == bgmType);
+
+        if (bgmData != null)
+        {
+            if (stopPrevious && curBgmAudioSource != null && curBgmAudioSource.isPlaying)
+            {
+                curBgmAudioSource.Stop(); // 前のBGMを停止
+            }
+
+            foreach (AudioSource bgmAC in bgmAudioSources)
+            {
+                if (!bgmAC.isPlaying)
+                {
+                    bgmAC.clip = bgmData.audioClip;
+                    bgmAC.volume = bgmData.volume * bgmMasterVolume * masterVolume;
+                    bgmAC.loop = bgmData.loop;
+                    bgmAC.Play();
+                    curBgmAudioSource = bgmAC;
+                    return;
+                }
+            }
+
+            Debug.LogWarning("すべてのBGM AudioSourceが使用中です。新しいBGMを再生できません。");
+        }
+        else
+        {
+            Debug.LogWarning($"指定されたBGM ({bgmType}) が見つかりません。");
+        }
     }
 
     public void PlayBGM(BGMSoundData.BGM bgmType)
@@ -213,6 +248,59 @@ public class SoundManager : MonoBehaviour
                     seAC.volume = seData.volume * seMasterVolume * masterVolume;
                 }
             }
+        }
+    }
+
+    // フェードアウト処理
+    public void FadeOutAllSounds(float fadeDuration, System.Action onComplete = null)
+    {
+        StartCoroutine(FadeOutCoroutine(fadeDuration, onComplete));
+    }
+
+    private IEnumerator FadeOutCoroutine(float fadeDuration, System.Action onComplete)
+    {
+        float startTime = Time.time;
+
+        // 現在の音量を取得
+        float bgmStartVolume = bgmMasterVolume * masterVolume;
+        float seStartVolume = seMasterVolume * masterVolume;
+
+        while (Time.time < startTime + fadeDuration)
+        {
+            float elapsed = Time.time - startTime;
+            float progress = elapsed / fadeDuration;
+
+            // 音量を徐々に減少
+            float newVolume = Mathf.Lerp(bgmStartVolume, 0, progress);
+            SetBGMVolume(newVolume / masterVolume); // bgmMasterVolumeを更新
+            SetSEVolume(newVolume / masterVolume);  // seMasterVolumeを更新
+
+            yield return null; // 次のフレームまで待機
+        }
+
+        // 最終的に音量をゼロに設定
+        SetBGMVolume(0);
+        SetSEVolume(0);
+
+        // 再生を停止
+        StopAllSounds();
+
+        // フェードアウト完了時のコールバック
+        onComplete?.Invoke();
+    }
+
+    public void StopAllSounds()
+    {
+        // 全てのBGM AudioSourceを停止
+        foreach (AudioSource bgmAC in bgmAudioSources)
+        {
+            bgmAC.Stop();
+        }
+
+        // 全てのSE AudioSourceを停止
+        foreach (AudioSource seAC in seAudioSources)
+        {
+            seAC.Stop();
         }
     }
 }

@@ -1,15 +1,15 @@
+using AU;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PauseManager pauseManager;
-    [SerializeField] private SoundManager   soundManager;
-    [SerializeField] private UIManager      uiManager;
-    [SerializeField] private AU.PlayerManager playerManager;
-    [SerializeField] private CameraManager  cameraManager;
-    [SerializeField] private BaseSceneManager sceneManager;
+    [SerializeField] private PauseManager       pauseManager;
+    [SerializeField] private UIManager          uiManager;
+    [SerializeField] private AU.PlayerManager   playerManager;
+    [SerializeField] private CameraManager      cameraManager;
+    [SerializeField] private BaseSceneManager   sceneManager;
 
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
     public enum SceneState { Title, Tutorial, Game, Result };
@@ -31,15 +31,18 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        UnityEngine.Debug.Log("GameManager Initialized");
         Initialized();
     }
 
     public void Initialized()
     {
-        soundManager?.Initialized();
-        playerManager?.Initialized();
+        UnityEngine.Debug.Log("Managers Initialized");
+
+/*        soundManager?.Initialized();
+*/      playerManager?.Initialized();
         cameraManager?.Initialized();
-        sceneManager?.Initialized();
+        sceneManager.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
 
