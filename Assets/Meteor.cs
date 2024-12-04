@@ -24,6 +24,7 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        SoundManager.Instance.PlaySE(SESoundData.SE.SE_Pubble);
         StartCoroutine(DeactivateObjectAfterTime());
     }
 

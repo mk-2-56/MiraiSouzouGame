@@ -16,7 +16,7 @@ public class TitleUIManager : UIManager
     //_“î«‚ğ•Û‚Â‚½‚ßAwake‚ÆStart‚ÍInitialized‚Å‘‚­
     public override void Initialized()
     {
-        TitleText.GetComponent<TextMeshProUGUI>().DOFade(0.0f, 1.0f).SetLoops(-1, LoopType.Yoyo).Play();
+        TitleText?.GetComponent<TextMeshProUGUI>().DOFade(0.0f, 1.0f).SetLoops(-1, LoopType.Yoyo).Play();
 
     }
     // Update is called once per frame

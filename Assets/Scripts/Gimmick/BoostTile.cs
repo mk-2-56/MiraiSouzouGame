@@ -66,6 +66,14 @@ public class BoostTile : MonoBehaviour
                 StartAccelerate(other.GetComponent<CC.Hub>());
                 break;
         }
+        if (param_direction == null)
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
+        }
     }
 
     private void OnTriggerExit(Collider other)

@@ -12,6 +12,7 @@ public class MeteorsActivatePoint1 : MonoBehaviour
     {
         if (other.CompareTag("Player") && canActivate)
         {
+            SoundManager.Instance.PlaySE(SESoundData.SE.SE_Metour);
             Debug.Log("MeteorsActive");
             meteorsManager?.ActivateMeteors();
             canActivate = false; // アクティベートを無効化
