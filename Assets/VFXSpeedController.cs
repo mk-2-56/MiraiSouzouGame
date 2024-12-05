@@ -15,18 +15,16 @@ public class VFXSpeedController : MonoBehaviour
 
     [SerializeField] private float thresholdSpeed = 30f;
     // 長さの制限
-    [SerializeField] private float minTrailVelZ = -2f;
     [SerializeField] private float maxTrailVelZ = -10f;
-
     // 太さの制限
-    [SerializeField] private float minTrailScaleY = 0f;
-    [SerializeField] private float maxTrailScaleY = 30f;
+    [SerializeField] private float maxTrailScaleY = 40f;
 
     void Start()
     {
+        transform.parent.GetComponent<PlayerEffectDispatcher>().BoostStartE += ActiveEngineEffect;
+        transform.parent.GetComponent<PlayerEffectDispatcher>().BoostEndE += DisableEngineEffect;
 
-        transform.parent.GetComponent<PlayerEffectDispatcher>().HandleSpeedE += UpdateEngineEffect;
-
+        DisableEngineEffect();
     }
 
     void Update()
@@ -39,23 +37,23 @@ public class VFXSpeedController : MonoBehaviour
               
     }
 
-    public void UpdateEngineEffect(float objSpeed)
+    public void ActiveEngineEffect()
     {
-        float trailVelZ = 0f, trailScaleY = 0f;
-        if (objSpeed < thresholdSpeed)
-        {
-            EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, trailVelZ));
-            EngineEffect.SetVector3(paramName_Scale, new Vector3(0f, trailScaleY, 0f));
-        }
-        else
-        {
-            // 長さの更新 (Velocity)
-            trailVelZ = Mathf.Clamp(objSpeed * speedToLengthMultiplier, minTrailVelZ, maxTrailVelZ);
-            EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, trailVelZ));
+         EngineEffect.enabled = true;
+         // 長さの更新 (Velocity)
+         EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, maxTrailVelZ));
 
-            // 太さの更新 (Scale)
-            trailScaleY = Mathf.Clamp(objSpeed * speedToThicknessMultiplier, minTrailScaleY, maxTrailScaleY);
-            EngineEffect.SetVector3(paramName_Scale, new Vector3(4f, trailScaleY, 1f));
-        }
+         // 太さの更新 (Scale)
+         EngineEffect.SetVector3(paramName_Scale, new Vector3(5f, maxTrailScaleY, 1f));  
     }
+
+    public void DisableEngineEffect()
+    {
+        // 長さの更新 (Velocity)
+        EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, 0f));
+
+        // 太さの更新 (Scale)
+        EngineEffect.SetVector3(paramName_Scale, new Vector3(0f, 0f, 0f));
+    }
+
 }
