@@ -15,7 +15,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<SESoundData> seSoundDatas;
     [SerializeField] private AudioSource curBgmAudioSource;
     [SerializeField] private AudioSource curSeAudioSource;
-    [SerializeField] private AudioSource windsBgmAudioSource;
 
     private GameObject playerManager;
     //“Áêˆ—
@@ -399,6 +398,7 @@ public class SESoundData
         SE_JumpBoardS,
         SE_BoostTile,
         SE_BoostRing,
+        SE_WindTrigger,
         SE_MAX, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 

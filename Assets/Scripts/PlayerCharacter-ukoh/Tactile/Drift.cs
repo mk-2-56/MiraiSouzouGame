@@ -6,9 +6,9 @@ namespace CC
 {
     public class Drift : MonoBehaviour
     {
+        public event System.Action<bool> DriftEffect;
+
         [SerializeField] float param_maxAngularAcc = 72.0f;
-
-
 
         float _acc;
 
@@ -28,7 +28,6 @@ namespace CC
         void HandleDriftEnd()
         {
             _driftInput = false;
-            //_rMovementParams.flags.drifting = false;
         }
 
         // Start is called before the first frame update
@@ -39,7 +38,7 @@ namespace CC
 
             CC.Hub CChub = GetComponent<CC.Hub>();
             CChub.DriftStartEvent += HandleDriftStart;
-            CChub.DriftEndEvent += HandleDriftEnd;
+            CChub.DriftEndEvent   += HandleDriftEnd;
 
             CC.Basic temp = GetComponent<CC.Basic>();
             _rMovementParams = temp.GetPlayerMovementParams();
@@ -57,6 +56,8 @@ namespace CC
 
             if (_rMovementParams.flags.grounded && _rMovementParams.flags.drifting)
                 Drifting();
+            if(_driftingOld != _rMovementParams.flags.drifting)
+                DriftEffect?.Invoke(_rMovementParams.flags.drifting);
             _driftingOld = _rMovementParams.flags.drifting;
         }
 
