@@ -17,9 +17,9 @@ public class VFXSpeedController : MonoBehaviour
     [SerializeField] float   mutiplier = 1.0f;
 
     // í∑Ç≥ÇÃêßå¿
-    [SerializeField] private float maxTrailVelZ = -10f;
+    [SerializeField] private float maxTrailVelZ = -12f;
     // ëæÇ≥ÇÃêßå¿
-    [SerializeField] private float maxTrailScaleY = 40f;
+    [SerializeField] private float maxTrailScaleY = 30f;
 
     void Start()
     {
