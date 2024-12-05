@@ -1806,6 +1806,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2564491011788266448, guid: b75068d4b075674468d50400f1eac4ef,
         type: 3}
+      propertyPath: seSoundDatas.Array.data[15].se
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564491011788266448, guid: b75068d4b075674468d50400f1eac4ef,
+        type: 3}
       propertyPath: bgmSoundDatas.Array.data[2].volume
       value: 0.5
       objectReference: {fileID: 0}
@@ -1814,6 +1819,11 @@ PrefabInstance:
       propertyPath: bgmSoundDatas.Array.data[6].volume
       value: 0.451
       objectReference: {fileID: 0}
+    - target: {fileID: 2564491011788266448, guid: b75068d4b075674468d50400f1eac4ef,
+        type: 3}
+      propertyPath: seSoundDatas.Array.data[15].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 21ea66fbbeb09434d8d4599e59553758, type: 3}
     - target: {fileID: 2580677255204524373, guid: b75068d4b075674468d50400f1eac4ef,
         type: 3}
       propertyPath: m_LocalPosition.x

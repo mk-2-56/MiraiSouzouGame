@@ -401,6 +401,7 @@ public class SESoundData
         SE_BoostRing,
         SE_WindTrigger,
         SE_WindOnBigJump,
+        SE_VolcanicEruption,
         SE_MAX, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 
