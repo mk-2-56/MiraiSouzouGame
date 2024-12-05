@@ -189,7 +189,7 @@ public class SoundManager : MonoBehaviour
         curSeAudioSource.PlayOneShot(data.audioClip);
     }
 
-    public void PlaySE(SESoundData.SE seType)
+    public AudioSource PlaySE(SESoundData.SE seType)
     {
         SESoundData seData = seSoundDatas.Find(data => data.se == seType);
 
@@ -203,7 +203,7 @@ public class SoundManager : MonoBehaviour
                     seAC.volume = seData.volume * seMasterVolume * masterVolume;
                     seAC.mute = false;
                     seAC.Play();
-                    return;
+                    return seAC;
                 }
             }
 
@@ -213,6 +213,7 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning($"w’è‚³‚ê‚½SE ({seType}) ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
         }
+        return null;
     }
 
     public void SetMasterVolume(float volume)
@@ -399,6 +400,7 @@ public class SESoundData
         SE_BoostTile,
         SE_BoostRing,
         SE_WindTrigger,
+        SE_WindOnBigJump,
         SE_MAX, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 

@@ -9,7 +9,7 @@ public class TrackFollower : MonoBehaviour
     private Dictionary<GameObject, CinemachineDollyCart> activeCarts = new Dictionary<GameObject, CinemachineDollyCart>();
     private Dictionary<GameObject, Quaternion> initialRotations = new Dictionary<GameObject, Quaternion>();
     private Dictionary<GameObject, Vector3> endDirs = new Dictionary<GameObject, Vector3>();
-
+    private AudioSource curAucioSource = null;
     private void Update()
     {
         // 全てのDollyCartをチェック
@@ -29,6 +29,7 @@ public class TrackFollower : MonoBehaviour
             // 終点に到達したか判定
             if (dollyCart.m_Position >= dollyCart.m_Path.PathLength)
             {
+                curAucioSource?.Stop();
                 // 終了の方向を取得
                 Vector3 endDir = dollyCart.m_Path.EvaluateTangentAtUnit(
                     dollyCart.m_Path.PathLength, // 最終位置
@@ -72,7 +73,7 @@ public class TrackFollower : MonoBehaviour
     {
         if (other.CompareTag("Player") && !activeCarts.ContainsKey(other.gameObject))
         {
-            SoundManager.Instance.PlaySE(SESoundData.SE.SE_WindTrigger);
+            SoundManager.Instance?.PlaySE(SESoundData.SE.SE_WindTrigger);
             GameObject player = other.gameObject;
 
             Rigidbody rb = player.GetComponent<Rigidbody>();
@@ -96,6 +97,7 @@ public class TrackFollower : MonoBehaviour
 
             activeCarts[player] = dollyCart;
 
+            curAucioSource = SoundManager.Instance?.PlaySE(SESoundData.SE.SE_WindOnBigJump);
             Debug.Log($"{player.name} started moving along the track!");
         }
     }
