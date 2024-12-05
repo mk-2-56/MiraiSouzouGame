@@ -18,6 +18,7 @@ namespace GameCameraMode
 public class GameCameraManager : CameraManager
 {
     // Start is called before the first frame update
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private float[] switchTimes; // 切り替えのタイミング（秒）
@@ -83,7 +84,9 @@ public class GameCameraManager : CameraManager
         tmp.SetPlayerReference(gameObject);
         camera.SetActive(true);
         _gameCameras.Add(gameObject, camera);
-    }
+
+/*        mainCamera?.GetComponent<AudioListener>().enabled;
+*/    }
 
     public override void AdjustGameCamera(int curPlayerCount)
     {
