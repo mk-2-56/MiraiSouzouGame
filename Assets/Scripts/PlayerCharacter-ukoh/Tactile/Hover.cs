@@ -17,6 +17,9 @@ namespace CC
 {
     public class Hover : MonoBehaviour
     {
+        public event System.Action OffGroundE;
+        public event System.Action GroundedE;
+
         LayerMask _layerMask;
 
         public RaycastHit Groundhit
@@ -36,6 +39,7 @@ namespace CC
         RaycastHit _rayHit;
 
         Vector3 _terrianDirOld;
+        bool    _groundedOld;
 
         CC.PlayerMovementParams _rMovementParams;
 
@@ -104,6 +108,15 @@ namespace CC
                 string hitObjName = "";
                 hitObjName = _rayHit.collider?.gameObject.name;
             }
+
+            if(_groundedOld != _rMovementParams.flags.grounded)
+            { 
+                if(_rMovementParams.flags.grounded)
+                    GroundedE?.Invoke();
+                else
+                    OffGroundE?.Invoke();
+            }
+            _groundedOld = _rMovementParams.flags.grounded;
 
             if (!_rMovementParams.flags.grounded)
             {

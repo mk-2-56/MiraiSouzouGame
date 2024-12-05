@@ -57,7 +57,9 @@ namespace CC
 
     public class Basic : MonoBehaviour
     {
-        public event System.Action        JumpEffect;
+        public event System.Action JumpEffect;
+        public event System.Action BoostEffectStart;
+        public event System.Action BoostEffectEnd;
         public Vector3 inutDIrectionWorld
         {
             get { return _movementParams.inputs.inputDirection; }
@@ -71,6 +73,10 @@ namespace CC
         public float acc
         {
             get { return param_acc; }
+        }
+        public float maxSpeed
+        {
+            get { return param_maxSpeed; }
         }
 
         //_____________Parameters
@@ -150,10 +156,12 @@ namespace CC
         void HandleBoostStart()
         {
             _movementParams.flags.boosting = true;
+            BoostEffectStart?.Invoke();
         }
         void HandleBoostEnd()
         {
             _movementParams.flags.boosting = false;
+            BoostEffectEnd?.Invoke();
         }
 
         private void FixedUpdate()
