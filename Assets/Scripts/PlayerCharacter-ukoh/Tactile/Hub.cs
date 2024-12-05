@@ -55,6 +55,7 @@ namespace CC
 
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
+        public event System.Action<float> SpeedEffect;
         public bool disableInput
         {
             set { _disableInput = value; }
@@ -172,10 +173,10 @@ namespace CC
             {
                 case InputActionPhase.Started:
                 case InputActionPhase.Performed:
-                    DriftStartEvent();
+                    DriftStartEvent?.Invoke();
                     break;
                 case InputActionPhase.Canceled:
-                    DriftEndEvent();
+                    DriftEndEvent?.Invoke();
                     break;
             }
         }
@@ -197,6 +198,7 @@ namespace CC
 
         private void FixedUpdate()
         {
+            SpeedEffect?.Invoke(_rRb.velocity.magnitude);
             FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
             AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
             AU.Debug.Log(_rCog.forward, AU.LogTiming.Fixed);

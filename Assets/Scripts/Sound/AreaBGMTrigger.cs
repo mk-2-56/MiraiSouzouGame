@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AreaBGMTrigger : MonoBehaviour
 {
-    [SerializeField] private BGMSoundData.BGM areaBGM; // このエリアのBGM
+    [SerializeField] private List<BGMSoundData.BGM> areaBgms; // このエリアのBGM
     [SerializeField] private bool stopPreviousBGM = true; // 前のBGMを停止するかどうか
 
     private void OnTriggerEnter(Collider other)
@@ -14,12 +14,23 @@ public class AreaBGMTrigger : MonoBehaviour
         {
             if (stopPreviousBGM)
             {
-                SoundManager.Instance.PlayBGM(areaBGM);
+                SoundManager.Instance.FadeOutAllBGM(1f);
+                PlayListBGM();
             }
             else
             {
-                SoundManager.Instance.PlayBGM(areaBGM); // 前のBGMを停止しないなら複数再生可能
+                SoundManager.Instance.FadeOutAllBGM(1f);
+                PlayListBGM();
             }
+        }
+    }
+
+    private void PlayListBGM()
+    {
+        foreach (BGMSoundData.BGM bgm in areaBgms)
+        {
+            SoundManager.Instance.PlayBGM(bgm);
+            Debug.Log("Play Area BGM : " + bgm.ToString());
         }
     }
 }

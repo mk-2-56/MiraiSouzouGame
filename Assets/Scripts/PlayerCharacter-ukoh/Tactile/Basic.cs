@@ -18,6 +18,7 @@ public abstract class Command
 
 namespace CC
 {
+
     public class PlayerMovementParams
     {
         public bool enabled = true;
@@ -56,6 +57,7 @@ namespace CC
 
     public class Basic : MonoBehaviour
     {
+        public event System.Action        JumpEffect;
         public Vector3 inutDIrectionWorld
         {
             get { return _movementParams.inputs.inputDirection; }
@@ -111,11 +113,11 @@ namespace CC
 
         void RegisterActions()
         {
-            _rCChub.MoveEvent += HandleMove;
-            _rCChub.JumpStartEvent += HandleJumpStart;
-            _rCChub.JumpEndEvent += HandleJumpEnd;
+            _rCChub.MoveEvent       += HandleMove;
+            _rCChub.JumpStartEvent  += HandleJumpStart;
+            _rCChub.JumpEndEvent    += HandleJumpEnd;
             _rCChub.BoostStartEvent += HandleBoostStart;
-            _rCChub.BoostEndEvent += HandleBoostEnd;
+            _rCChub.BoostEndEvent   += HandleBoostEnd;
         }
 
         void HandleMove(Vector3 input)
@@ -134,6 +136,7 @@ namespace CC
             _movementParams.flags.minJumping = true;
             Invoke("EndMinimalJump", param_minAirTime);
             Invoke("HandleJumpEnd", param_maxAirTime);
+            JumpEffect?.Invoke();
         }
         void HandleJumpEnd()
         {

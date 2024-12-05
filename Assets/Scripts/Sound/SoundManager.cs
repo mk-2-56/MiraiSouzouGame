@@ -1,25 +1,25 @@
-using System
-    .Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] List<BGMSoundData> bgmSoundDatas;
-    [SerializeField] List<SESoundData> seSoundDatas;
-
-    [SerializeField] private AudioSource curBgmAudioSource;
-    [SerializeField] private AudioSource curSeAudioSource;
-    private List<AudioSource> bgmAudioSources = new List<AudioSource>();
-    private List<AudioSource> seAudioSources = new List<AudioSource>();
-
-    
-
     public static SoundManager Instance { get; private set; }
     public float masterVolume;
     public float bgmMasterVolume;
     public float seMasterVolume;
+
+    //
+    [SerializeField] private List<BGMSoundData> bgmSoundDatas;
+    [SerializeField] private List<SESoundData> seSoundDatas;
+    [SerializeField] private AudioSource curBgmAudioSource;
+    [SerializeField] private AudioSource curSeAudioSource;
+
+    private GameObject playerManager;
+    //特殊処理
+    private List<AudioSource> bgmAudioSources = new List<AudioSource>();
+    private List<AudioSource> seAudioSources = new List<AudioSource>();
     private int audioSourceMax = 8;
     private void Awake()
     {
@@ -36,6 +36,15 @@ public class SoundManager : MonoBehaviour
         Initialized();
     }
 
+    private void Update()
+    {
+        playerManager = GameObject.Find("PlayerManager");
+        if (playerManager == null) return;
+        else
+        {
+/*            playerManager.GetComponent
+*/        }
+    }
     public void Initialized()
     {
         if (SoundManager.Instance == null) return;
@@ -224,6 +233,21 @@ public class SoundManager : MonoBehaviour
         UpdateVolumes();
     }
 
+    //特定の位置でサウンドを再生
+    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = -1f)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("再生するAudioClipが指定されていません！");
+            return;
+        }
+
+        float finalVolume = (volume < 0) ? masterVolume : volume;
+
+        //指定した位置でサウンドを再生
+        AudioSource.PlayClipAtPoint(clip, position, finalVolume);
+    }
+
     private void UpdateVolumes()
     {
         foreach (AudioSource bgmAC in bgmAudioSources)
@@ -249,6 +273,35 @@ public class SoundManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void FadeOutAllBGM(float fadeDuration = 1f)
+    {
+        foreach (AudioSource bgmAC in bgmAudioSources)
+        {
+            if (bgmAC != null && bgmAC.isPlaying)
+            {
+                StartCoroutine(FadeOutBGMCoroutine(bgmAC, fadeDuration));
+            }
+        }
+    }
+
+    private IEnumerator FadeOutBGMCoroutine(AudioSource bgmAudioSource, float duration)
+    {
+        float startVolume = bgmAudioSource.volume; // フェード開始時の音量
+        float timeElapsed = 0f;
+
+        // フェードアウト処理
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            bgmAudioSource.volume = Mathf.Lerp(startVolume, 0, timeElapsed / duration);
+            yield return null;
+        }
+
+        // フェードアウトが完了したら停止
+        bgmAudioSource.Stop();
+        bgmAudioSource.volume = startVolume; // ボリュームを元に戻して次回再生時に使用
     }
 
     // フェードアウト処理
@@ -343,6 +396,9 @@ public class SESoundData
         SE_Pubble,
         SE_JumpBoardB,
         SE_JumpBoardS,
+        SE_BoostTile,
+        SE_BoostRing,
+        SE_WindTrigger,
         SE_MAX, // これがラベルになる
     }
 

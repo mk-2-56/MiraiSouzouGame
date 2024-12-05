@@ -51,9 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void SetState(SceneState newState)
     {
-        UnityEngine.Debug.Log("現時点のシーンは：" + SceneManager.GetActiveScene().name);
-
-        UnityEngine.Debug.Log(newState.ToString());
+        UnityEngine.Debug.Log(SceneManager.GetActiveScene().name + " から次のシーンへ：" + newState.ToString());
 
         // 現在のシーンと新しいシーンが異なる場合のみシーンをロード
         if (stateKeeper.CurrentSceneState != newState)

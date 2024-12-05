@@ -7,7 +7,8 @@ namespace CC
 { 
     public class Dash : MonoBehaviour
     {
-    
+        public event System.Action DashEffect;
+
         [SerializeField] float param_DashSpeed = 90.0f;
         TargetManager _targetManager;
     
@@ -27,6 +28,7 @@ namespace CC
         // Update is called once per frame
         void Update()
         {
+
         }
         
         void HandleDash()
@@ -36,7 +38,10 @@ namespace CC
             Vector3 inputDirection = _rMovementParams.inputs.inputDirection;
             bool hasTarget = _targetManager.FindBestTarget(positionOrigin, inputDirection, out target);
             if (hasTarget)
+            { 
                 DashPlayerTowards(target);
+                DashEffect?.Invoke();
+            }
         }
     
         void DashPlayerTowards(Vector3 pos)
