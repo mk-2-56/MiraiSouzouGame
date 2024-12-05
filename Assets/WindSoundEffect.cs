@@ -12,7 +12,7 @@ public class WindSoundEffect : MonoBehaviour
     {
         transform.parent.GetComponent<PlayerEffectDispatcher>().SpeedE += UpdateWindSound;
         windAudioSource.volume = curVolume;
-        SoundManager.Instance.PlayBGM(windAudioSource);
+        SoundManager.Instance?.PlayBGM(windAudioSource);
 
     }
 

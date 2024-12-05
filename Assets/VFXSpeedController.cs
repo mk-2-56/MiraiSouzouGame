@@ -12,8 +12,10 @@ public class VFXSpeedController : MonoBehaviour
     [SerializeField] private VisualEffect EngineEffect;
     [SerializeField] private string paramName_Scale = "Scale"; // 太さのパラメータ名
     [SerializeField] private string paramName_Velocity = "Velocity"; // 長さのパラメータ名
+    [SerializeField] private AudioSource boostAudioSource;
+    [SerializeField] private AudioSource boostingAudioSource;
+    [SerializeField] float   mutiplier = 1.0f;
 
-    [SerializeField] private float thresholdSpeed = 30f;
     // 長さの制限
     [SerializeField] private float maxTrailVelZ = -10f;
     // 太さの制限
@@ -44,7 +46,10 @@ public class VFXSpeedController : MonoBehaviour
          EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, maxTrailVelZ));
 
          // 太さの更新 (Scale)
-         EngineEffect.SetVector3(paramName_Scale, new Vector3(5f, maxTrailScaleY, 1f));  
+         EngineEffect.SetVector3(paramName_Scale, new Vector3(5f, maxTrailScaleY, 1f));
+
+        boostAudioSource.Play();
+        boostingAudioSource.Play();
     }
 
     public void DisableEngineEffect()
@@ -54,6 +59,9 @@ public class VFXSpeedController : MonoBehaviour
 
         // 太さの更新 (Scale)
         EngineEffect.SetVector3(paramName_Scale, new Vector3(0f, 0f, 0f));
+
+        boostingAudioSource.Stop();
+
     }
 
 }
