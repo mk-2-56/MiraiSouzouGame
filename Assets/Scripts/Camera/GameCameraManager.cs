@@ -85,8 +85,13 @@ public class GameCameraManager : CameraManager
         camera.SetActive(true);
         _gameCameras.Add(gameObject, camera);
 
-/*        mainCamera?.GetComponent<AudioListener>().enabled;
-*/    }
+        camera.GetComponent<FocusEffectController>().effectDispatcher =
+            gameObject.transform.Find("Facing/Cog/EffectDispatcher").GetComponent<PlayerEffectDispatcher>();
+
+/*        camera.GetComponent<Camera>().Render
+*/
+
+    }
 
     public override void AdjustGameCamera(int curPlayerCount)
     {
