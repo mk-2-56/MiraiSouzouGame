@@ -33,6 +33,9 @@ public class GameCamera : MonoBehaviour
     [SerializeField] bool  param_locking = true;
     [SerializeField] Vector2 param_pivotAngle = new Vector2(30, 45);
 
+    [SerializeField] float param_springForce = 10.0f;
+    [SerializeField] float param_damperForce = 2.0f;
+
     //_____________Members
     CC.Hub      _rCChub;
 
@@ -40,6 +43,10 @@ public class GameCamera : MonoBehaviour
     Transform   _rFacing;
     Transform   _rCog;
     Transform   _rCamFacing;
+
+    Rigidbody   _rCamera;
+    Vector3 _camOffset;
+    Vector3 _camOffsetOld;
 
     Quaternion _baseRotation;
 
@@ -49,7 +56,6 @@ public class GameCamera : MonoBehaviour
     Vector2 _camPivot      = Vector2.zero;
     Vector2 _camPivotInput = Vector2.zero;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -58,10 +64,12 @@ public class GameCamera : MonoBehaviour
             SetPlayerReference(transform.parent.gameObject);
         }
 
-        Cursor.visible = false;
+        Cursor.visible   = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.parent = null;
-        _baseRotation = _rFacing.rotation;
+        _baseRotation    = _rFacing.rotation;
+        _rCamera   = transform.Find("Camera").GetComponent<Rigidbody>();
+        _camOffset = _rCamera.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -75,6 +83,11 @@ public class GameCamera : MonoBehaviour
     {
         float dtime = Time.fixedDeltaTime;
         transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos * dtime);
+        { 
+            Vector3 springForce = transform.rotation * (param_springForce * (_camOffset - _rCamera.transform.localPosition))
+                - _rCamera.velocity * param_damperForce;
+            _rCamera.AddForce(springForce, ForceMode.Acceleration);
+        }
         CamControl();
 
         if (param_locking)
@@ -83,11 +96,12 @@ public class GameCamera : MonoBehaviour
 
             Quaternion tarRot;
             Vector3 dv = _rFacing.forward;
-            dv.y = 0;
             dv.y = 2 * _rRb.velocity.y * dtime;
             tarRot = Quaternion.LookRotation(dv);
             _baseRotation = Quaternion.Lerp(_baseRotation, tarRot, param_lerpSpeed * dtime);
             transform.rotation = _baseRotation * Quaternion.Euler(-_camPivot.y, _camPivot.x,  0);
+
+            _rCamera.rotation = Quaternion.LookRotation(_rCog.position - _rCamera.position, Vector3.up);
 
             Vector3 tmp = transform.rotation.eulerAngles;
             _rCamFacing.rotation = Quaternion.Euler(0, tmp.y, 0);
