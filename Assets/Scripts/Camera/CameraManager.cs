@@ -25,6 +25,7 @@ public abstract class CameraManager : MonoBehaviour
         }
         //isUse‚ªTrueiŒ»ActiveCineCamera‚ğ•Ï‚¦‚éˆ—‚ğs‚¤
         activeCamera = camera;
+        activeCamera.enabled = true;
         activeCamera.Priority = 10; // —Dæ‡ˆÊ‚ğã‚°‚é
 
     }

@@ -21,7 +21,12 @@ public class GameCameraManager : CameraManager
     [SerializeField] private Camera mainCamera;
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
+    [SerializeField] private Cinemachine.CinemachineDollyCart dollyCart1;
+    [SerializeField] private Cinemachine.CinemachineSmoothPath dollyPath1;
+
     [SerializeField] private float[] switchTimes; // 切り替えのタイミング（秒）
+        
+    [SerializeField] private GameObject startPos;
     [SerializeField] private GameCameraMode.SplitMode param_splitMode;
 
     //PlayerManager↓
@@ -30,6 +35,7 @@ public class GameCameraManager : CameraManager
 
     Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
+    private float lastSwitchTime = 4f;
     // Start is called before the first frame update
 
     public override void Initialized()
@@ -45,17 +51,17 @@ public class GameCameraManager : CameraManager
         {
             if (virtualCameras[i] == null) continue;
             virtualCameras[i].Priority = 0;
+            virtualCameras[i].m_LookAt = startPos.GetComponent<Transform>();
         }
 
         // 最初のカメラをアクティブに設定
         if (virtualCameras[0] != null)
         {
             SetCineCamera(virtualCameras[0], true);
-            StartCoroutine(SwitchVCameras());
+            if(virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
         }
 
         param_cameraPrefab?.SetActive(false);
-        DontDestroyOnLoad(this);
     }
 
     void Update()
@@ -66,6 +72,25 @@ public class GameCameraManager : CameraManager
             if (param_splitMode > GameCameraMode.SplitMode.Vertical)
                 param_splitMode = 0;
         }
+
+        if (virtualCameras[0] == activeCamera)
+        {
+            if(dollyCart1.m_Position >= dollyPath1.PathLength)
+            {
+                SetCineCamera(virtualCameras[1],true);
+            }
+        }
+
+        if(virtualCameras[virtualCameras.Count - 1].enabled == true)
+        {
+            lastSwitchTime -= Time.deltaTime;
+            if(lastSwitchTime < 0)
+            {
+                ResetVCamerasPriority();
+
+            }
+        }
+
     }
 
 
