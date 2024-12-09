@@ -14,15 +14,19 @@ public abstract class CameraManager : MonoBehaviour
     }
 
     // 共通のカメラ切り替えロジック
-    public void SetActiveCamera(Cinemachine.CinemachineVirtualCamera camera)
+    public void SetCineCamera(Cinemachine.CinemachineVirtualCamera camera , bool isUse)
     {
         if (activeCamera != null)
         {
             activeCamera.Priority = 0;
+            //isUseがFalse（現ActiveCineCameraをDisableするならReturn
+            activeCamera.enabled = isUse;
+            if (isUse == false) return;
         }
-
+        //isUseがTrue（現ActiveCineCameraを変える処理を行う
         activeCamera = camera;
         activeCamera.Priority = 10; // 優先順位を上げる
+
     }
 
     public abstract void SpawnGameCamera(GameObject player);

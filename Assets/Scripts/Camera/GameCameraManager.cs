@@ -40,22 +40,19 @@ public class GameCameraManager : CameraManager
         {
             UnityEngine.Debug.Log("Brain not found!");
         }
-        if (virtualCameras == null)
-        {
-            UnityEngine.Debug.Log("VirtualCameras : Null");
-            return;
-        }
+
         for (int i = 0; i < virtualCameras.Count; i++)
         {
+            if (virtualCameras[i] == null) continue;
             virtualCameras[i].Priority = 0;
         }
 
-        //// 最初のカメラをアクティブに設定
-        //if(virtualCameras[0] != null)
-        //{
-        //    SetActiveCamera(virtualCameras[0]);
-        //    StartCoroutine(SwitchVCameras());
-        //}
+        // 最初のカメラをアクティブに設定
+        if (virtualCameras[0] != null)
+        {
+            SetCineCamera(virtualCameras[0], true);
+            StartCoroutine(SwitchVCameras());
+        }
 
         param_cameraPrefab?.SetActive(false);
         DontDestroyOnLoad(this);
@@ -135,7 +132,7 @@ public class GameCameraManager : CameraManager
         for (int i = 0; i < virtualCameras.Count; i++)
         {
             ResetVCamerasPriority();
-            SetActiveCamera(virtualCameras[i]);
+            SetCineCamera(virtualCameras[i], true);
 
             UnityEngine.Debug.Log($"Camera {i + 1} is now active");
 
