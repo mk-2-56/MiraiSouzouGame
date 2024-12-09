@@ -48,6 +48,7 @@ namespace AU
 
         static public void Log(object msg, LogTiming timing, [CallerArgumentExpression("msg")] string objName = null)
         {
+            return;
             string tmp = msg.ToString();
             _debugMessage.text[timing] += "\t";
             if(objName != null)
@@ -62,6 +63,7 @@ namespace AU
 
         static public void Log(string msg, LogTiming timing)
         {
+            return;
             string tmp = msg;
             _debugMessage.text[timing] += "\t" + tmp;
 
