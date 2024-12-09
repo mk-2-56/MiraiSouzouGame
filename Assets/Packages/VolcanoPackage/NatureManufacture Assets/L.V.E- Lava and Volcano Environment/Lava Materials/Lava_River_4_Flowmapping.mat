@@ -23,7 +23,7 @@ Material:
   m_Name: Lava_River_4_Flowmapping
   m_Shader: {fileID: 4800000, guid: a078bba5a980e3447a3b8f0ef47227d2, type: 3}
   m_Parent: {fileID: 2100000, guid: 4180778b151c68341a25206e57b8be95, type: 2}
-  m_ModifiedSerializedProperties: 16
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 1
@@ -35,65 +35,8 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _CaveTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _IntersectionFoamTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SecondaryFoamTex:
-        m_Texture: {fileID: 2800000, guid: acf838d458094e11b23ceafc2d9a02b0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SurfaceFoamTexture:
-        m_Texture: {fileID: 2800000, guid: acf838d458094e11b23ceafc2d9a02b0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _DepthFadeDistance: 10
-    - _HorizonDistance: 5
-    - _IntersectionFoamCutoff: 1
-    - _IntersectionFoamDepth: 1
-    - _IntersectionFoamDirection: 0
-    - _IntersectionFoamFade: 0
-    - _IntersectionFoamSpeed: 0
-    - _IntersectionFoamTiling: 0
-    - _LightingHardness: 0
-    - _LightingSmoothness: 0
-    - _NormalSpeed: 0
-    - _NormalStrength: 1
-    - _PERSPECTIVE: 0
-    - _REFLECTIONS: 0
-    - _ReflectionBlend: 1
-    - _ReflectionDistortion: 1
-    - _RefractionSpeed: 0
-    - _RefractionStrength: 0
-    - _Steps: 10
-    - _SurfaceFoamDirection: 0
-    - _SurfaceFoamDistorsion: 0
-    - _SurfaceFoamSpeed: 0
-    - _SurfaceFoamTiling: 0
-    - _WORLD_SPACE_UV: 0
-    - _WaveLength: 0
-    m_Colors:
-    - _CaveColor: {r: 0.0005352272, g: 0, b: 0.2830189, a: 0}
-    - _CaveOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _CaveScale: {r: 0, g: 0, b: 0, a: 0}
-    - _CaveSecondaryColor: {r: 0.0005352272, g: 0, b: 0.2830189, a: 0}
-    - _Color: {r: 1, g: 0.9709118, b: 0, a: 1}
-    - _HorizonColor: {r: 1.833962, g: 0.9239017, b: 1.346016, a: 0}
-    - _IntersectionFoamColor: {r: 0, g: 0.593867, b: 2.491031, a: 0.6862745}
-    - _SecondaryFoamColor: {r: 0.9320754, g: 0.9320754, b: 0.9320754, a: 0}
-    - _ShallowColor: {r: 0.1256888, g: 0.1310457, b: 0.4792453, a: 0}
-    - _SpecularColor: {r: 1.879245, g: 1.879245, b: 1.879245, a: 0.5333334}
-    - _SurfaceFoamColor: {r: 0.9320754, g: 0.9320754, b: 0.9320754, a: 0}
-    - _WaveDirections: {r: 0, g: 0, b: 0, a: 0}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []
