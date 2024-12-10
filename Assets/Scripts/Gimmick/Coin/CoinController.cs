@@ -33,11 +33,11 @@ public class CoinController : MonoBehaviour
 
             isTouched = true;
 
-            PlayerEffectDispatcher dispatcher = other.GetComponent<PlayerEffectDispatcher>();
-            if (dispatcher != null)
-            {
-                dispatcher.DispatchGetCoinEvent(coinValue); // コインイベントを発火
-            }
+            //PlayerEffectDispatcher dispatcher = other.GetComponent<PlayerEffectDispatcher>();
+            //if (dispatcher != null)
+            //{
+            //    dispatcher.DispatchGetCoinEvent(coinValue); // コインイベントを発火
+            //}
 
             // 一旦非表示に
             Destroy(GetComponent<MeshRenderer>());

@@ -12,7 +12,7 @@ public class CoinGaugeController : MonoBehaviour
     void Start()
     {
         gaugeValue = 0f;
-        transform.parent.GetComponent<PlayerEffectDispatcher>().GaugeE += SetGaugeValue;
+        //transform.parent.GetComponent<PlayerEffectDispatcher>().GaugeE += SetGaugeValue;
     }
 
     // Update is called once per frame

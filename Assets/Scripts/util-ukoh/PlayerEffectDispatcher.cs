@@ -17,9 +17,6 @@ public class PlayerEffectDispatcher : MonoBehaviour
 
     public event System.Action LandedE;
     public event System.Action LifetedE;
-
-    public event System.Action<float> GaugeE;
-    public event System.Action<float> CoinE;
     
     // Start is called before the first frame update
     void Start()
@@ -105,15 +102,6 @@ public class PlayerEffectDispatcher : MonoBehaviour
     void DispatchOffGroundEvent()
     {
         LifetedE?.Invoke();
-    }
-
-    public void DispatchGaugeEvent(float value)
-    {
-        GaugeE?.Invoke(value);
-    }
-    public void DispatchGetCoinEvent(float value)
-    {
-        CoinE?.Invoke(value);
     }
 
 

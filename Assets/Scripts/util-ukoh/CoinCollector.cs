@@ -18,7 +18,7 @@ public class CoinCollector : MonoBehaviour
         playerEffectDispatcher = transform.parent.GetComponent<PlayerEffectDispatcher>();
         if(playerEffectDispatcher != null)
         {
-            playerEffectDispatcher.CoinE += GetOneCoin;
+            //playerEffectDispatcher.CoinE += GetOneCoin;
         }
         curCoin = 0f;
     }
@@ -33,7 +33,7 @@ public class CoinCollector : MonoBehaviour
     {
         curCoin += value;
         // コイン取得時にゲージ更新イベントを発火
-        playerEffectDispatcher.DispatchGaugeEvent(plusValuePerCoin / CoinMax);
+        //playerEffectDispatcher.DispatchGaugeEvent(plusValuePerCoin / CoinMax);
     }
 
     public void CoinReset()
