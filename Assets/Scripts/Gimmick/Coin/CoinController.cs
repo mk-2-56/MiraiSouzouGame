@@ -10,11 +10,11 @@ public class CoinController : MonoBehaviour
 {
     [SerializeField] float RotSpeed;                // アイドル状態の回転アニメ速度
     [SerializeField] VisualEffect coinEffect;
+    [SerializeField] private GaugeController gaugeController;
 
     private AudioSource coinSound;
     private bool isTouched;
     private Vector3 Axe = Vector3.up;
-
     void Start()
     {
         coinSound = GetComponent<AudioSource>();
@@ -26,24 +26,34 @@ public class CoinController : MonoBehaviour
         if (!isTouched) transform.RotateAround(transform.position, Axe, RotSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider other)
     {
-        isTouched = true;
+        if (other.CompareTag("Player"))
+        {
 
-        // 一旦非表示に
-        Destroy(GetComponent<MeshRenderer>());
-        Destroy(GetComponent<BoxCollider>());
+            isTouched = true;
 
-        // スコアに加算 あとでUImanagerとかからやるようにしたい
-        // coinScore.AddCoin();
+            //PlayerEffectDispatcher dispatcher = other.GetComponent<PlayerEffectDispatcher>();
 
-        // エフェクトと音を再生
-        coinEffect.transform.position = transform.position;
-        coinEffect.SendEvent("EventCoin");
-        if (coinSound != null) coinSound.PlayOneShot(coinSound.clip);
+            //if (dispatcher != null) {
+            //    dispatcher.CoinCollectedE?.Invoke();
+            //}
+/*            gaugeController.SetGaugeValue(0.1f);
+*/            // 一旦非表示に
+            Destroy(GetComponent<MeshRenderer>());
+            Destroy(GetComponent<BoxCollider>());
 
-        // 音が鳴り終わったらコインは消す
-        Destroy(gameObject, coinSound.clip.length);
+            // スコアに加算 あとでUImanagerとかからやるようにしたい
+            // coinScore.AddCoin();
+
+            // エフェクトと音を再生
+            coinEffect.transform.position = transform.position;
+            coinEffect.SendEvent("EventCoin");
+            if (coinSound != null) coinSound.PlayOneShot(coinSound.clip);
+
+            // 音が鳴り終わったらコインは消す
+            Destroy(gameObject, coinSound.clip.length);
+        }
     }
 
 }
