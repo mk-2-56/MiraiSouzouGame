@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 using Cinemachine;
 namespace AU
 {
+    using CC;
     using Unity.VisualScripting;
     using UnityEditor;
     using UnityEditor.Purchasing;
@@ -42,6 +43,7 @@ namespace AU
             }
 
             cameraManager.SpawnGameCamera(player);
+            _players.Add(_curentPlayerCount, player);
 
             if (_curentPlayerCount > 1)
                 cameraManager.AdjustGameCamera(_curentPlayerCount);
@@ -122,7 +124,7 @@ namespace AU
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
-        int _curentPlayerCount = 0;
+        public int _curentPlayerCount = 0;
 
         void Start()
         {
@@ -145,6 +147,16 @@ namespace AU
             {
                 cameraManager.AdjustGameCamera(_curentPlayerCount);
             }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+              SetPlayerControl(false);
+
+            }
+            UnityEngine.Debug.Log("players" + _players.Count);
+
+
+
         }
 
         private void OnDestroy()
@@ -160,5 +172,27 @@ namespace AU
         //{
         //    return dollySpeed;
         //}
+
+        public void SetPlayerControl(bool flag)
+        {
+            UnityEngine.Debug.Log("SetPlayerControl");
+
+            foreach (KeyValuePair<int, GameObject> playerEntry in _players)
+            {
+                GameObject player = playerEntry.Value;
+                CC.Hub hubComponent = player.GetComponent<CC.Hub>();
+                if (hubComponent != null)
+                {
+                    hubComponent.disableInput = !flag;
+                    UnityEngine.Debug.Log("Player " + playerEntry.Key + " control " + (flag ? "enabled" : "disabled"));
+                }
+                else
+                {
+                    UnityEngine.Debug.LogWarning("Player " + playerEntry.Key + " does not have a Hub component.");
+                }
+            }
+        }
     }
+
 }
+

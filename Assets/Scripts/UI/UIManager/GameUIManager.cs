@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-
+using UnityEngine.InputSystem;
+using AU;
 
 public class GameUIManager : UIManager
 {
@@ -16,9 +17,12 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject MiniMap;
     [SerializeField] private GameObject MiniMapCamera;
     [SerializeField] private GameObject FinishUI;
+    [SerializeField] private GameObject playerManager;
+   private PlayerManager playerManagerCom;
 
 
     private float countStartTime;
+    
 
     private bool countActive;
     private int countDown;
@@ -31,7 +35,7 @@ public class GameUIManager : UIManager
         UIscale.x = 5f;
         UIscale.y = 5f;
         UIscale.z = 5f;
-        Debug.Log("init");
+        UnityEngine.Debug.Log("init");
         UI3.SetActive(false);
         UI2.SetActive(false);
         UI1.SetActive(false);
@@ -41,7 +45,7 @@ public class GameUIManager : UIManager
         UI1.transform.localScale= UIscale;
         UIGO.transform.localScale= UIscale;
 
-        
+        playerManagerCom=playerManager.GetComponent<PlayerManager>();
 
         //StartCount();
         //ShowFinish();
@@ -50,6 +54,12 @@ public class GameUIManager : UIManager
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCount();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             ShowFinish();  
