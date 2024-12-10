@@ -60,7 +60,7 @@ public class VFXSpeedController : MonoBehaviour
         // ëæÇ≥ÇÃçXêV (Scale)
         EngineEffect.SetVector3(paramName_Scale, new Vector3(0f, 0f, 0f));
 
-        boostingAudioSource.Stop();
+        boostingAudioSource?.Stop();
 
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerEffectDispatcher : MonoBehaviour
@@ -17,7 +18,9 @@ public class PlayerEffectDispatcher : MonoBehaviour
     public event System.Action LandedE;
     public event System.Action LifetedE;
 
-    public event System.Action CoinCollectedE;
+    public event System.Action<float> GaugeE;
+    public event System.Action<float> CoinE;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -52,15 +55,6 @@ public class PlayerEffectDispatcher : MonoBehaviour
             CC.Dash tmp = _rRoot.GetComponent<CC.Dash>();
             if (tmp)
                 tmp.DashEffect += DispatchDash;
-        }
-
-        {
-            CoinGaugeController tmp = _rRoot.GetComponent<CoinGaugeController>();
-            if (tmp)
-            {
-                tmp.GaugeEffect += DispatchGetCoinEvent;
-                //ëºÇ…ÉQÅ[ÉWÇíôÇﬂÇÁÇÍÇÈèàóùÇ™Ç†Ç¡ÇΩÇÁÇ±Ç¡ÇøÇ≈í«â¡
-            }
         }
     }
 
@@ -113,16 +107,15 @@ public class PlayerEffectDispatcher : MonoBehaviour
         LifetedE?.Invoke();
     }
 
-    void DispatchGetCoinEvent(float value)
+    public void DispatchGaugeEvent(float value)
     {
-        CoinCollectedE?.Invoke(value);
+        GaugeE?.Invoke(value);
     }
-    void OnTriggerEnter(Collider other)
+    public void DispatchGetCoinEvent(float value)
     {
-        if (other.CompareTag("Coin"))
-        {
-            DispatchGetCoinEvent();
-        }
+        CoinE?.Invoke(value);
     }
+
+
 
 }

@@ -11,7 +11,7 @@ public class CoinController : MonoBehaviour
     [SerializeField] float RotSpeed;                // アイドル状態の回転アニメ速度
     [SerializeField] VisualEffect coinEffect;
     [SerializeField] private GaugeController gaugeController;
-
+    [SerializeField] private float coinValue = 1.0f;
     private AudioSource coinSound;
     private bool isTouched;
     private Vector3 Axe = Vector3.up;
@@ -33,13 +33,13 @@ public class CoinController : MonoBehaviour
 
             isTouched = true;
 
-            //PlayerEffectDispatcher dispatcher = other.GetComponent<PlayerEffectDispatcher>();
+            PlayerEffectDispatcher dispatcher = other.GetComponent<PlayerEffectDispatcher>();
+            if (dispatcher != null)
+            {
+                dispatcher.DispatchGetCoinEvent(coinValue); // コインイベントを発火
+            }
 
-            //if (dispatcher != null) {
-            //    dispatcher.CoinCollectedE?.Invoke();
-            //}
-/*            gaugeController.SetGaugeValue(0.1f);
-*/            // 一旦非表示に
+            // 一旦非表示に
             Destroy(GetComponent<MeshRenderer>());
             Destroy(GetComponent<BoxCollider>());
 

@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class CoinCollector : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    private PlayerEffectDispatcher playerEffectDispatcher;
     [SerializeField] private float CoinMax = 20f;
-    [SerializeField] private float plusValuePerTimes = 1.0f;
+    [SerializeField] private float plusValuePerCoin = 1.0f;
 
     private float curCoin = 0f;
 
     void Start()
     {
-        CoinGaugeController coinGaugeController = transform.parent.parent.parent.parent.GetComponent<CoinGaugeController>();
-        transform.parent.GetComponent<PlayerEffectDispatcher>().CoinCollectedE += SetGaugeValue(plusValuePerTimes);
+        playerEffectDispatcher = transform.parent.GetComponent<PlayerEffectDispatcher>();
+        if(playerEffectDispatcher != null)
+        {
+            playerEffectDispatcher.CoinE += GetOneCoin;
+        }
         curCoin = 0f;
     }
 
@@ -24,17 +29,16 @@ public class CoinCollector : MonoBehaviour
         
     }
 
-    public void GetOneCoin()
+    public void GetOneCoin(float value)
     {
-        (curCoin += 1f) > CoinMax ? CoinMax : curCoin;
-
-        coinGaugeController.SetGaugeValue(plusValuePerTimes/CoinMax);
+        curCoin += value;
+        // コイン取得時にゲージ更新イベントを発火
+        playerEffectDispatcher.DispatchGaugeEvent(plusValuePerCoin / CoinMax);
     }
 
     public void CoinReset()
     {
         curCoin = 0f;
-        coinGaugeController.SetGaugeValue(-1f);
     }
 
 
