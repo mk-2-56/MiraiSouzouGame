@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerEffectDispatcher : MonoBehaviour
@@ -16,8 +17,7 @@ public class PlayerEffectDispatcher : MonoBehaviour
 
     public event System.Action LandedE;
     public event System.Action LifetedE;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -103,4 +103,7 @@ public class PlayerEffectDispatcher : MonoBehaviour
     {
         LifetedE?.Invoke();
     }
+
+
+
 }
