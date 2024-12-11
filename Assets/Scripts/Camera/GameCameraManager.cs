@@ -94,7 +94,7 @@ public class GameCameraManager : CameraManager
     }
 
 
-    public override void SpawnGameCamera(GameObject gameObject)//->playerCharacter
+    public override GameObject SpawnGameCamera(GameObject gameObject)//->playerCharacter
     {
         GameObject camera = Instantiate(param_cameraPrefab,
             gameObject.transform.position, gameObject.transform.rotation);
@@ -106,6 +106,7 @@ public class GameCameraManager : CameraManager
         tmp.SetPlayerReference(gameObject);
         camera.SetActive(true);
         _gameCameras.Add(gameObject, camera);
+        return camera;
 
     }
 

@@ -19,9 +19,9 @@ public class TitleCameraManager : CameraManager
         
     }
 
-    public override void SpawnGameCamera(GameObject player)
+    public override GameObject SpawnGameCamera(GameObject player)
     {
-
+        return null;
     }
     public override void AdjustGameCamera(int currentPlayerCount)
     {

@@ -8,7 +8,7 @@ public class CoinGaugeController : MonoBehaviour
     private CoinCollector coinCollector;
     void Start()
     {
-        image = transform.parent?.Find("UI_Guage/gauge")?.GetComponent<Image>();
+        image = GetComponent<Image>();
 
         if (image != null)
         {

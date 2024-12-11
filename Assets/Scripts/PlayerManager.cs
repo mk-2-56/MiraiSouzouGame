@@ -55,14 +55,21 @@ namespace AU
                 player.transform.rotation = rot;
             }
 
-            _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
-            player.GetComponent<PlayerCanvasController>().Canvas = _uiCanvasInstance;
 
+
+            //Camera生成
+            GameObject camera = _rCameraManager.SpawnGameCamera(player);
+
+            //Canvas生成
+            _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
+            _uiCanvasInstance.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            player.GetComponent<PlayerCanvasController>().Canvas = _uiCanvasInstance;
+            player.GetComponent<PlayerCanvasController>().Initialized();
+            //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
-            _rCameraManager.SpawnGameCamera(player);
 
             if (_curentPlayerCount > 1)
-                _rCameraManager.AdjustGameCamera(_curentPlayerCount);
+                _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
         }
 
         public void JoinPlayer()
