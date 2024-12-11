@@ -1,30 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CoinGaugeController : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    private float gaugeValue = 0f;
-    [SerializeField] private Image image;
+    private float gaugeValue = 0f; // 現在のゲージ値
+    private Image image;           // UI上のゲージイメージ
+    private CoinCollector coinCollector;
     void Start()
     {
-        gaugeValue = 0f;
-        //transform.parent.GetComponent<PlayerEffectDispatcher>().GaugeE += SetGaugeValue;
-    }
+        image = transform.parent?.Find("UI_Guage/gauge")?.GetComponent<Image>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (image != null)
+        {
+            image.fillAmount = 0f; // 初期化
+        }
+
+        coinCollector = FindObjectOfType<CoinCollector>();
+        if (coinCollector != null) {
+            coinCollector._CoinCollectedE += AddGaugeValue;
+        }
+        SetGaugeValue(0f); // 初期ゲージ値
     }
 
     public void SetGaugeValue(float value)
     {
-        if (image == null) return;
-        gaugeValue += value;
-        image.fillAmount = Mathf.Clamp01(gaugeValue); // �Q�[�W�l��0�`1�̊Ԃɐ���
+        gaugeValue = Mathf.Clamp01(value); // ゲージ値を0〜1の範囲に制限
+        UpdateGaugeUI();
+    }
+
+    public void AddGaugeValue(float value)
+    {
+        SetGaugeValue(gaugeValue + value);
+    }
+
+    private void UpdateGaugeUI()
+    {
+        if (image != null)
+        {
+            image.fillAmount = gaugeValue; // UIを更新
+        }
     }
 }

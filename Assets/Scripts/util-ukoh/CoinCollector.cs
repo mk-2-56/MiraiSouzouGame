@@ -6,41 +6,38 @@ using UnityEngine;
 public class CoinCollector : MonoBehaviour
 {
     // Start is called before the first frame update
+    public event System.Action<float> _CoinCollectedE;
 
-    private PlayerEffectDispatcher playerEffectDispatcher;
+    private PlayerCanvasController playerCanvasController;
     [SerializeField] private float CoinMax = 20f;
     [SerializeField] private float plusValuePerCoin = 1.0f;
 
-    private float curCoin = 0f;
+    private float totalCoins = 0f;   // スコアとしての合計コイン数
 
     void Start()
     {
-        playerEffectDispatcher = transform.parent.GetComponent<PlayerEffectDispatcher>();
-        if(playerEffectDispatcher != null)
+        playerCanvasController = transform.parent.GetComponent<PlayerCanvasController>();
+        if(playerCanvasController != null)
         {
             //playerEffectDispatcher.CoinE += GetOneCoin;
         }
-        curCoin = 0f;
+        totalCoins = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetOneCoin()
     {
-        
-    }
+        totalCoins += plusValuePerCoin;
 
-    public void GetOneCoin(float value)
-    {
-        curCoin += value;
-        // コイン取得時にゲージ更新イベントを発火
-        //playerEffectDispatcher.DispatchGaugeEvent(plusValuePerCoin / CoinMax);
+        _CoinCollectedE.Invoke(plusValuePerCoin / CoinMax);
+
     }
 
     public void CoinReset()
     {
-        curCoin = 0f;
+        totalCoins = 0f;
     }
-
-
-
+    public float GetTotalCoins()
+    {
+        return totalCoins; // 現在のコイン数を取得
+    }
 }

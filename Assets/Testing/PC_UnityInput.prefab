@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 5824348562883177774}
   - component: {fileID: 7767342710225284964}
   - component: {fileID: -6552278331286557088}
+  - component: {fileID: 3629761313017018211}
   m_Layer: 6
   m_Name: PC_UnityInput
   m_TagString: Player
@@ -372,6 +373,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3629761313017018211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848277800390095169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16a1fb58b891d147bb7c09d09b68b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4741191670068862375
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +927,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1603873660885889777, guid: 8cb6b75bf84678443b59960f9600486c,
+        type: 3}
+      propertyPath: boostAudioSource
+      value: 
+      objectReference: {fileID: 8044693687272307637}
+    - target: {fileID: 1603873660885889777, guid: 8cb6b75bf84678443b59960f9600486c,
+        type: 3}
+      propertyPath: boostingAudioSource
+      value: 
+      objectReference: {fileID: 8044693687272307637}
     - target: {fileID: 4909873863326056923, guid: 8cb6b75bf84678443b59960f9600486c,
         type: 3}
       propertyPath: m_Enabled
@@ -1521,6 +1544,12 @@ PrefabInstance:
 --- !u!4 &3806316805550247793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5338316709532537125, guid: 77a71aad893a0bf42a45309e95135d5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9135343161513877076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8044693687272307637 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1252911631053448673, guid: 77a71aad893a0bf42a45309e95135d5b,
     type: 3}
   m_PrefabInstance: {fileID: 9135343161513877076}
   m_PrefabAsset: {fileID: 0}

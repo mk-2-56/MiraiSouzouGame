@@ -32,8 +32,8 @@ namespace AU
     {
         [SerializeField] GameObject respawnPos;
         [SerializeField] GameObject param_playerPrefab;
-
-
+        [SerializeField] GameObject _uiCanvasPrefab;
+        private GameObject _uiCanvasInstance;
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -54,6 +54,9 @@ namespace AU
                 player.transform.position = pos;
                 player.transform.rotation = rot;
             }
+
+            _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
+            player.GetComponent<PlayerCanvasController>().Canvas = _uiCanvasInstance;
 
             _players.Add(_curentPlayerCount, player);
             _rCameraManager.SpawnGameCamera(player);
