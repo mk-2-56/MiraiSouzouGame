@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-
+using AU;
 
 public class GameUIManager : UIManager
 {
@@ -16,8 +16,10 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject MiniMap;
     [SerializeField] private GameObject MiniMapCamera;
     [SerializeField] private GameObject FinishUI;
+    [SerializeField] private GameObject playerManager;
+    [SerializeField] private GameObject centerLine;
 
-
+    private PlayerManager pm;
     private float countStartTime;
 
     private bool countActive;
@@ -31,7 +33,7 @@ public class GameUIManager : UIManager
         UIscale.x = 5f;
         UIscale.y = 5f;
         UIscale.z = 5f;
-        Debug.Log("init");
+        UnityEngine.Debug.Log("init");
         UI3.SetActive(false);
         UI2.SetActive(false);
         UI1.SetActive(false);
@@ -41,15 +43,25 @@ public class GameUIManager : UIManager
         UI1.transform.localScale= UIscale;
         UIGO.transform.localScale= UIscale;
 
-        
-
+        pm = playerManager.GetComponent<PlayerManager>();
         //StartCount();
         //ShowFinish();
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (pm.GetPlayerCount() == 2)
+        {
+            centerLine.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCount();  
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             ShowFinish();  
@@ -67,7 +79,7 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-
+        pm.SetPlayerControl(false);
 
     }
     public void UpdateCount()
@@ -109,6 +121,7 @@ public class GameUIManager : UIManager
 
             UIGO.SetActive(true);
             UIGO.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
+            playerManager.GetComponent<PlayerManager>().SetPlayerControl(true);
 
 
         }
