@@ -118,7 +118,8 @@ namespace AU
 
         int _curentPlayerCount = 0;
 
-        void Start()
+
+        private void Start()
         {
             _rCameraManager = FindObjectOfType<CameraManager>();
             _rInputManager = GetComponent<PlayerInputManager>();
@@ -130,7 +131,7 @@ namespace AU
 */        }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
@@ -160,6 +161,11 @@ namespace AU
                     UnityEngine.Debug.LogWarning("Player " + playerEntry.Key + " does not have a Hub component.");
                 }
             }
+        }
+
+        public int GetPlayerCount()
+        {
+            return _players.Count;
         }
     }
 }
