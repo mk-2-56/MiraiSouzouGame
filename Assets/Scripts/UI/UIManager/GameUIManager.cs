@@ -9,6 +9,7 @@ using AU;
 
 public class GameUIManager : UIManager
 {
+    [SerializeField] private GameCameraManager cameraManager;
     [SerializeField] private GameObject UI3;
     [SerializeField] private GameObject UI2;
     [SerializeField] private GameObject UI1;
@@ -79,7 +80,9 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-        pm.SetPlayerControl(false);
+        if (pm.SetPlayerControl(false)) {
+            cameraManager.mainCamera.GetComponent<AudioListener>().enabled = false;
+        }
 
     }
     public void UpdateCount()
