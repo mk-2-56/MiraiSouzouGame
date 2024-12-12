@@ -55,7 +55,30 @@ namespace CC
 
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
+        public event System.Action<Vector3> MoveEvent;
+        public event System.Action<Vector2> LookEvent;
+        public event System.Action JumpStartEvent;
+        public event System.Action JumpEndEvent;
+        public event System.Action BoostStartEvent;
+        public event System.Action BoostEndEvent;
+        public event System.Action DriftStartEvent;
+        public event System.Action DriftEndEvent;
+        public event System.Action DashEvent;
+
+        public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
+        public event AdditionFixedOperation FixedEvent;
+
+        //Event for speed related effects
         public event System.Action<float> SpeedEffect;
+
+        public int curPosition
+        { 
+            get{ return _position;}
+            set{ _position = value;}
+        }
+
+        [SerializeField] bool  _disableInput;
+        [SerializeField] float _timescale = 1;
         public bool disableInput
         {
             set { _disableInput = value; }
@@ -74,33 +97,6 @@ namespace CC
             _rRb.velocity = _oldVelocity;
             _rMovementParams.enabled = true;
         }
-
-        public event System.Action<Vector3> MoveEvent;
-        public event System.Action<Vector2> LookEvent;
-        public event System.Action JumpStartEvent;
-        public event System.Action JumpEndEvent;
-        public event System.Action BoostStartEvent;
-        public event System.Action BoostEndEvent;
-        public event System.Action DriftStartEvent;
-        public event System.Action DriftEndEvent;
-        public event System.Action DashEvent;
-
-        public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
-        public event AdditionFixedOperation FixedEvent;
-
-        [SerializeField] bool _disableInput;
-        [SerializeField] float _timescale = 1;
-
-        Rigidbody _rRb;
-        Transform _rFacing;
-        Transform _rCog;
-        Vector2 _moveRawInput;
-        Vector2 _lookRawInput;
-
-        PlayerMovementParams _rMovementParams;
-
-        float _timescaleOld;
-        Vector3 _oldVelocity;
 
         public void OnDash(InputAction.CallbackContext context)
         {
@@ -181,6 +177,20 @@ namespace CC
             }
         }
 
+        Rigidbody _rRb;
+        Transform _rFacing;
+        Transform _rCog;
+        Vector2   _moveRawInput;
+        Vector2   _lookRawInput;
+
+        PlayerMovementParams _rMovementParams;
+
+        float   _timescaleOld;
+        Vector3 _oldVelocity;
+
+        //cur position among players
+        int _position;
+
         private void Start()
         {
             _rRb = GetComponent<Rigidbody>();
@@ -194,14 +204,15 @@ namespace CC
         {
             if (_timescale != _timescaleOld)
                 Time.timeScale = _timescale;
+
         }
 
         private void FixedUpdate()
         {
             SpeedEffect?.Invoke(_rRb.velocity.magnitude);
             FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
-            AU.Debug.Log(_rFacing.forward, AU.LogTiming.Fixed);
-            AU.Debug.Log(_rCog.forward, AU.LogTiming.Fixed);
+
+            AU.Debug.Log(_position, AU.LogTiming.Fixed);
         }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerCanvasController : MonoBehaviour
     public CoinGaugeController _gaugeController;
     public CoinCollector       _coinCollector;
     public GameObject Canvas { get { return _canvas; } set { _canvas = value; } }
+    public CC.Hub playerHub;
 
     [SerializeField] float param_minSpeed = 40f;
     [SerializeField] float param_maxSpeed = 100f;
@@ -17,6 +18,8 @@ public class PlayerCanvasController : MonoBehaviour
     private GameObject _canvas;
     private CoinGaugeController gaugeController;
     private TextMeshProUGUI textMeshPro;
+    private GameObject rank_1st;
+    private GameObject rank_2nd;
     public void Initialized()
     {
         if (Canvas == null) {
@@ -41,20 +44,31 @@ public class PlayerCanvasController : MonoBehaviour
 
         gaugeController = _canvas.transform.Find("gauge_red").GetComponent<CoinGaugeController>();
         textMeshPro = _canvas.transform.Find("SpeedText").GetComponent<TextMeshProUGUI>();
+        rank_1st = _canvas.transform.Find("1stGold").gameObject;
+        rank_2nd = _canvas.transform.Find("2ndSliver").gameObject;
 
+        //
         this.transform.Find("Facing/Cog/EffectDispatcher").GetComponent<PlayerEffectDispatcher>().SpeedE += SetSpeedText;
     }
 
     private void Update()
     {//Debug
-/*        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            AddGaugeVaule(-0.01f);
-        }*/
 
-        
     }
 
+    private void FixedUpdate()
+    {
+        if (playerHub.curPosition == 1)
+        {
+            rank_1st.SetActive(true);
+            rank_2nd.SetActive(false);
+        }
+        else
+        {
+            rank_1st.SetActive(false);
+            rank_2nd.SetActive(true);
+        }
+    }
     public void SetSpeedText(float speed)
     {
         textMeshPro.text = speed.ToString("F0");

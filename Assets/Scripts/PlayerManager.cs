@@ -34,6 +34,7 @@ namespace AU
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
         private GameObject _uiCanvasInstance;
+        private TrackPositionManager _rTrackManager;
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -60,14 +61,16 @@ namespace AU
             //Camera生成
             GameObject camera = _rCameraManager.SpawnGameCamera(player);
 
-            //Canvas生成
+            //Canvas生成&初期化処理
             _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
             Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
             canvas.worldCamera = camera.transform.Find("Camera").GetComponent<Camera>();
             canvas.planeDistance = 1f;
-            player.GetComponent<PlayerCanvasController>().Canvas = _uiCanvasInstance;
-            player.GetComponent<PlayerCanvasController>().Initialized();
 
+            PlayerCanvasController controller = player.GetComponent<PlayerCanvasController>();
+            controller.Canvas = _uiCanvasInstance;
+            controller.Initialized();
+            controller.playerHub = player.GetComponent<CC.Hub>();
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
 
@@ -133,6 +136,8 @@ namespace AU
         {
             _rCameraManager = FindObjectOfType<CameraManager>();
             _rInputManager = GetComponent<PlayerInputManager>();
+            _rTrackManager = ScriptableObject.CreateInstance<TrackPositionManager>();
+
         }
 
         public void Initialized()
@@ -149,6 +154,10 @@ namespace AU
             }
         }
 
+        private void FixedUpdate()
+        {
+            _rTrackManager.UpdatePositions(_players);
+        }
         private void OnDestroy()
         {
         }
