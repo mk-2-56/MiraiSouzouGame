@@ -133,6 +133,8 @@ namespace AU
             {
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);
             }
+
+
         }
 
         private void OnDestroy()
@@ -158,6 +160,12 @@ namespace AU
                 }
             }
         }
+        public int GetPlayerCount()
+        {
+            return _players.Count;
+        }
+
     }
+
 }
 
