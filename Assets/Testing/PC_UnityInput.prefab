@@ -385,6 +385,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16a1fb58b891d147bb7c09d09b68b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
+  gaugePos: {x: 0, y: 0, z: 0}
+  rankPos: {x: 0, y: 0, z: 0}
+  needlePos: {x: 0, y: 0, z: 0}
+  speedMeterPos: {x: 0, y: 0, z: 0}
+  _gaugeController: {fileID: 0}
+  _coinCollector: {fileID: 0}
 --- !u!1 &4741191670068862375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,6 +1492,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindSoundEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524490321569616349, guid: 77a71aad893a0bf42a45309e95135d5b,
+        type: 3}
+      propertyPath: param_maxSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524490321569616349, guid: 77a71aad893a0bf42a45309e95135d5b,
+        type: 3}
+      propertyPath: param_minSpeed
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5338316709532537125, guid: 77a71aad893a0bf42a45309e95135d5b,
         type: 3}
