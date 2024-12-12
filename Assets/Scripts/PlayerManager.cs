@@ -49,9 +49,11 @@ namespace AU
                     pos = respawnPos.transform.position;
                 rot = respawnPos.transform.rotation;
 
-                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit))
+                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
                     pos = hit.point;
 
+                if (Physics.CheckSphere(pos,30f, LayerMask.GetMask("PlayerControlled")))
+                {  pos.x += 10.0f; }
                 player.transform.position = pos;
                 player.transform.rotation = rot;
             }
@@ -60,7 +62,6 @@ namespace AU
 
             //Cameraê∂ê¨
             GameObject camera = _rCameraManager.SpawnGameCamera(player);
-
             //Canvasê∂ê¨&èâä˙âªèàóù
             _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
             Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
@@ -162,10 +163,10 @@ namespace AU
         {
         }
 
-        public void SetPlayerControl(bool flag)
+        public bool SetPlayerControl(bool flag)
         {
             UnityEngine.Debug.Log("SetPlayerControl");
-
+            bool playerSpawned = false;
             foreach (KeyValuePair<int, GameObject> playerEntry in _players)
             {
                 GameObject player = playerEntry.Value;
@@ -174,18 +175,21 @@ namespace AU
                 {
                     hubComponent.disableInput = !flag;
                     UnityEngine.Debug.Log("Player " + playerEntry.Key + " control " + (flag ? "enabled" : "disabled"));
+                    playerSpawned = true;
                 }
                 else
                 {
                     UnityEngine.Debug.LogWarning("Player " + playerEntry.Key + " does not have a Hub component.");
                 }
             }
+            return playerSpawned;
         }
 
         public int GetPlayerCount()
         {
             return _players.Count;
         }
+
     }
 }
 
