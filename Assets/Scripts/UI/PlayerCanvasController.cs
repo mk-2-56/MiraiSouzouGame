@@ -58,90 +58,88 @@ public class PlayerCanvasController : MonoBehaviour
 
         if (playerAmount == 0)
         {//プレイヤーが一人だけの場合
-            SetPlayerUI(0);
 /*            SetOnePlayerUI();
 */        }
         else
         {
-            _canvas.transform.Find("1stGold").transform.position = new Vector3(-100f,400f,0f);
-            _canvas.transform.Find("2ndSliver").transform.position = new Vector3(-100f,400f,0f);
-            //1st(-100,400)
+            //_canvas.transform.Find("1stGold").transform.position = new Vector3(-100f,400f,0f);
+            //_canvas.transform.Find("2ndSliver").transform.position = new Vector3(-100f,400f,0f);
         }
     }
 
     private void SetOnePlayerUI()
     {
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-        // プレイヤーごとのUI位置を決定
-        Vector2 uiPosition = Vector2.zero;
+        //float screenWidth = Screen.width;
+        //float screenHeight = Screen.height;
+        //// プレイヤーごとのUI位置を決定
+        //Vector2 uiPosition = Vector2.zero;
 
-        RectTransform tmp;
+        //RectTransform tmp;
 
-        tmp = _canvas.transform.Find("1stGold").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(screenWidth * 0.42f, screenHeight * 0.38f, 0f);
+        //tmp = _canvas.transform.Find("1stGold").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(screenWidth * 0.42f, screenHeight * 0.38f, 0f);
 
-        tmp = _canvas.transform.Find("2ndSliver").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(-100f, screenHeight * 0.38f, 0f);
-        _canvas.transform.Find("2ndSliver").gameObject.SetActive(false);
+        //tmp = _canvas.transform.Find("2ndSliver").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(-100f, screenHeight * 0.38f, 0f);
+        //_canvas.transform.Find("2ndSliver").gameObject.SetActive(false);
 
-        tmp = _canvas.transform.Find("gauge").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(-(screenWidth * 0.42f), screenHeight * 0.3f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 300f);
+        //tmp = _canvas.transform.Find("gauge").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(-(screenWidth * 0.42f), screenHeight * 0.3f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 300f);
 
-        tmp = _canvas.transform.Find("gauge_red").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(-(screenWidth * 0.42f), screenHeight * 0.3f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 300f);
+        //tmp = _canvas.transform.Find("gauge_red").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(-(screenWidth * 0.42f), screenHeight * 0.3f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 300f);
 
-        tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(0f, -screenHeight * 0.4f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 150f);
+        //tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(0f, -screenHeight * 0.4f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 150f);
 
-        tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(0f, -screenHeight * 0.4f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 150f);
+        //tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(0f, -screenHeight * 0.4f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 150f);
 
-        tmp = _canvas.transform.Find("needle").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(screenWidth * 0.026f, -(screenHeight * 0.43f), 0f);
-        tmp.sizeDelta = new Vector2(150f, 75f);
+        //tmp = _canvas.transform.Find("needle").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(screenWidth * 0.026f, -(screenHeight * 0.43f), 0f);
+        //tmp.sizeDelta = new Vector2(150f, 75f);
 
     }
 
     private void SetPlayerUI(int index)
     {
         
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-        // プレイヤーごとのUI位置を決定
-        Vector2 uiPosition = Vector2.zero;
+        //float screenWidth = Screen.width;
+        //float screenHeight = Screen.height;
+        //// プレイヤーごとのUI位置を決定
+        //Vector2 uiPosition = Vector2.zero;
 
-        RectTransform tmp;
+        //RectTransform tmp;
 
-        float is1P = -1.0f;
-        if (index == 1) { is1P = 1f; }
+        //float is1P = -1.0f;
+        //if (index == 1) { is1P = 1f; }
 
-        tmp = _canvas.transform.Find("1stGold").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(screenWidth * 0.1f * is1P, screenHeight * 0.38f, 0f);
+        //tmp = _canvas.transform.Find("1stGold").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(screenWidth * 0.1f * is1P, screenHeight * 0.38f, 0f);
 
-        tmp = _canvas.transform.Find("2ndSliver").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(screenWidth * 0.1f * is1P, screenHeight * 0.38f, 0f);
-        _canvas.transform.Find("2ndSliver").gameObject.SetActive(false);
+        //tmp = _canvas.transform.Find("2ndSliver").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(screenWidth * 0.1f * is1P, screenHeight * 0.38f, 0f);
+        //_canvas.transform.Find("2ndSliver").gameObject.SetActive(false);
 
-        tmp = _canvas.transform.Find("gauge").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3((screenWidth * 0.42f) * is1P, screenHeight * 0.3f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 300f);
+        //tmp = _canvas.transform.Find("gauge").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3((screenWidth * 0.42f) * is1P, screenHeight * 0.3f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 300f);
 
-        tmp = _canvas.transform.Find("gauge_red").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3((screenWidth * 0.42f) * is1P, screenHeight * 0.3f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 300f);
+        //tmp = _canvas.transform.Find("gauge_red").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3((screenWidth * 0.42f) * is1P, screenHeight * 0.3f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 300f);
 
-        tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3((screenWidth * 0.25f) * is1P, -screenHeight * 0.4f, 0f);
-        tmp.sizeDelta = new Vector2(300f, 150f);
+        //tmp = _canvas.transform.Find("speedMeter").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3((screenWidth * 0.25f) * is1P, -screenHeight * 0.4f, 0f);
+        //tmp.sizeDelta = new Vector2(300f, 150f);
 
-        tmp = _canvas.transform.Find("needle").gameObject.GetComponent<RectTransform>();
-        tmp.anchoredPosition3D = new Vector3(screenWidth * 0.25f * is1P, -(screenHeight * 0.43f), 0f);
-        tmp.sizeDelta = new Vector2(150f, 75f);
+        //tmp = _canvas.transform.Find("needle").gameObject.GetComponent<RectTransform>();
+        //tmp.anchoredPosition3D = new Vector3(screenWidth * 0.25f * is1P, -(screenHeight * 0.43f), 0f);
+        //tmp.sizeDelta = new Vector2(150f, 75f);
 
     }
 }

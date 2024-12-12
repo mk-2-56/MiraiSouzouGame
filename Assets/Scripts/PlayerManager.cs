@@ -62,9 +62,12 @@ namespace AU
 
             //Canvas生成
             _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
-            _uiCanvasInstance.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
+            canvas.worldCamera = camera.transform.Find("Camera").GetComponent<Camera>();
+            canvas.planeDistance = 1f;
             player.GetComponent<PlayerCanvasController>().Canvas = _uiCanvasInstance;
             player.GetComponent<PlayerCanvasController>().Initialized();
+
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
 
