@@ -15,7 +15,7 @@ public class CoinGaugeController : MonoBehaviour
             image.fillAmount = 0f; // 初期化
         }
 
-        coinCollector = FindObjectOfType<CoinCollector>();
+        coinCollector = transform.parent.Find("CoinCollector").GetComponent<CoinCollector>();
         if (coinCollector != null) {
             coinCollector._CoinCollectedE += AddGaugeValue;
         }
