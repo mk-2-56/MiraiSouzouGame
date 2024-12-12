@@ -22,6 +22,8 @@ public class CoinGaugeController : MonoBehaviour
         SetGaugeValue(0f); // 初期ゲージ値
     }
 
+    public float GetGaugeValue() { return gaugeValue; }
+
     public void SetGaugeValue(float value)
     {
         gaugeValue = Mathf.Clamp01(value); // ゲージ値を0〜1の範囲に制限
@@ -40,4 +42,5 @@ public class CoinGaugeController : MonoBehaviour
             image.fillAmount = gaugeValue; // UIを更新
         }
     }
+
 }

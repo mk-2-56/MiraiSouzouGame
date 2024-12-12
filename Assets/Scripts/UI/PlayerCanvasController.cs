@@ -5,18 +5,11 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerCanvasController : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    [SerializeField] private GameObject playerManager;
-    [SerializeField] private Vector3 gaugePos;
-    [SerializeField] private Vector3 rankPos;
-    [SerializeField] private Vector3 needlePos;
-    [SerializeField] private Vector3 speedMeterPos;
-
     public CoinGaugeController _gaugeController;
-    public CoinCollector _coinCollector;
+    public CoinCollector       _coinCollector;
     public GameObject Canvas { get { return _canvas; } set { _canvas = value; } }
     private GameObject _canvas;
+    private CoinGaugeController gaugeController;
 
     public void Initialized()
     {
@@ -24,8 +17,6 @@ public class PlayerCanvasController : MonoBehaviour
             Debug.LogError("PlayerCanvasController: Canvas or Camera is not assigned.");
             return;
         }
-        playerManager = GameObject.Find("PlayerManager");
-
 
         {//コントローラー初期化処理
             GameObject gaugeObject = new GameObject("GaugeController");
@@ -42,7 +33,25 @@ public class PlayerCanvasController : MonoBehaviour
         Canvas canvasComponent = _canvas.GetComponent<Canvas>();
         canvasComponent.renderMode = RenderMode.ScreenSpaceCamera;
 
-        int playerAmount = playerManager.gameObject.GetComponent<AU.PlayerManager>().GetPlayerCount();
-     
+        gaugeController = _canvas.transform.Find("gauge_red").GetComponent<CoinGaugeController>();       
     }
+
+    private void Update()
+    {//Debug
+/*        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            AddGaugeVaule(-0.01f);
+        }*/
+    }
+
+    public float GetGaugeValue()
+    {
+        return gaugeController.GetGaugeValue(); ;
+    }
+
+    public void AddGaugeVaule(float value)
+    {
+        gaugeController.AddGaugeValue(value);
+    }
+    
 }
