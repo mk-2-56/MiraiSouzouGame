@@ -3,9 +3,11 @@ using UnityEngine.UI;
 
 public class CoinGaugeController : MonoBehaviour
 {
+    [SerializeField] AudioSource gaugeFilledAS;
     private float gaugeValue = 0f; // 現在のゲージ値
     private Image image;           // UI上のゲージイメージ
     private CoinCollector coinCollector;
+    private bool isFilled = false;
     void Start()
     {
         image = GetComponent<Image>();
@@ -19,10 +21,13 @@ public class CoinGaugeController : MonoBehaviour
         if (coinCollector != null) {
             coinCollector._CoinCollectedE += AddGaugeValue;
         }
-        SetGaugeValue(0f); // 初期ゲージ値
-    }
 
-    public float GetGaugeValue() { return gaugeValue; }
+        SetGaugeValue(0f); // 初期ゲージ値
+        isFilled = false;
+
+}
+
+public float GetGaugeValue() { return gaugeValue; }
 
     public void SetGaugeValue(float value)
     {
@@ -40,6 +45,11 @@ public class CoinGaugeController : MonoBehaviour
         if (image != null)
         {
             image.fillAmount = gaugeValue; // UIを更新
+            if (image.fillAmount > 0.99f && isFilled == false)
+            {
+                gaugeFilledAS.Play();
+                isFilled = true;
+            }
         }
     }
 

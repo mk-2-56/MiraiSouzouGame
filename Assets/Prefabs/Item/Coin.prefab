@@ -58,8 +58,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7240341, y: 0.71729934, z: 0.11932377}
-  m_Center: {x: -0.016514301, y: -0.0039035084, z: 0}
+  m_Size: {x: 1.1786909, y: 1.1353619, z: 0.11932377}
+  m_Center: {x: 0.0055269403, y: 0.017501647, z: 0}
 --- !u!33 &1652588106300011591
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotSpeed: 150
   coinEffect: {fileID: 7779090330933374794}
+  gaugeValue: 0.1
 --- !u!2083052967 &2262447977166625596
 VisualEffect:
   m_ObjectHideFlags: 0
