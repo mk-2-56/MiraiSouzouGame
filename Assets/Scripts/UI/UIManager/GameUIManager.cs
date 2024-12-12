@@ -83,7 +83,7 @@ public class GameUIManager : UIManager
         if (pm.SetPlayerControl(false)) {
             cameraManager.mainCamera.GetComponent<AudioListener>().enabled = false;
         }
-
+        SoundManager.Instance.PlaySE(SESoundData.SE.SE_CountDown);
     }
     public void UpdateCount()
     {

@@ -74,7 +74,7 @@ namespace AU
             controller.playerHub = player.GetComponent<CC.Hub>();
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
-
+            SetPlayerControl(false);
             if (_curentPlayerCount > 1)
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
         }

@@ -21,8 +21,9 @@ namespace GameCameraMode
 public class GameCameraManager : CameraManager
 {
     // Start is called before the first frame update
-    public Camera mainCamera;
+    public GameObject mainCamera;
 
+    [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
@@ -63,10 +64,8 @@ public class GameCameraManager : CameraManager
         if (virtualCameras[0] != null)
         {
             SetCineCamera(virtualCameras[0], true);
-            playerManager.SetPlayerControl(false);
             if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
         }
-
         param_cameraPrefab?.SetActive(false);
     }
 
