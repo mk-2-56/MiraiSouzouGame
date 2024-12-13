@@ -10,6 +10,7 @@ TagManager:
   - MeteorsCheckPoint
   - WorldSpace
   - BigJump
+  - EventCamera
   layers:
   - Default
   - TransparentFX
@@ -21,28 +22,28 @@ TagManager:
   - Targets
   - Interactable
   - Gimmick
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - Collectable
+  - MiniMap
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0

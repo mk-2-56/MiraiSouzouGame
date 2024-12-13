@@ -122,8 +122,11 @@ MonoBehaviour:
   - se: 14
     audioClip: {fileID: 8300000, guid: d65afcb81eed7564e93703ae9f2f3b71, type: 3}
     volume: 1
-  - se: 14
+  - se: 15
     audioClip: {fileID: 8300000, guid: d65afcb81eed7564e93703ae9f2f3b71, type: 3}
+    volume: 1
+  - se: 16
+    audioClip: {fileID: 8300000, guid: a4210fe5971d8ac4189e0abd3ed0b50b, type: 3}
     volume: 1
   curBgmAudioSource: {fileID: 0}
   curSeAudioSource: {fileID: 0}

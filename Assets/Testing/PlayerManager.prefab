@@ -48,6 +48,8 @@ MonoBehaviour:
   respawnPos: {fileID: 0}
   param_playerPrefab: {fileID: 3848277800390095169, guid: 4a4d130e80307e345973955cb1774f91,
     type: 3}
+  _uiCanvasPrefab: {fileID: 8369109158218982803, guid: fa8bac7e0ff6ced4f8f8f24e4c6ecb62,
+    type: 3}
 --- !u!114 &2791821559727664168
 MonoBehaviour:
   m_ObjectHideFlags: 0

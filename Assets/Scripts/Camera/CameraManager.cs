@@ -30,7 +30,7 @@ public abstract class CameraManager : MonoBehaviour
 
     }
 
-    public abstract void SpawnGameCamera(GameObject player);
+    public abstract GameObject SpawnGameCamera(GameObject player);
     public abstract void AdjustGameCamera(int currentPlayerCount);
 
 }

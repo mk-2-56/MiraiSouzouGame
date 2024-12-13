@@ -6,20 +6,35 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using Cinemachine;
+
+
 namespace AU
 {
-    using Unity.VisualScripting;
     using UnityEditor;
-    using UnityEditor.Purchasing;
+
+    [CustomEditor(typeof(PlayerManager))]
+    public class PlayerManagerUI : Editor
+    {
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            if (GUILayout.Button(new GUIContent("JoinPlayer")))
+            {
+                this.target.GetType().GetMethod("JoinPlayer").Invoke(target, null);
+            }
+        }
+    }
+
 
     public class PlayerManager : MonoBehaviour
     {
-        private CameraManager cameraManager;
-        //[SerializeField] List<CinemachineSmoothPath> dollyPaths;
-        //List<CinemachineDollyCart>  dollyCarts;
-        //Dictionary<int, List<CinemachineDollyCart>> _playerDollyCarts;
-        //[SerializeField] private float dollySpeed;
         [SerializeField] GameObject respawnPos;
+        [SerializeField] GameObject param_playerPrefab;
+        [SerializeField] GameObject _uiCanvasPrefab;
+        private GameObject _uiCanvasInstance;
+        private TrackPositionManager _rTrackManager;
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -34,51 +49,42 @@ namespace AU
                     pos = respawnPos.transform.position;
                 rot = respawnPos.transform.rotation;
 
-                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit))
+                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
                     pos = hit.point;
 
+                if (Physics.CheckSphere(pos,30f, LayerMask.GetMask("PlayerControlled")))
+                {  pos.x += 10.0f; }
                 player.transform.position = pos;
                 player.transform.rotation = rot;
             }
 
-            cameraManager.SpawnGameCamera(player);
 
+
+            //Camera生成
+            GameObject camera = _rCameraManager.SpawnGameCamera(player);
+            //Canvas生成&初期化処理
+            _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
+            Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
+            canvas.worldCamera = camera.transform.Find("Camera").GetComponent<Camera>();
+            canvas.planeDistance = 1f;
+
+            PlayerCanvasController controller = player.GetComponent<PlayerCanvasController>();
+            controller.Canvas = _uiCanvasInstance;
+            controller.Initialized();
+            controller.playerHub = player.GetComponent<CC.Hub>();
+            //プレイヤーDictionaryにプレイヤーを追加
+            _players.Add(_curentPlayerCount, player);
+            SetPlayerControl(false);
             if (_curentPlayerCount > 1)
-                cameraManager.AdjustGameCamera(_curentPlayerCount);
+                _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
         }
 
-        public void SpawnPlayer()
+        public void JoinPlayer()
         {
             if (_curentPlayerCount > 1)
                 return;
 
-            _curentPlayerCount++;
-
-            GameObject playerCharacter;// = Instantiate(param_playerPrefab, transform.position, transform.rotation);
-
-            if (respawnPos) playerCharacter = Instantiate(param_playerPrefab, transform.position, transform.rotation);
-            else playerCharacter = Instantiate(param_playerPrefab, respawnPos.transform.position, respawnPos.transform.rotation);
-
-            //{//CineMachine処理
-            //    foreach (CinemachineSmoothPath path in dollyPaths)
-            //    {
-            //        CinemachineDollyCart dollyCart = playerCharacter.AddComponent<CinemachineDollyCart>();
-            //        // Dolly Cartの設定
-            //        dollyCart.m_Path = path; // スプラインを設定
-            //        dollyCart.m_Position = 0; // スプラインの開始位置
-            //        dollyCart.m_Speed = 0; // 移動速度を設定
-            //        dollyCart.m_UpdateMethod = CinemachineDollyCart.UpdateMethod.FixedUpdate;
-            //        dollyCarts.Add(dollyCart);
-            //    }
-            //    _playerDollyCarts[_curentPlayerCount] = dollyCarts;
-            //    playerCharacter.GetComponent<TrackFollower>()?.Initialized();
-            //}
-            playerCharacter.SetActive(true);
-            _players.Add(_curentPlayerCount, playerCharacter);
-
-            cameraManager.SpawnGameCamera(playerCharacter);
-            if (_curentPlayerCount > 1)
-                cameraManager.AdjustGameCamera(_curentPlayerCount);
+            _rInputManager.JoinPlayer();
         }
 
         public void ClearResetPlayers()
@@ -114,51 +120,76 @@ namespace AU
                 Destroy(_players[index]);
                 _curentPlayerCount--;
                 if (_curentPlayerCount < 2)
-                    cameraManager.AdjustGameCamera(_curentPlayerCount);
+                    _rCameraManager.AdjustGameCamera(_curentPlayerCount);
             }
         }
 
-        [SerializeField] GameObject param_playerPrefab;
+        CameraManager _rCameraManager;
+        PlayerInputManager _rInputManager;
+
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
         int _curentPlayerCount = 0;
 
-        void Start()
-        {
-            param_playerPrefab.SetActive(false);
 
-            DontDestroyOnLoad(this);
+        private void Start()
+        {
+            _rCameraManager = FindObjectOfType<CameraManager>();
+            _rInputManager = GetComponent<PlayerInputManager>();
+            _rTrackManager = ScriptableObject.CreateInstance<TrackPositionManager>();
+
         }
 
         public void Initialized()
         {
-            cameraManager = FindObjectOfType<CameraManager>();
-
-        }
+/*            cameraManager = FindObjectOfType<CameraManager>();
+*/        }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
             if (Input.GetKeyDown(KeyCode.V))
             {
-                cameraManager.AdjustGameCamera(_curentPlayerCount);
+                _rCameraManager.AdjustGameCamera(_curentPlayerCount);
             }
         }
 
+        private void FixedUpdate()
+        {
+            _rTrackManager.UpdatePositions(_players);
+        }
         private void OnDestroy()
         {
         }
 
-        //public List<CinemachineSmoothPath> GetPath()
-        //{
-        //    return dollyPaths;
-        //}
+        public bool SetPlayerControl(bool flag)
+        {
+            UnityEngine.Debug.Log("SetPlayerControl");
+            bool playerSpawned = false;
+            foreach (KeyValuePair<int, GameObject> playerEntry in _players)
+            {
+                GameObject player = playerEntry.Value;
+                CC.Hub hubComponent = player.GetComponent<CC.Hub>();
+                if (hubComponent != null)
+                {
+                    hubComponent.disableInput = !flag;
+                    UnityEngine.Debug.Log("Player " + playerEntry.Key + " control " + (flag ? "enabled" : "disabled"));
+                    playerSpawned = true;
+                }
+                else
+                {
+                    UnityEngine.Debug.LogWarning("Player " + playerEntry.Key + " does not have a Hub component.");
+                }
+            }
+            return playerSpawned;
+        }
 
-        //public float GetDollySpeed()
-        //{
-        //    return dollySpeed;
-        //}
+        public int GetPlayerCount()
+        {
+            return _players.Count;
+        }
+
     }
 }
+

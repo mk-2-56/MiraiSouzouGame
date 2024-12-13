@@ -2,8 +2,11 @@ using AU;
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.XR;
+using static UnityEditor.PlayerSettings;
 
 
 
@@ -18,7 +21,10 @@ namespace GameCameraMode
 public class GameCameraManager : CameraManager
 {
     // Start is called before the first frame update
-    [SerializeField] private Camera mainCamera;
+    public GameObject mainCamera;
+
+    [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Cinemachine.CinemachineDollyCart dollyCart1;
@@ -58,9 +64,8 @@ public class GameCameraManager : CameraManager
         if (virtualCameras[0] != null)
         {
             SetCineCamera(virtualCameras[0], true);
-            if(virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
+            if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
         }
-
         param_cameraPrefab?.SetActive(false);
     }
 
@@ -94,7 +99,7 @@ public class GameCameraManager : CameraManager
     }
 
 
-    public override void SpawnGameCamera(GameObject gameObject)//->playerCharacter
+    public override GameObject SpawnGameCamera(GameObject gameObject)//->playerCharacter
     {
         GameObject camera = Instantiate(param_cameraPrefab,
             gameObject.transform.position, gameObject.transform.rotation);
@@ -104,14 +109,9 @@ public class GameCameraManager : CameraManager
 
         var tmp = camera.GetComponent<GameCamera>();
         tmp.SetPlayerReference(gameObject);
-        camera.SetActive(true);
+        camera.SetActive(false);
         _gameCameras.Add(gameObject, camera);
-
-        camera.GetComponent<FocusEffectController>().effectDispatcher =
-            gameObject.transform.Find("Facing/Cog/EffectDispatcher").GetComponent<PlayerEffectDispatcher>();
-
-/*        camera.GetComponent<Camera>().Render
-*/
+        return camera;
 
     }
 
@@ -152,6 +152,14 @@ public class GameCameraManager : CameraManager
             i++;
         }
     }
+
+    public void SetAllGameCamera(bool isEnable)
+    {
+        foreach (GameObject cam in _gameCameras.Values)
+        {
+            cam.gameObject.SetActive(isEnable);
+        }
+    }
     private IEnumerator SwitchVCameras()
     {
         for (int i = 0; i < virtualCameras.Count; i++)
@@ -165,7 +173,11 @@ public class GameCameraManager : CameraManager
             {
                 yield return new WaitForSeconds(switchTimes[i]);
             }
+
         }
+        _gameUIManager.StartCount();
+
+        SetAllGameCamera(true);
     }
 
     private void ResetVCamerasPriority()
@@ -175,6 +187,8 @@ public class GameCameraManager : CameraManager
             camera.Priority = 0;
         }
     }
+
+    
 }
 
 
