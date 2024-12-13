@@ -224,7 +224,6 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         bgmMasterVolume = Mathf.Clamp01(volume);
-        Debug.Log($"SetBGMVolume called with value: {volume}");
         UpdateVolumes();
     }
 
