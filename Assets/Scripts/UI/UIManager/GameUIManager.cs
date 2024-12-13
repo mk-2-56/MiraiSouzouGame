@@ -54,9 +54,24 @@ public class GameUIManager : UIManager
     // Update is called once per frame
     void Update()
     {
+        if (pm.GetPlayerCount() == 1)
+        {
+            RectTransform rt = MiniMap.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(1.0f, 0.0f);
+            rt.anchorMax = new Vector2(1.0f, 0.0f);
+            rt.pivot = new Vector2(1.0f, 0.0f);
+            rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+
+        }
         if (pm.GetPlayerCount() == 2)
         {
             centerLine.SetActive(true);
+            RectTransform rt = MiniMap.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(0.5f, 0.5f);
+            rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+
         }
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -80,10 +95,12 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-        if (pm.SetPlayerControl(false)) {
+        if (pm.SetPlayerControl(false))
+        {
             cameraManager.mainCamera.GetComponent<AudioListener>().enabled = false;
         }
         SoundManager.Instance.PlaySE(SESoundData.SE.SE_CountDown);
+
     }
     public void UpdateCount()
     {
