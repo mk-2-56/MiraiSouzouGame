@@ -6,6 +6,7 @@ using UnityEngine.Video;
 public class VideoControl : MonoBehaviour
 {
     [SerializeField]private VideoPlayer videoPlayer; // VideoPlayerをアタッチ
+    public Material material;
 
     private void Start()
     {
@@ -14,7 +15,7 @@ public class VideoControl : MonoBehaviour
         {
             videoPlayer = GetComponent<VideoPlayer>();
         }
-
+        videoPlayer.loopPointReached += OnVideoLoopPointReached;
         // VideoPlayerが再生開始されたらフレームを監視
         videoPlayer.Play();
     }
@@ -30,4 +31,11 @@ public class VideoControl : MonoBehaviour
             }
         }
     }
+
+    void OnVideoLoopPointReached(VideoPlayer vp)
+    {
+        // 動画終了時にアルファをリセット（例）
+        material.SetFloat("_Alpha", 1.0f);
+    }
+
 }
