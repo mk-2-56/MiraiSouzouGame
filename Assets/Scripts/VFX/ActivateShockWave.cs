@@ -17,6 +17,7 @@ public class ActivateShockWave : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            Execute();
         }
     }
 
