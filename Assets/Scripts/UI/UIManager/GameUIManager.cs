@@ -99,7 +99,7 @@ public class GameUIManager : UIManager
         {
             cameraManager.mainCamera.GetComponent<AudioListener>().enabled = false;
         }
-        SoundManager.Instance.PlaySE(SESoundData.SE.SE_CountDown);
+        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
 
     }
     public void UpdateCount()
