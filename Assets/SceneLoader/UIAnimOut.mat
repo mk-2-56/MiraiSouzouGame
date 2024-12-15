@@ -92,8 +92,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AnimIndex: 100.20511
-    - _AnimIndex: 205.76598
+    - _AnimIndex: 100.380356
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
