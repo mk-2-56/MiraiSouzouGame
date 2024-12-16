@@ -29,7 +29,7 @@ public class AreaBGMTrigger : MonoBehaviour
     {
         foreach (BGMSoundData.BGM bgm in areaBgms)
         {
-            SoundManager.Instance.PlayBGM(bgm);
+            SoundManager.Instance?.PlayBGM(bgm);
             Debug.Log("Play Area BGM : " + bgm.ToString());
         }
     }

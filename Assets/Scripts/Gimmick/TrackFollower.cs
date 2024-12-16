@@ -78,7 +78,6 @@ public class TrackFollower : MonoBehaviour
             GameObject player = other.gameObject;
             //Animation Set
             player.transform.Find("Facing/Cog/AnimationController").GetComponent<PlayerAnimationControl>().DispatchBigJump();
-            player.GetComponent<CC.Hover>().SetOffGround();
 
             Rigidbody rb = player.GetComponent<Rigidbody>();
             if (rb != null)
