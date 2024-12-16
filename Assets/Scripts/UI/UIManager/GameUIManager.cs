@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using AU;
+using Unity.Mathematics;
 
 public class GameUIManager : UIManager
 {
@@ -27,6 +28,7 @@ public class GameUIManager : UIManager
     private int countDown;
 
     private Vector3 UIscale;
+    private Vector2 MiniMapPos;
 
     // Start is called before the first frame update
     public override void Initialized()
@@ -45,10 +47,11 @@ public class GameUIManager : UIManager
         UIGO.transform.localScale= UIscale;
 
         pm = playerManager.GetComponent<PlayerManager>();
+        MiniMapPos = MiniMap.GetComponent<RectTransform>().position;
         //StartCount();
         //ShowFinish();
 
-        
+
     }
 
     // Update is called once per frame
@@ -57,6 +60,7 @@ public class GameUIManager : UIManager
         if (pm.GetPlayerCount() == 2)
         {
             centerLine.SetActive(true);
+            MiniMapPos = new Vector2(0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.G))
