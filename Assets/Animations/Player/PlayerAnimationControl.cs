@@ -89,6 +89,7 @@ public class PlayerAnimationControl : MonoBehaviour
     //BigJump
     public void DispatchBigJump()
     {
+        DispatchGroundedEvent();
         BigJumpAnimE?.Invoke();
     }
     //Ground?
