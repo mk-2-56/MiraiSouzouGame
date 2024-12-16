@@ -79,6 +79,7 @@ public class GameUIManager : UIManager
 
         }
 
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             StartCount();  
@@ -104,6 +105,7 @@ public class GameUIManager : UIManager
         countActive= true;
         countDown = 4;
         pm.SetPlayerControl(false);
+        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
 
     }
     public void UpdateCount()
