@@ -28,7 +28,6 @@ public class GameUIManager : UIManager
     private int countDown;
 
     private Vector3 UIscale;
-    private Vector2 MiniMapPos;
 
     // Start is called before the first frame update
     public override void Initialized()
@@ -47,7 +46,6 @@ public class GameUIManager : UIManager
         UIGO.transform.localScale= UIscale;
 
         pm = playerManager.GetComponent<PlayerManager>();
-        MiniMapPos = MiniMap.GetComponent<RectTransform>().position;
         //StartCount();
         //ShowFinish();
 
@@ -74,7 +72,6 @@ public class GameUIManager : UIManager
             rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.pivot = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = new Vector2(0.0f, 0.0f);
-            MiniMapPos = new Vector2(0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.G))
