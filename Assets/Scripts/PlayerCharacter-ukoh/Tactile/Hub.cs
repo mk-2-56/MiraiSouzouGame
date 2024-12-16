@@ -83,6 +83,10 @@ namespace CC
         {
             set { _disableInput = value; }
         }
+        public Vector2 moveRawInput
+        {
+            get { return _moveRawInput; }
+        }
 
         public void FreezePlayer()
         {

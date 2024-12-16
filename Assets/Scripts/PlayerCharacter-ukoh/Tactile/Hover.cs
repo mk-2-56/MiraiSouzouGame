@@ -142,6 +142,13 @@ namespace CC
 
             _rRb.AddForce(_rayHit.normal * hoverForce, ForceMode.Acceleration);
         }
+
+        public void SetOffGround()
+        {
+            OffGroundE?.Invoke();
+        }
+
     }
+
 
 }

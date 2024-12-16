@@ -68,11 +68,11 @@ public class BoostTile : MonoBehaviour
         }
         if (param_direction == null)
         {
-            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
+            SoundManager.Instance?.PlaySE(SESoundData.SE.SE_BoostTile);
         }
         else
         {
-            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
+            SoundManager.Instance?.PlaySE(SESoundData.SE.SE_BoostTile);
         }
     }
 

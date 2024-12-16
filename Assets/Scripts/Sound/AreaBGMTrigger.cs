@@ -14,12 +14,12 @@ public class AreaBGMTrigger : MonoBehaviour
         {
             if (stopPreviousBGM)
             {
-                SoundManager.Instance.FadeOutAllBGM(1f);
+                SoundManager.Instance?.FadeOutAllBGM(1f);
                 PlayListBGM();
             }
             else
             {
-                SoundManager.Instance.FadeOutAllBGM(1f);
+                SoundManager.Instance?.FadeOutAllBGM(1f);
                 PlayListBGM();
             }
         }
