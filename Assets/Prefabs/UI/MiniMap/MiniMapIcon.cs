@@ -18,6 +18,6 @@ public class MiniMapIcon : MonoBehaviour
         Vector3 targetPosition = targetObject.position;
         Vector3 screenPos = MiniMapCamera.WorldToScreenPoint(targetPosition);
 
-        rectTransform.anchoredPosition = new Vector2(screenPos.x*1.15f, screenPos.y*1.15f);
+        rectTransform.anchoredPosition = new Vector2(screenPos.x, screenPos.y);
     }
 }

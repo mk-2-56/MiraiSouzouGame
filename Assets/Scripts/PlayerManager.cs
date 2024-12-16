@@ -33,6 +33,7 @@ namespace AU
         [SerializeField] GameObject respawnPos;
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
+        [SerializeField] GameUIManager gameUIManager;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
         public void OnPlayerJoined(PlayerInput input)
@@ -56,7 +57,7 @@ namespace AU
                 player.transform.rotation = rot;
             }
 
-
+            gameUIManager.AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
 
             //Cameraê∂ê¨
             GameObject camera = _rCameraManager.SpawnGameCamera(player);
