@@ -1,35 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BoostTile : MonoBehaviour
 {
     enum BoostMode
-    { 
+    {
         Burst,
         Continous,
     }
 
     [SerializeField] BoostMode param_mode;
-    [SerializeField] float     param_targetSpeed;
-    [SerializeField] float     param_acc;
+    [SerializeField] float param_targetSpeed;
+    [SerializeField] float param_acc;
     [SerializeField] Transform param_direction;
+    [SerializeField] GameObject param_VFXprefab;
 
     Vector3 _direction;
     Rigidbody _other;
+    VisualEffect _effct;
 
     float minAcc = 10.0f;
 
     private void Start()
     {
-        if(param_direction == null)
-        param_direction = transform;
+        if (param_direction == null)
+            param_direction = transform;
         _direction = param_direction.forward;
+
+        _effct = Instantiate(param_VFXprefab, transform.position, transform.rotation).GetComponent<VisualEffect>();
     }
 
     void Burst()
-    { 
-        float accMag = Mathf.Max( minAcc , param_targetSpeed - Vector3.Dot(_other.velocity, _direction));
+    {
+        float accMag = Mathf.Max(minAcc, param_targetSpeed - Vector3.Dot(_other.velocity, _direction));
         _other.AddForce(_direction * accMag, ForceMode.VelocityChange);
     }
 
@@ -43,7 +48,7 @@ public class BoostTile : MonoBehaviour
     }
 
     void StartAccelerate(CC.Hub other)
-    { 
+    {
         other.FixedEvent += Acclerate;
     }
     void EndAccelerate(CC.Hub other)
@@ -53,32 +58,27 @@ public class BoostTile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + "Entered");
-
         _other = other.GetComponent<Rigidbody>();
-        switch(param_mode)
+        switch (param_mode)
         {
-        case BoostMode.Burst:
+            case BoostMode.Burst:
                 Burst();
                 break;
 
-        case BoostMode.Continous:
+            case BoostMode.Continous:
                 StartAccelerate(other.GetComponent<CC.Hub>());
                 break;
         }
-        if (param_direction == null)
-        {
-            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
-        }
-        else
-        {
-            SoundManager.Instance.PlaySE(SESoundData.SE.SE_BoostTile);
-        }
+
+        _effct.transform.position = other.transform.position;
+        _effct.transform.rotation = Quaternion.LookRotation(other.attachedRigidbody.velocity, Vector3.up);
+        _effct.Play();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(param_mode == BoostMode.Continous)
+        if (param_mode == BoostMode.Continous)
             EndAccelerate(other.GetComponent<CC.Hub>());
     }
 }
+
