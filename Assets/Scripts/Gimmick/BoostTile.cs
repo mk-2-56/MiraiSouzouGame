@@ -24,13 +24,15 @@ public class BoostTile : MonoBehaviour
 
     float minAcc = 10.0f;
 
+    private float HeightAdjust = 6.0f;
+
     private void Start()
     {
         if (param_direction == null)
             param_direction = transform;
         _direction = param_direction.forward;
 
-        _effct = Instantiate(param_VFXprefab, transform.position, transform.rotation).GetComponent<VisualEffect>();
+        _effct = Instantiate(param_VFXprefab, transform.positionÅ@+ new Vector3(0.0f, HeightAdjust, 0.0f), transform.rotation).GetComponent<VisualEffect>();
         _effct.enabled = false;
     }
 
@@ -85,7 +87,7 @@ public class BoostTile : MonoBehaviour
         //Effect
         _effct.enabled = true;
         _effct.transform.rotation = Quaternion.LookRotation(other.attachedRigidbody.velocity, Vector3.up);
-        StartCoroutine(EffectUpdate(other.transform, other.transform.position + other.transform.forward * param_targetSpeed * Time.fixedDeltaTime));
+        StartCoroutine(EffectUpdate(other.transform, other.transform.position + new Vector3(0.0f, HeightAdjust, 0.0f) + other.transform.forward * param_targetSpeed * Time.fixedDeltaTime));
         _effct.Play();
         other.GetComponent<PlayerCanvasController>().EnableFocusEffect();//èWíÜê¸
     }

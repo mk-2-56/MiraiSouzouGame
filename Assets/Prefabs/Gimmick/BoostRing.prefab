@@ -9196,7 +9196,7 @@ MonoBehaviour:
   param_targetSpeed: 80
   param_acc: 50
   param_direction: {fileID: 5488089843354987274}
-  param_VFXprefab: {fileID: 7066409635341142722, guid: 4e05980602b73f146a9c1c44b4902483,
+  param_VFXprefab: {fileID: 1698183781117503442, guid: 35a21b2e54dd6c447bb21d61f51c54d4,
     type: 3}
   param_VFXfollowFade: 0.7
 --- !u!65 &6610488125898328452

@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 6717607789279614745}
   - component: {fileID: 8200648093462813972}
   - component: {fileID: 7681217692072257758}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: FocusEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
