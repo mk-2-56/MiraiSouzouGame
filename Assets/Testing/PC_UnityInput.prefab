@@ -2055,6 +2055,7 @@ GameObject:
   - component: {fileID: 7767342710225284964}
   - component: {fileID: -6552278331286557088}
   - component: {fileID: 3629761313017018211}
+  - component: {fileID: 8097347893524193773}
   m_Layer: 6
   m_Name: PC_UnityInput
   m_TagString: Player
@@ -2349,6 +2350,22 @@ MonoBehaviour:
   _startColor: {r: 1, g: 1, b: 1, a: 1}
   _middleColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _endColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &8097347893524193773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848277800390095169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86b22ada24f1d9478921ee70082b1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPositions:
+  - {x: -852.1116, y: 73.09, z: -1924.241}
+  - {x: -452.0179, y: 264.7, z: -158.347}
+  - {x: -3842.705, y: -19.29, z: 1445.2}
 --- !u!1 &3881107173151752731
 GameObject:
   m_ObjectHideFlags: 0
