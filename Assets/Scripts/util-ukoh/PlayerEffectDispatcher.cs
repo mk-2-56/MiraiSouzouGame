@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerEffectDispatcher : MonoBehaviour
@@ -17,8 +16,9 @@ public class PlayerEffectDispatcher : MonoBehaviour
 
     public event System.Action LandedE;
     public event System.Action LifetedE;
-    
-    // Start is called before the first frame update
+
+    public event System.Action<Vector3> CollideE;
+
     void Start()
     {
         GameObject _rRoot = transform.parent.parent.parent.gameObject;
@@ -26,7 +26,8 @@ public class PlayerEffectDispatcher : MonoBehaviour
         {
             CC.Hub tmp = _rRoot.GetComponent<CC.Hub>();
             if (tmp)
-                tmp.SpeedEffect += DispatchSpeedEvent;
+                tmp.SpeedEffect   += DispatchSpeedEvent;
+                tmp.CollideEffect += DispatchCollideEvent;
         }
         {
             CC.Basic tmp = _rRoot.GetComponent<CC.Basic>();
@@ -76,6 +77,10 @@ public class PlayerEffectDispatcher : MonoBehaviour
     {
         SpeedE?.Invoke(speed);
     }
+    void DispatchCollideEvent(Vector3 other)
+    {
+        CollideE?.Invoke(other);
+    }
 
     void DispatchDriftStart()
     {
@@ -103,7 +108,4 @@ public class PlayerEffectDispatcher : MonoBehaviour
     {
         LifetedE?.Invoke();
     }
-
-
-
 }

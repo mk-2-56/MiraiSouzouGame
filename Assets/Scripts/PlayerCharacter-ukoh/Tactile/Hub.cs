@@ -19,7 +19,6 @@ namespace CC
     [CustomEditor(typeof(Hub))]
     public class HubUI : Editor
     {
-        SerializedProperty timescale;
         SerializedProperty disableInput;
 
         bool freezed = false;
@@ -28,7 +27,6 @@ namespace CC
 
         void OnEnable()
         {
-            timescale = serializedObject.FindProperty("_timescale");
             disableInput = serializedObject.FindProperty("_disableInput");
             _target = this.target.GetType().ToString();
         }
@@ -38,7 +36,6 @@ namespace CC
 
             GUILayout.Label(_target);
 
-            EditorGUILayout.Slider(timescale, 0.01f, 1.0f, new GUIContent("TimeScale"));
             if (GUILayout.Button(new GUIContent("DsiableInput")))
             { disableInput.boolValue = !disableInput.boolValue; }
             if (GUILayout.Button(new GUIContent("Freeze")))
@@ -69,8 +66,13 @@ namespace CC
         public event AdditionFixedOperation FixedEvent;
 
         //Event for speed related effects
-        public event System.Action<float> SpeedEffect;
+        public event System.Action<float>     SpeedEffect;
+        public event System.Action<Vector3> CollideEffect;
 
+        public Vector2 moveRawInput
+        { 
+            get{ return _moveRawInput;}
+        }
         public int curPosition
         { 
             get{ return _position;}
@@ -78,7 +80,6 @@ namespace CC
         }
 
         [SerializeField] bool  _disableInput;
-        [SerializeField] float _timescale = 1;
         public bool disableInput
         {
             set { _disableInput = value; }
@@ -185,7 +186,6 @@ namespace CC
 
         PlayerMovementParams _rMovementParams;
 
-        float   _timescaleOld;
         Vector3 _oldVelocity;
 
         //cur position among players
@@ -200,19 +200,17 @@ namespace CC
             _rCog = _rFacing.Find("Cog");
         }
 
-        private void Update()
-        {
-            if (_timescale != _timescaleOld)
-                Time.timeScale = _timescale;
-
-        }
 
         private void FixedUpdate()
         {
             SpeedEffect?.Invoke(_rRb.velocity.magnitude);
             FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
-
-            AU.Debug.Log(_position, AU.LogTiming.Fixed);
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            Vector3 dv = collision.GetContact(0).point - transform.position;
+            dv = dv.normalized;
+            CollideEffect?.Invoke(dv);
         }
     }
 }

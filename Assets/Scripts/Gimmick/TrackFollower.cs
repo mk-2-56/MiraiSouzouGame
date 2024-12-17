@@ -74,7 +74,10 @@ public class TrackFollower : MonoBehaviour
         if (other.CompareTag("Player") && !activeCarts.ContainsKey(other.gameObject))
         {
             SoundManager.Instance?.PlaySE(SESoundData.SE.SE_WindTrigger);
+
             GameObject player = other.gameObject;
+            //Animation Set
+            player.transform.Find("Facing/Cog/AnimationController").GetComponent<PlayerAnimationControl>().DispatchBigJump();
 
             Rigidbody rb = player.GetComponent<Rigidbody>();
             if (rb != null)

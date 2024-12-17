@@ -3,6 +3,20 @@ using UnityEngine.UI;
 
 public class CoinGaugeController : MonoBehaviour
 {
+    public float GetGaugeValue() { return gaugeValue; }
+
+    public void SetGaugeValue(float value)
+    {
+        gaugeValue = Mathf.Clamp01(value); // ゲージ値を0〜1の範囲に制限
+        UpdateGaugeUI();
+    }
+
+    public void AddGaugeValue(float value)
+    {
+        SetGaugeValue(gaugeValue + value);
+    }
+
+
     [SerializeField] AudioSource gaugeFilledAS;
     private float gaugeValue = 0f; // 現在のゲージ値
     private Image image;           // UI上のゲージイメージ
@@ -25,21 +39,12 @@ public class CoinGaugeController : MonoBehaviour
         SetGaugeValue(0f); // 初期ゲージ値
         isFilled = false;
 
-}
-
-public float GetGaugeValue() { return gaugeValue; }
-
-    public void SetGaugeValue(float value)
-    {
-        gaugeValue = Mathf.Clamp01(value); // ゲージ値を0〜1の範囲に制限
-        UpdateGaugeUI();
     }
 
-    public void AddGaugeValue(float value)
+    private void FixeUpdate()
     {
-        SetGaugeValue(gaugeValue + value);
+        AddGaugeValue(0.002f);
     }
-
     private void UpdateGaugeUI()
     {
         if (image != null)

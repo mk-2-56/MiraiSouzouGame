@@ -1250,6 +1250,9 @@ MonoBehaviour:
   param_targetSpeed: 80
   param_acc: 65
   param_direction: {fileID: 0}
+  param_VFXprefab: {fileID: 1698183781117503442, guid: 35a21b2e54dd6c447bb21d61f51c54d4,
+    type: 3}
+  param_VFXfollowFade: 0.7
 --- !u!65 &7334062264973056571
 BoxCollider:
   m_ObjectHideFlags: 0

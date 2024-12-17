@@ -104,11 +104,6 @@ namespace CC
                     rayDir, out _rayHit, rayLength, _layerMask);
             }
 
-            {
-                string hitObjName = "";
-                hitObjName = _rayHit.collider?.gameObject.name;
-            }
-
             if(_groundedOld != _rMovementParams.flags.grounded)
             { 
                 if(_rMovementParams.flags.grounded)
@@ -142,6 +137,13 @@ namespace CC
 
             _rRb.AddForce(_rayHit.normal * hoverForce, ForceMode.Acceleration);
         }
+
+        public void SetOffGround()
+        {
+            OffGroundE?.Invoke();
+        }
+
     }
+
 
 }

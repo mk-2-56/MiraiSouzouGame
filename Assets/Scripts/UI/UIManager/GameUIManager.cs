@@ -9,7 +9,6 @@ using AU;
 
 public class GameUIManager : UIManager
 {
-    [SerializeField] private GameCameraManager cameraManager;
     [SerializeField] private GameObject UI3;
     [SerializeField] private GameObject UI2;
     [SerializeField] private GameObject UI1;
@@ -19,6 +18,10 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject FinishUI;
     [SerializeField] private GameObject playerManager;
     [SerializeField] private GameObject centerLine;
+    [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private Sprite p1Icon;
+    [SerializeField] private Sprite p2Icon;
+
 
     private PlayerManager pm;
     private float countStartTime;
@@ -27,6 +30,8 @@ public class GameUIManager : UIManager
     private int countDown;
 
     private Vector3 UIscale;
+
+    private int iconCount;
 
     // Start is called before the first frame update
     public override void Initialized()
@@ -44,11 +49,11 @@ public class GameUIManager : UIManager
         UI1.transform.localScale= UIscale;
         UIGO.transform.localScale= UIscale;
 
+        iconCount = 0;
         pm = playerManager.GetComponent<PlayerManager>();
         //StartCount();
         //ShowFinish();
 
-        
     }
 
     // Update is called once per frame
@@ -74,6 +79,7 @@ public class GameUIManager : UIManager
 
         }
 
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             StartCount();  
@@ -87,6 +93,9 @@ public class GameUIManager : UIManager
         {
             UpdateCount();
         }
+
+
+
     }
 
     //カウントダウンを始めたい時にこの関数を呼んでください。
@@ -95,10 +104,7 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-        if (pm.SetPlayerControl(false))
-        {
-            cameraManager.mainCamera.GetComponent<AudioListener>().enabled = false;
-        }
+        pm.SetPlayerControl(false);
         SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
 
     }
@@ -161,4 +167,28 @@ public class GameUIManager : UIManager
             .DOScale(1.0f, 0.7f)
             .Play();
     }
+
+    public void AddPlayerIcon(Transform transform)
+    {
+        // アイコンのインスタンスを生成
+
+        GameObject playerIcon = Instantiate(iconPrefab, MiniMap.transform);
+
+        // ミニマップ上のアイコンの位置を設定
+        playerIcon.GetComponent<MiniMapIcon>().targetObject = transform;
+        playerIcon.GetComponent<MiniMapIcon>().MiniMapCamera = MiniMapCamera.GetComponent<Camera>();
+
+        if (iconCount==0)
+        {
+            playerIcon.GetComponent<Image>().sprite = p1Icon;
+
+        }
+        else if (iconCount==1)
+        {
+            playerIcon.GetComponent<Image>().sprite = p2Icon;
+
+        }
+        iconCount++;
+    }
+
 }

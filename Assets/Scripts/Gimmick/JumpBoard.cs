@@ -33,7 +33,7 @@ public class JumpBoard : MonoBehaviour
                     _direction = _direction.normalized * jumpBoardForce * forwardForce + Vector3.up * jumpBoardForce * heightForce;
                 playerRb.AddForce(_direction, ForceMode.VelocityChange);
 
-                SoundManager.Instance.PlaySE(SESoundData.SE.SE_JumpBoardS);
+                SoundManager.Instance?.PlaySE(SESoundData.SE.SE_JumpBoardS);
 
             }
             else
