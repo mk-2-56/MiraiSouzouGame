@@ -21,11 +21,12 @@ public class VFXSpeedController : MonoBehaviour
     // 太さの制限
     [SerializeField] private float maxTrailScaleY = 30f;
 
+    private PlayerCanvasController playerCanvasController;
     void Start()
     {
         transform.parent.GetComponent<PlayerEffectDispatcher>().BoostStartE += ActiveEngineEffect;
         transform.parent.GetComponent<PlayerEffectDispatcher>().BoostEndE += DisableEngineEffect;
-
+        playerCanvasController = transform.root.gameObject.GetComponent<PlayerCanvasController>();
         DisableEngineEffect();
     }
 
@@ -41,15 +42,29 @@ public class VFXSpeedController : MonoBehaviour
 
     public void ActiveEngineEffect()
     {
-         EngineEffect.enabled = true;
-         // 長さの更新 (Velocity)
-         EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, maxTrailVelZ));
+        {
+            EngineEffect.enabled = true;
+            // 長さの更新 (Velocity)
+            EngineEffect.SetVector3(paramName_Velocity, new Vector3(0f, 0f, maxTrailVelZ));
 
-         // 太さの更新 (Scale)
-         EngineEffect.SetVector3(paramName_Scale, new Vector3(5f, maxTrailScaleY, 1f));
+            // 太さの更新 (Scale)
+            EngineEffect.SetVector3(paramName_Scale, new Vector3(5f, maxTrailScaleY, 1f));
+        }
+        {//ゲージの処理
+            if (playerCanvasController != null)
+            {
+                playerCanvasController.SetGaugeToBoost(true);
+            }
+            else
+            {
+                Debug.Log("PlayerCanvasController not found!");
+            }
+        }
 
-        boostAudioSource.Play();
-        boostingAudioSource.Play();
+        {//サウンド
+            boostAudioSource.Play();
+            boostingAudioSource.Play();
+        }
     }
 
     public void DisableEngineEffect()
@@ -59,6 +74,8 @@ public class VFXSpeedController : MonoBehaviour
 
         // 太さの更新 (Scale)
         EngineEffect.SetVector3(paramName_Scale, new Vector3(0f, 0f, 0f));
+        
+        playerCanvasController.SetGaugeToBoost(false);
 
         boostingAudioSource?.Stop();
 

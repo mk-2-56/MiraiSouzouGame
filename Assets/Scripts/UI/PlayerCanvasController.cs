@@ -4,6 +4,7 @@ using UnityEngine;
 using static Unity.Burst.Intrinsics.X86.Avx;
 using TMPro;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCanvasController : MonoBehaviour
 {
@@ -23,11 +24,15 @@ public class PlayerCanvasController : MonoBehaviour
     private TextMeshProUGUI textMeshPro;
     private GameObject rank_1st;
     private GameObject rank_2nd;
+    private bool isPlayerBoosting = false;
     public void Initialized()
     {
         if (Canvas == null) {
             Debug.LogError("PlayerCanvasController: Canvas or Camera is not assigned.");
             return;
+        }
+        {
+            isPlayerBoosting = false;
         }
 
         {//コントローラー初期化処理
@@ -100,6 +105,13 @@ public class PlayerCanvasController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Canvas == null) return;
+
+        AddGaugeVaule(0.0003f);//ゲージが徐々に増えてく
+        if (isPlayerBoosting == true)
+        {
+            AddGaugeVaule(-0.005f);
+        }
         if (playerHub.curPosition == 1)
         {
             rank_1st.SetActive(true);
@@ -133,5 +145,9 @@ public class PlayerCanvasController : MonoBehaviour
     {
         gaugeController.AddGaugeValue(value);
     }
-    
+
+    public void SetGaugeToBoost(bool isEnable)
+    {
+        isPlayerBoosting = isEnable;
+    }
 }

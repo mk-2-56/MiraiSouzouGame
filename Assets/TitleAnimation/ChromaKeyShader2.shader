@@ -5,10 +5,12 @@ Shader "Custom/ChromaKeyShader2"
         _MainTex ("Texture", 2D) = "white" {}
         _ChromaKeyColor ("Chroma Key Color", Color) = (1,1,1,1)
         _Threshold ("Threshold", Range(0, 1)) = 0.1
+        _Alpha("Alpha",float) = 1.0
     }
     SubShader
     {
         Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
 
         Pass
@@ -34,6 +36,7 @@ Shader "Custom/ChromaKeyShader2"
             float4 _MainTex_ST;
 
             float4 _ChromaKeyColor;
+            float _Alpha;
             float _Threshold;
 
             v2f vert(appdata v)
@@ -51,6 +54,7 @@ Shader "Custom/ChromaKeyShader2"
                 {
                     discard;
                 }
+                col.a *=_Alpha;
                 return col;
             }
             ENDCG

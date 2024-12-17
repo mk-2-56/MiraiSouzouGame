@@ -40,11 +40,6 @@ public class CoinGaugeController : MonoBehaviour
         isFilled = false;
 
     }
-
-    private void FixeUpdate()
-    {
-        AddGaugeValue(0.002f);
-    }
     private void UpdateGaugeUI()
     {
         if (image != null)

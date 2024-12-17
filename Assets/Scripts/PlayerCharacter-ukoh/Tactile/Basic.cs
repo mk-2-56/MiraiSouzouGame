@@ -88,7 +88,6 @@ namespace CC
         [SerializeField] float param_maxAirTime = 0.9f;
         //Debug:
         GameObject _rDebug;
-        LineRenderer _rDebugLineRender;
 
         //_____________References
         Rigidbody _rRb;
@@ -101,6 +100,7 @@ namespace CC
         Vector3 _rawInput;
         Vector3 _inputDirection;
 
+        PlayerCanvasController _rUI;
         PlayerMovementParams _movementParams = new PlayerMovementParams();
 
         void Start()
@@ -111,19 +111,16 @@ namespace CC
 
             _rCChub = GetComponent<CC.Hub>();
             RegisterActions();
-
-            _rDebug = transform.Find("Debug").gameObject;
-            _rDebugLineRender = _rDebug.GetComponent<LineRenderer>();
-            //_rDebug.gameObject.SetActive(false);
+            _rUI = GetComponent<PlayerCanvasController>();
         }
 
         void RegisterActions()
         {
-            _rCChub.MoveEvent       += HandleMove;
-            _rCChub.JumpStartEvent  += HandleJumpStart;
-            _rCChub.JumpEndEvent    += HandleJumpEnd;
+            _rCChub.MoveEvent += HandleMove;
+            _rCChub.JumpStartEvent += HandleJumpStart;
+            _rCChub.JumpEndEvent += HandleJumpEnd;
             _rCChub.BoostStartEvent += HandleBoostStart;
-            _rCChub.BoostEndEvent   += HandleBoostEnd;
+            _rCChub.BoostEndEvent += HandleBoostEnd;
         }
 
         void HandleMove(Vector3 input)
@@ -218,13 +215,6 @@ namespace CC
             if (_movementParams.flags.antiGrav)
                 appliedAcc = _movementParams.terrianRotation * appliedAcc;
             _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
-
-            {//debug
-                Vector3 p0 = _rRb.position + _movementParams.terrianNormal;
-                Vector3 p1 = p0 + appliedAcc;
-                _rDebugLineRender.SetPosition(0, p0);
-                _rDebugLineRender.SetPosition(1, p1);
-            }
         }
         void SpeedSystem()
         {
@@ -245,6 +235,12 @@ namespace CC
 
             if (_movementParams.flags.boosting)
             {//BoostéûÇÃêÑêióÕëùëÂ
+                if (_rUI.GetGaugeValue() < 0.01f)
+                {
+                    _movementParams.flags.boosting = false;
+                    BoostEffectEnd?.Invoke();
+                }
+
                 if (_movementParams.flags.noInput)
                     _inputDirection = _movementParams.xzPlainVel.normalized;
 
