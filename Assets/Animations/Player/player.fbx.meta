@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bb2934ec9b1a2bb4ba3e4e98b08761ac
+guid: a6c1446b18c320647abcc89e406d05d1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,27 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Raincoat_mtl
-    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: eye_mtl
-    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hair_mtl
-    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: skin_mtl
-    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: standardSurface2
+      name: V2_mtl
     second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
   materials:
     materialImportMode: 2
