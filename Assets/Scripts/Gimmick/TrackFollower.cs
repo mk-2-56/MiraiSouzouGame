@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class TrackFollower : MonoBehaviour
 {
@@ -78,7 +79,8 @@ public class TrackFollower : MonoBehaviour
             GameObject player = other.gameObject;
             //Animation Set
             player.transform.Find("Facing/Cog/AnimationController").GetComponent<PlayerAnimationControl>().DispatchBigJump();
-
+            
+            player.transform.Find("Facing/Cog/EffectDispatcher/BigJumpWindEffect").GetComponent<VisualEffect>().Play() ;
             Rigidbody rb = player.GetComponent<Rigidbody>();
             if (rb != null)
             {
