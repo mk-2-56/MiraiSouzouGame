@@ -8,7 +8,6 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCanvasController : MonoBehaviour
 {
-    public CoinGaugeController _gaugeController;
     public CoinCollector       _coinCollector;
     public GameObject Canvas { get { return _canvas; } set { _canvas = value; } }
     public CC.Hub playerHub;
@@ -36,13 +35,10 @@ public class PlayerCanvasController : MonoBehaviour
         }
 
         {//コントローラー初期化処理
-            GameObject gaugeObject = new GameObject("GaugeController");
-            _gaugeController = gaugeObject.AddComponent<CoinGaugeController>();
 
             GameObject collectorObject = new GameObject("CoinCollector");
             _coinCollector = collectorObject.AddComponent<CoinCollector>();
             // Canvasの子オブジェクトに設定
-            gaugeObject.transform.SetParent(Canvas.transform);
             collectorObject.transform.SetParent(Canvas.transform);
         }
 
@@ -51,6 +47,7 @@ public class PlayerCanvasController : MonoBehaviour
         canvasComponent.renderMode = RenderMode.ScreenSpaceCamera;
 
         gaugeController = _canvas.transform.Find("gauge_red").GetComponent<CoinGaugeController>();
+        gaugeController.Initialized();
         textMeshPro = _canvas.transform.Find("SpeedText").GetComponent<TextMeshProUGUI>();
         rank_1st = _canvas.transform.Find("1stGold").gameObject;
         rank_2nd = _canvas.transform.Find("2ndSliver").gameObject;
@@ -107,10 +104,15 @@ public class PlayerCanvasController : MonoBehaviour
     {
         if (Canvas == null) return;
 
-        AddGaugeVaule(0.0003f);//ゲージが徐々に増えてく
+        if (!(gaugeController.isFilled) && !isPlayerBoosting)
+        {
+            AddGaugeVaule(0.002f);//ゲージが徐々に増えてく
+        }
+
+        gaugeController.UpdateGauge();
         if (isPlayerBoosting == true)
         {
-            AddGaugeVaule(-0.005f);
+            AddGaugeVaule(-0.006f);
         }
         if (playerHub.curPosition == 1)
         {

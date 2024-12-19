@@ -75,7 +75,7 @@ namespace AU
             controller.playerHub = player.GetComponent<CC.Hub>();
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
-            SetPlayerControl(false);
+            SetPlayerControl(_rCameraManager.SkipOpening);
             if (_curentPlayerCount > 1)
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
@@ -126,7 +126,7 @@ namespace AU
             }
         }
 
-        CameraManager _rCameraManager;
+        GameCameraManager _rCameraManager;
         PlayerInputManager _rInputManager;
 
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
@@ -137,7 +137,7 @@ namespace AU
 
         private void Start()
         {
-            _rCameraManager = FindObjectOfType<CameraManager>();
+            _rCameraManager = FindObjectOfType<GameCameraManager>();
             _rInputManager = GetComponent<PlayerInputManager>();
             _rTrackManager = ScriptableObject.CreateInstance<TrackPositionManager>();
 

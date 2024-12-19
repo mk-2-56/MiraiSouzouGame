@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.XR;
 using static UnityEditor.PlayerSettings;
 
@@ -22,7 +23,12 @@ public class GameCameraManager : CameraManager
 {
     // Start is called before the first frame update
     public GameObject mainCamera;
-
+    [SerializeField] private bool _skipOpening  = false;
+    public bool SkipOpening // プロパティ
+    {
+        get { return _skipOpening; }  // 通称ゲッター。呼び出した側がscoreを参照できる
+        set { _skipOpening = value; } // 通称セッター。value はセットする側の数字などを反映する
+    }
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private CinemachineBrain cinemachineBrain;
@@ -60,13 +66,23 @@ public class GameCameraManager : CameraManager
             virtualCameras[i].m_LookAt = startPos.GetComponent<Transform>();
         }
 
-        // 最初のカメラをアクティブに設定
-        if (virtualCameras[0] != null)
+        if (!_skipOpening)
         {
-            SetCineCamera(virtualCameras[0], true);
-            if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
+            // 最初のカメラをアクティブに設定
+            if (virtualCameras[0] != null)
+            {
+                SetCineCamera(virtualCameras[0], true);
+                if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
+            }
+            param_cameraPrefab?.SetActive(false);
         }
-        param_cameraPrefab?.SetActive(false);
+        else
+        {
+            ResetVCamerasPriority();
+            DisableAllVCamera();
+            param_cameraPrefab?.SetActive(true);
+        }
+
     }
 
     void Update()
@@ -109,7 +125,7 @@ public class GameCameraManager : CameraManager
 
         var tmp = camera.GetComponent<GameCamera>();
         tmp.SetPlayerReference(gameObject);
-        camera.SetActive(false);
+        camera.SetActive(_skipOpening);
         _gameCameras.Add(gameObject, camera);
         return camera;
 
@@ -188,7 +204,13 @@ public class GameCameraManager : CameraManager
         }
     }
 
-    
+    private void DisableAllVCamera()
+    {
+        foreach (var camera in virtualCameras)
+        {
+            camera.enabled = false;
+        }
+    }
 }
 
 

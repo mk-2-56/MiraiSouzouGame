@@ -21,7 +21,7 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Sprite p1Icon;
     [SerializeField] private Sprite p2Icon;
-
+    [SerializeField] private GameCameraManager gameCameraManager;
 
     private PlayerManager pm;
     private float countStartTime;
@@ -104,7 +104,6 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-        pm.SetPlayerControl(false);
         SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
 
     }
