@@ -111,14 +111,7 @@ public class TrackFollower : MonoBehaviour
     private void AddEndTrackVec(GameObject player, Vector3 direction)
     {
         float moveSpeed = trackSpeed; // 継続的な移動速度
-
-        // プレイヤーの向きを進行方向に合わせる
-        if (direction != Vector3.zero)
-        {
-            player.transform.rotation = Quaternion.LookRotation(direction);
-        }
-
         // プレイヤーを進行方向に移動
-        player.transform.position += direction * moveSpeed * Time.deltaTime;
+        player.GetComponent<Rigidbody>().velocity = direction * moveSpeed;
     }
 }
