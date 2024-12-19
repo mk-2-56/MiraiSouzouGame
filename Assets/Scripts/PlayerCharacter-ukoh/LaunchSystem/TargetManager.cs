@@ -5,7 +5,7 @@ using UnityEngine;
 public class TargetManager : MonoBehaviour
 {
     public Dictionary<GameObject, Transform> GetTargetList()
-    {
+    { 
         return _targets;
     }
 
@@ -36,14 +36,14 @@ public class TargetManager : MonoBehaviour
     }
     public void AddTarget(GameObject obj)
     {
-        if (!_targets.ContainsKey(obj))
+        if(!_targets.ContainsKey(obj))
             _targets.Add(obj, obj.transform);
     }
 
     public void RemoveTarget(GameObject obj)
     {
-        if (_targets.ContainsKey(obj))
-            _targets.Remove(obj);
+        if(_targets.ContainsKey(obj))
+        _targets.Remove(obj);
     }
 
     Dictionary<GameObject, Transform> _targets = new Dictionary<GameObject, Transform>();
@@ -55,7 +55,7 @@ public class TargetManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         AU.Debug.Log("Active Targets: " + _targets.Count.ToString(), AU.LogTiming.Update);
         foreach (GameObject obj in _targets.Keys)
         {
@@ -64,7 +64,7 @@ public class TargetManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.GetMask("Targets"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Targets"))
             AddTarget(other.gameObject);
     }
 
