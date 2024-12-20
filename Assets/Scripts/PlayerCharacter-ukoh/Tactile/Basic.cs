@@ -171,9 +171,7 @@ namespace CC
 
             //noGravity conditions
             //On Ground, or fast enough or jumping
-            _movementParams.flags.antiGrav =
-                _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _movementParams.momentum > 0.0f)
-                || _movementParams.flags.jumping || _movementParams.flags.minJumping;
+            _movementParams.flags.antiGrav = true;
             _rRb.useGravity = !(_movementParams.flags.antiGrav);
 
             SpeedSystem();
