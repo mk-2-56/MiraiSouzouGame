@@ -331,13 +331,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3666292328248152076}
   - {fileID: 7406892520688926333}
   - {fileID: 4592229737475248364}
   - {fileID: 1337249855727324540}
   - {fileID: 5648204967243457602}
   - {fileID: 2462773694985500893}
   - {fileID: 240058775507253052}
-  - {fileID: 3666292328248152076}
   - {fileID: 722943904126574983}
   m_Father: {fileID: 8623309690672465382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -539,6 +539,10 @@ MonoBehaviour:
   FinishUI: {fileID: 123099287084702982}
   playerManager: {fileID: 0}
   centerLine: {fileID: 2666818038305149654}
+  iconPrefab: {fileID: 0}
+  p1Icon: {fileID: 0}
+  p2Icon: {fileID: 0}
+  gameCameraManager: {fileID: 0}
 --- !u!1001 &3222878236997064181
 PrefabInstance:
   m_ObjectHideFlags: 0
