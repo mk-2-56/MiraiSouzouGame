@@ -12,8 +12,8 @@ public class ResultSceneManager : BaseSceneManager
     {
         SoundManager.Instance?.SetBGMVolume(1);
         SoundManager.Instance?.SetSEVolume(1);
-        SoundManager.Instance?.PlayBGM(BGMSoundData.BGM.BGM_Result);
-        Debug.Log("Play BGM : " + (BGMSoundData.BGM.BGM_Result));
+        //SoundManager.Instance?.PlayBGM(BGMSoundData.BGM.BGM_Result);
+        //Debug.Log("Play BGM : " + (BGMSoundData.BGM.BGM_Result));
     }
     //void Start()
     //{

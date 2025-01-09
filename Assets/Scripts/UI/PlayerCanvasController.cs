@@ -4,7 +4,9 @@ using UnityEngine;
 using static Unity.Burst.Intrinsics.X86.Avx;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 using static UnityEngine.Rendering.DebugUI;
+using AU;
 
 public class PlayerCanvasController : MonoBehaviour
 {
@@ -18,16 +20,18 @@ public class PlayerCanvasController : MonoBehaviour
     [SerializeField] Color _startColor = Color.white;
     [SerializeField] Color _middleColor = Color.yellow;
     [SerializeField] Color _endColor = Color.red;
+
     private GameObject _canvas;
     private CoinGaugeController gaugeController;
     private TextMeshProUGUI textMeshPro;
     private GameObject rank_1st;
     private GameObject rank_2nd;
+    private GameObject ui_finish;
     private bool isPlayerBoosting = false;
     public void Initialized()
     {
         if (Canvas == null) {
-            Debug.LogError("PlayerCanvasController: Canvas or Camera is not assigned.");
+            UnityEngine.Debug.LogError("PlayerCanvasController: Canvas or Camera is not assigned.");
             return;
         }
         {
@@ -51,6 +55,7 @@ public class PlayerCanvasController : MonoBehaviour
         textMeshPro = _canvas.transform.Find("SpeedText").GetComponent<TextMeshProUGUI>();
         rank_1st = _canvas.transform.Find("1stGold").gameObject;
         rank_2nd = _canvas.transform.Find("2ndSliver").gameObject;
+        ui_finish = _canvas.transform.Find("Finish").gameObject;
         _focusOverlay = _canvas.transform.Find("FocusEffect").gameObject.GetComponent<Image>();
         //
         this.transform.Find("Facing/Cog/EffectDispatcher").GetComponent<PlayerEffectDispatcher>().SpeedE += SetSpeedText;
@@ -151,5 +156,12 @@ public class PlayerCanvasController : MonoBehaviour
     public void SetGaugeToBoost(bool isEnable)
     {
         isPlayerBoosting = isEnable;
+    }
+
+    public void ShowFinish()
+    {
+        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_Goal);
+        ui_finish.SetActive(true);
+        ui_finish.GetComponent<RectTransform>().DOScale(1.0f, 0.7f);
     }
 }
