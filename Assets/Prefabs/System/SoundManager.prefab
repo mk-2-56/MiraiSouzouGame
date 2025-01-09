@@ -61,7 +61,7 @@ MonoBehaviour:
     volume: 1
     loop: 1
   - bgm: 3
-    audioClip: {fileID: 8300000, guid: 5aaf18136f93a904b8f98cc6f8708483, type: 3}
+    audioClip: {fileID: 8300000, guid: 5acbb2364329dcb4f82f5e9d935b23d1, type: 3}
     volume: 1
     loop: 1
   - bgm: 4
