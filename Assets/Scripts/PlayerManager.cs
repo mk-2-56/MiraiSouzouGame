@@ -201,6 +201,24 @@ namespace AU
             return playerSpawned;
         }
 
+        // ゴールした時など片方のプレイヤーにだけ行う
+        public bool SetPlayerControl(GameObject targetPlayer, bool flag)
+        {
+            UnityEngine.Debug.Log("SetPlayerControl for single player");
+            CC.Hub hubComponent = targetPlayer.GetComponent<CC.Hub>();
+            if (hubComponent != null)
+            {
+                hubComponent.disableInput = !flag;
+                UnityEngine.Debug.Log($"{targetPlayer.name} control {(flag ? "enabled" : "disabled")}");
+                return true;
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning($"{targetPlayer.name} does not have a Hub component.");
+                return false;
+            }
+        }
+
         public int GetPlayerCount()
         {
             return _players.Count;

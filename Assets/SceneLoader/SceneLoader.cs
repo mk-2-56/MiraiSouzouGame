@@ -10,39 +10,47 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] Slider slider;
     [SerializeField] string NextScene;
-    private string sceneName;
-
+    private bool gameEnd;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(SceneManager.GetActiveScene().name == "Title")
         {
-            Load();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Load(NextScene);
+            }
         }
 
+        else if(SceneManager.GetActiveScene().name == "Result")
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Load(NextScene);
+            }
+        }
         
 
     }
     public void Load(string sceneName)
     {
         
-        NextScene = sceneName;
         StartCoroutine(LoadScene());
 
     }
-    public void Load()
-    {
+    //public void Load()
+    //{
 
-        StartCoroutine(LoadScene());
+    //    StartCoroutine(LoadScene());
 
-    }
+    //}
     IEnumerator LoadScene()
     {
         // BGMをフェードアウト
-        SoundManager.Instance.FadeOutAllSounds(1.5f); // 1.5秒でフェードアウト
+        SoundManager.Instance?.FadeOutAllSounds(1.5f); // 1.5秒でフェードアウト
 
-        SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneSwith);
-        SoundManager.Instance.PlaySE(SESoundData.SE.SE_SceneLoading);
+        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_SceneSwith);
+        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_SceneLoading);
 
         outUI.SetActive(true);
 
@@ -59,7 +67,6 @@ public class SceneLoader : MonoBehaviour
         }
 
 
-
         AsyncOperation aSync = SceneManager.LoadSceneAsync(NextScene);
 
         while (!aSync.isDone)
@@ -71,4 +78,11 @@ public class SceneLoader : MonoBehaviour
 
     }
 
+    public void SetGameEnd(bool end)
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            Load(NextScene);
+        }
+    }
 }
