@@ -64,7 +64,8 @@ public class TargetManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        AddTarget(other.gameObject);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Targets"))
+            AddTarget(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)

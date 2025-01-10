@@ -15,13 +15,12 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject UIGO;
     [SerializeField] private GameObject MiniMap;
     [SerializeField] private GameObject MiniMapCamera;
-    [SerializeField] private GameObject FinishUI;
     [SerializeField] private GameObject playerManager;
     [SerializeField] private GameObject centerLine;
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Sprite p1Icon;
     [SerializeField] private Sprite p2Icon;
-
+    [SerializeField] private GameCameraManager gameCameraManager;
 
     private PlayerManager pm;
     private float countStartTime;
@@ -79,16 +78,6 @@ public class GameUIManager : UIManager
 
         }
 
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCount();  
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ShowFinish();  
-        }
-
         if (countActive)
         {
             UpdateCount();
@@ -104,7 +93,6 @@ public class GameUIManager : UIManager
         countStartTime = Time.time;
         countActive= true;
         countDown = 4;
-        pm.SetPlayerControl(false);
         SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
 
     }
@@ -147,7 +135,7 @@ public class GameUIManager : UIManager
 
             UIGO.SetActive(true);
             UIGO.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-            playerManager.GetComponent<PlayerManager>().SetPlayerControl(true);
+            pm.SetPlayerControl(true);
 
 
         }
@@ -158,14 +146,6 @@ public class GameUIManager : UIManager
             UIGO.SetActive(false);
 
         }
-    }
-
-    public void ShowFinish()
-    {
-        FinishUI.SetActive(true);
-        FinishUI.GetComponent<RectTransform>()
-            .DOScale(1.0f, 0.7f)
-            .Play();
     }
 
     public void AddPlayerIcon(Transform transform)

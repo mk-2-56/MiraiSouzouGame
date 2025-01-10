@@ -3,7 +3,27 @@ guid: fa35fae1d3aadab4a80bc6a8d1234cc5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Raincoat_mtl
+    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_mtl
+    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair_mtl
+    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin_mtl
+    second: {fileID: 2100000, guid: 9553e7fa73f186c45a25621df10984d7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -101,7 +101,7 @@ public class GameCamera : MonoBehaviour
             _baseRotation = Quaternion.Lerp(_baseRotation, tarRot, param_lerpSpeed * dtime);
             transform.rotation = _baseRotation * Quaternion.Euler(-_camPivot.y, _camPivot.x,  0);
 
-            _rCamera.rotation = Quaternion.LookRotation(_rCog.position - _rCamera.position, Vector3.up);
+            _rCamera.rotation = Quaternion.LookRotation(_rCog.position - _rCamera.position - new Vector3(0, - 0.5f * _camOffset.y, 0), Vector3.up);
 
             Vector3 tmp = transform.rotation.eulerAngles;
             _rCamFacing.rotation = Quaternion.Euler(0, tmp.y, 0);

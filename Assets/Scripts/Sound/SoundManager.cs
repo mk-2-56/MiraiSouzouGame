@@ -402,6 +402,7 @@ public class SESoundData
         SE_WindOnBigJump,
         SE_VolcanicEruption,
         SE_CountDown,  
+        SE_Goal,
         SE_MAX, // ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 

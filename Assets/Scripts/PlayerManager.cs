@@ -34,8 +34,12 @@ namespace AU
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
         [SerializeField] GameObject GameUIManager;
+        
+        [SerializeField] List<Color> p_playerColors = new();
+
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
+
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -57,6 +61,16 @@ namespace AU
                 {  pos.x += 10.0f; }
                 player.transform.position = pos;
                 player.transform.rotation = rot;
+
+                if(_curentPlayerCount - 1 < p_playerColors.Count)
+                { 
+                    Color pcColor = p_playerColors[_curentPlayerCount - 1];
+
+                    GameObject model = player.transform.Find("Facing/Cog/AnimationController/Character_V2").gameObject;
+                    model.transform.Find("Raincoat").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
+                    model.transform.Find("L_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
+                    model.transform.Find("R_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
+                }
             }
 
 
@@ -75,7 +89,7 @@ namespace AU
             controller.playerHub = player.GetComponent<CC.Hub>();
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
-            SetPlayerControl(false);
+            SetPlayerControl(_rCameraManager.SkipOpening);
             if (_curentPlayerCount > 1)
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
@@ -126,7 +140,7 @@ namespace AU
             }
         }
 
-        CameraManager _rCameraManager;
+        GameCameraManager _rCameraManager;
         PlayerInputManager _rInputManager;
 
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
@@ -137,7 +151,7 @@ namespace AU
 
         private void Start()
         {
-            _rCameraManager = FindObjectOfType<CameraManager>();
+            _rCameraManager = FindObjectOfType<GameCameraManager>();
             _rInputManager = GetComponent<PlayerInputManager>();
             _rTrackManager = ScriptableObject.CreateInstance<TrackPositionManager>();
 
@@ -185,6 +199,24 @@ namespace AU
                 }
             }
             return playerSpawned;
+        }
+
+        // ゴールした時など片方のプレイヤーにだけ行う
+        public bool SetPlayerControl(GameObject targetPlayer, bool flag)
+        {
+            UnityEngine.Debug.Log("SetPlayerControl for single player");
+            CC.Hub hubComponent = targetPlayer.GetComponent<CC.Hub>();
+            if (hubComponent != null)
+            {
+                hubComponent.disableInput = !flag;
+                UnityEngine.Debug.Log($"{targetPlayer.name} control {(flag ? "enabled" : "disabled")}");
+                return true;
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning($"{targetPlayer.name} does not have a Hub component.");
+                return false;
+            }
         }
 
         public int GetPlayerCount()

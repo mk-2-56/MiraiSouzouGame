@@ -439,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1504031378695867277
 Transform:
   m_ObjectHideFlags: 0
@@ -539,6 +539,8 @@ MonoBehaviour:
   param_acc: 20
   param_jumpForce: 10
   param_torqueCoefficient: 0.03
+  param_minAirTime: 0.1
+  param_maxAirTime: 0.9
 --- !u!114 &4955483750236158470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,8 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535e957831d436c459a081d5d65a7db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  param_LaunchSpeed: 60
-  param_Effct: {fileID: 7749591527797780972}
+  param_DashSpeed: 90
 --- !u!114 &7749591527797780972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48266f8d15b8ddc409e617add5cfed25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _disableInput: 0
 --- !u!114 &7767342710225284964
 MonoBehaviour:
   m_ObjectHideFlags: 0
