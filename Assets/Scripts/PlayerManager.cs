@@ -36,7 +36,8 @@ namespace AU
         [SerializeField] GameObject GameUIManager;
         
         [SerializeField] List<Color> p_playerColors = new();
-
+        [SerializeField] List<GameObject> respawnPosList = new();
+        private int posListNum = 0;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
 
@@ -120,6 +121,23 @@ namespace AU
             _gameCameras.Clear();
         }
 
+        public void SetPlayersPos(Vector3 spawnPos)
+        {
+            Vector3 pos = spawnPos;
+            if (_players.Count <= 0) return;
+            float radius = 15.0f;
+            RaycastHit hit;
+
+            for (int i = 1;i <= _players.Count; i++)
+            {
+                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
+                    pos = hit.point;
+                if (Physics.CheckSphere(pos, 30f, LayerMask.GetMask("PlayerControlled")))
+                { pos.x += 10.0f; pos.z += 5.0f; }
+                _players[i].transform.position = pos;
+            }
+        }
+
         public void RemovePlayer(int index)
         {
             if (_curentPlayerCount < 1)
@@ -169,8 +187,20 @@ namespace AU
             {
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);
             }
+            //‰˜‚¢‚¯‚Ç‚Æ‚è‚ ‚¦‚¸
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SetPlayersPos(respawnPosList[posListNum].transform.position);
+                posListNum++;
+                if (posListNum >= respawnPosList.Count) posListNum = 0;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SetPlayersPos(respawnPosList[posListNum].transform.position);
+                posListNum--;
+                if (posListNum < 0) posListNum = respawnPosList.Count - 1;
+            }
         }
-
         private void FixedUpdate()
         {
             _rTrackManager.UpdatePositions(_players);

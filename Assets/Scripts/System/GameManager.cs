@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         stateKeeper = FindObjectOfType<StateKeeper>();
         if (stateKeeper == null)
         {
-            UnityEngine.Debug.LogError("stateKeeper ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            UnityEngine.Debug.Log("stateKeeper ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
         }
         else
         {
