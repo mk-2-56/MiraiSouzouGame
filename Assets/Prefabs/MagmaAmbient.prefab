@@ -1,0 +1,1908 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9084111970025773769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2227962655333405860}
+  m_Layer: 0
+  m_Name: MagmaAmbient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2227962655333405860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084111970025773769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8416584315439592975}
+  - {fileID: 7214415702261824}
+  - {fileID: 8689830412515925109}
+  - {fileID: 1293289481730174095}
+  - {fileID: 2447807289570729187}
+  - {fileID: 3258592898995718681}
+  - {fileID: 2003375743790433182}
+  - {fileID: 8043332055079209428}
+  - {fileID: 2101867586690976760}
+  - {fileID: 7774788076012011982}
+  - {fileID: 2966784049069985238}
+  - {fileID: 1239243728537305756}
+  - {fileID: 5847420735052796669}
+  - {fileID: 2126105018051849518}
+  - {fileID: 6347876858510058501}
+  - {fileID: 3980252541534361298}
+  - {fileID: 6001897644480555876}
+  - {fileID: 844039758903341517}
+  - {fileID: 3604516017299354440}
+  - {fileID: 907735448670758604}
+  - {fileID: 4097261233521012509}
+  - {fileID: 1152947608437426408}
+  - {fileID: 8279899567801824209}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &312648290564529991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1224.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 200.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1669
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &1293289481730174095 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 312648290564529991}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &330659989664641364
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1792.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 90.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1856.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &1239243728537305756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 330659989664641364}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &406458271779617568
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2525.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -61.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1957.5629
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_16
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &1152947608437426408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 406458271779617568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &586982146990284518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1893.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1878.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &2126105018051849518 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 586982146990284518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &616788055023581232
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1524.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 100.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1787.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &2101867586690976760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 616788055023581232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1038497009452888150
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1399.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 102.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1708.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_3A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &2003375743790433182 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1038497009452888150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1566603278816375688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1127.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 294.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1641.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Cookie
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_0B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &7214415702261824 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1566603278816375688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1818606027859367172
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2380.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -52.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1895.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &907735448670758604 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1818606027859367172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2166989708402393605
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2244.6436
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -51.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1881.3333
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &844039758903341517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2166989708402393605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2492921072618153242
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2136.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -40.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1908.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_11A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &3980252541534361298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2492921072618153242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2855774884861608064
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2323.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -49.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1878.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &3604516017299354440 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2855774884861608064}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3276497899969731797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2452.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -58.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1948.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &4097261233521012509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3276497899969731797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3772973987664260907
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1263.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 123.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1693.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &2447807289570729187 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3772973987664260907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4079356239115319761
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1464
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 108.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1563.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_3C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &3258592898995718681 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4079356239115319761}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4361791521626881566
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1722.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 99.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1861.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &2966784049069985238 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4361791521626881566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4936550153746030901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1816.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1874.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &5847420735052796669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4936550153746030901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5111328306267527340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2156.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -41.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1865.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_11B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &6001897644480555876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5111328306267527340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5601387521588582349
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2030.4774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -17.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1914.3597
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &6347876858510058501 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5601387521588582349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7019324903482148295
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1088.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 305.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1748.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_0A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &8416584315439592975 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7019324903482148295}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7443338376163426329
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2587.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -77.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1943.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_16 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &8279899567801824209 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7443338376163426329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7871283488401928125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1156.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 299.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1730
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_0C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &8689830412515925109 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7871283488401928125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8807835786218027548
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1486.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 101.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1709
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_3B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &8043332055079209428 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8807835786218027548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9097702843424338438
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2227962655333405860}
+    m_Modifications:
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1638.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 100.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1810.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260906448320610571, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101432165348353558, guid: bca9d0079b8149d4ba72a3745339f28e,
+        type: 3}
+      propertyPath: m_Name
+      value: MagmaHiddenLight_5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bca9d0079b8149d4ba72a3745339f28e, type: 3}
+--- !u!4 &7774788076012011982 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1559389069681488840, guid: bca9d0079b8149d4ba72a3745339f28e,
+    type: 3}
+  m_PrefabInstance: {fileID: 9097702843424338438}
+  m_PrefabAsset: {fileID: 0}

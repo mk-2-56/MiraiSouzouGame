@@ -3,14 +3,29 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EventCheckPoint
+  - Spline
+  - Coins
+  - MeteorsCheckPoint
+  - WorldSpace
+  - BigJump
+  - EventCamera
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrian
   - Water
   - UI
+  - PlayerControlled
+  - Targets
+  - Interactable
+  - Gimmick
+  - Collectable
+  - MiniMap
+  - NoCollision
+  - AdjustTransparent
   - 
   - 
   - 
@@ -27,16 +42,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - 1P
+  - 2P
   m_SortingLayers:
   - name: Default
     uniqueID: 0

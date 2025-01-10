@@ -10,6 +10,14 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# Terrain DataフォルダのArraysフォルダを無視
+Assets/VolcanoPackage/NatureManufacture Assets/L.V.E- Lava and Volcano Environment/Terrain Data/Arrays/
+Assets/VolcanoPackage/NatureManufacture Assets/L.V.E- Lava and Volcano Environment/Terrain Data/CTS Arrays/
+Assets/VolcanoPackage/NatureManufacture Assets/L.V.E- Lava and Volcano Environment/Rocks/
+Arrays.meta
+CTS Arrays.meta
+
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

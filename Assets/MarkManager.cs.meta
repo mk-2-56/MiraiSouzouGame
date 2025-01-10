@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/CameraManager2.cs.meta
+guid: b1f7353f56c0da44aa220d78591a6fed
+========
+guid: 2c188570a84936048b0384c4294832df
+>>>>>>>> Terrain_GimmickTest:Assets/MarkManager.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
