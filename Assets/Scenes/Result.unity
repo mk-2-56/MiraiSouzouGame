@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 6731828805955690722, guid: ae3cb112ddbe43f42b9a9e72333dba61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 960.0001
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 6731828805955690722, guid: ae3cb112ddbe43f42b9a9e72333dba61,
         type: 3}
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00.00.00
+  m_text: 04:30:12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ad39cb0c248f2141a6335d3aa5ffd22, type: 2}
   m_sharedMaterial: {fileID: -702116289327685595, guid: 7ad39cb0c248f2141a6335d3aa5ffd22,
@@ -1841,7 +1841,7 @@ RectTransform:
   - {fileID: 1469870042}
   - {fileID: 1714417810}
   - {fileID: 9801036}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 5416801236231710260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1898,7 +1898,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 993367831}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1906,10 +1906,10 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &585375436
 GameObject:
@@ -3323,12 +3323,12 @@ PrefabInstance:
     - target: {fileID: 3891970343924436169, guid: 092ae82317ffb3a428ec6767f27ec603,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -960
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3891970343924436169, guid: 092ae82317ffb3a428ec6767f27ec603,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3891970343924436169, guid: 092ae82317ffb3a428ec6767f27ec603,
         type: 3}
@@ -3717,12 +3717,12 @@ PrefabInstance:
     - target: {fileID: 6233567309810042562, guid: 6a41ac43c7ee45643950dc361508dfb5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -960
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6233567309810042562, guid: 6a41ac43c7ee45643950dc361508dfb5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6233567309810042562, guid: 6a41ac43c7ee45643950dc361508dfb5,
         type: 3}
@@ -5011,6 +5011,7 @@ Transform:
   m_Children:
   - {fileID: 6722815517076759901}
   - {fileID: 1235164456}
+  - {fileID: 546365940}
   m_Father: {fileID: 1889596901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5759291317737113217
@@ -5211,7 +5212,6 @@ SceneRoots:
   - {fileID: 1755982109}
   - {fileID: 1776333514}
   - {fileID: 311203898}
-  - {fileID: 546365940}
   - {fileID: 247283240}
   - {fileID: 409882348}
   - {fileID: 1127946426}

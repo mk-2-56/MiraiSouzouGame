@@ -103,7 +103,7 @@ public class ResultUIManager : UIManager
 
         scoreGroup.GetComponent<CanvasGroup>().DOFade(1f, 1f).SetDelay(1);
         // timeValue.GetComponent<TextMeshProUGUI>().DOCounter(0, 00, 2f).SetDelay(1);
-        coinValue.GetComponent<TextMeshProUGUI>().DOCounter(0, 99, 2f).SetDelay(1);
+        coinValue.GetComponent<TextMeshProUGUI>().DOCounter(0, 43, 2f).SetDelay(1);
         scoreLine.GetComponent<RectTransform>().DOScaleX(1f, 1f).SetDelay(2);
     }
 
