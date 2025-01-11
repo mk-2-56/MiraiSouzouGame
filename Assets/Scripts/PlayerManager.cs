@@ -37,7 +37,7 @@ namespace AU
         
         [SerializeField] List<Color> p_playerColors = new();
         [SerializeField] List<GameObject> respawnPosList = new();
-        private int posListNum = 0;
+        [SerializeField] private int posListNum;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
 
