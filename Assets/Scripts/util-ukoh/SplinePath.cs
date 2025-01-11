@@ -4,24 +4,6 @@ using UnityEngine;
 using UnityEngine.Splines;
 using UnityEditor;
 
-
-[CustomEditor(typeof(SplinePath))]
-public class SplinePathGUI : Editor
-{
-
-
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        if( EditorGUILayout.LinkButton("Generate"))
-        { 
-            
-        }
-    }
-}
-
-
 public class SplinePath : MonoBehaviour
 {
     [SerializeField] SplineContainer param_spline;

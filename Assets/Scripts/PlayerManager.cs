@@ -10,22 +10,22 @@ using Cinemachine;
 
 namespace AU
 {
-    using UnityEditor;
+    //using UnityEditor;
 
-    [CustomEditor(typeof(PlayerManager))]
-    public class PlayerManagerUI : Editor
-    {
+    //[CustomEditor(typeof(PlayerManager))]
+    //public class PlayerManagerUI : Editor
+    //{
 
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
+    //    public override void OnInspectorGUI()
+    //    {
+    //        DrawDefaultInspector();
 
-            if (GUILayout.Button(new GUIContent("JoinPlayer")))
-            {
-                this.target.GetType().GetMethod("JoinPlayer").Invoke(target, null);
-            }
-        }
-    }
+    //        if (GUILayout.Button(new GUIContent("JoinPlayer")))
+    //        {
+    //            this.target.GetType().GetMethod("JoinPlayer").Invoke(target, null);
+    //        }
+    //    }
+    //}
 
 
     public class PlayerManager : MonoBehaviour

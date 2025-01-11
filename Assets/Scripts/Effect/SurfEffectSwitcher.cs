@@ -6,27 +6,27 @@ using UnityEditor;
 using UnityEngine.VFX;
 using System;
 
-[UnityEditor.CustomEditor(typeof(SurfEffectSwitcher))]
-public class TestInspector : UnityEditor.Editor
-{
-    string _assetName = "";
+//[CustomEditor(typeof(SurfEffectSwitcher))]
+//public class TestInspector : UnityEditor.Editor
+//{
+//    string _assetName = "";
 
-    public override void OnInspectorGUI()
-    { 
-        DrawDefaultInspector();
+//    public override void OnInspectorGUI()
+//    { 
+//        DrawDefaultInspector();
         
-        GUILayout.Label("Asset Name");
-        _assetName = GUILayout.TextField(_assetName);
+//        GUILayout.Label("Asset Name");
+//        _assetName = GUILayout.TextField(_assetName);
 
-        if(GUILayout.Button(new GUIContent("Generate Asset")))
-        { 
-            if(_assetName == "")
-                return;
-            target.GetType().GetMethod("Initialize").Invoke(target, null);
-            target.GetType().GetMethod("CreatAssetFromSetting").Invoke(target, new[]{_assetName });
-        }
-    }
-}
+//        if(GUILayout.Button(new GUIContent("Generate Asset")))
+//        { 
+//            if(_assetName == "")
+//                return;
+//            target.GetType().GetMethod("Initialize").Invoke(target, null);
+//            target.GetType().GetMethod("CreatAssetFromSetting").Invoke(target, new[]{_assetName });
+//        }
+//    }
+//}
 
 public class SurfEffectSwitcher : MonoBehaviour
 {

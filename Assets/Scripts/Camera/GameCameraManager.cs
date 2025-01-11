@@ -7,7 +7,6 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.XR;
-using static UnityEditor.PlayerSettings;
 
 
 

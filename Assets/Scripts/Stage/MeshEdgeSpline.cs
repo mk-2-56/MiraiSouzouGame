@@ -79,17 +79,17 @@ public class MeshEdgeSpline : MonoBehaviour
     }
 }
 
-[CustomEditor(typeof(MeshEdgeSpline))]
-public class MeshEdgeSplineEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+//[CustomEditor(typeof(MeshEdgeSpline))]
+//public class MeshEdgeSplineEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        DrawDefaultInspector();
 
-        MeshEdgeSpline splineScript = (MeshEdgeSpline)target;
-        if (GUILayout.Button("両端のスプラインを作成する"))
-        {
-            splineScript.CreateSplinesInHierarchy();
-        }
-    }
-}
+//        MeshEdgeSpline splineScript = (MeshEdgeSpline)target;
+//        if (GUILayout.Button("両端のスプラインを作成する"))
+//        {
+//            splineScript.CreateSplinesInHierarchy();
+//        }
+//    }
+//}
