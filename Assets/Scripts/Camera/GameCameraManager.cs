@@ -26,8 +26,8 @@ public class GameCameraManager : CameraManager
     [SerializeField] private bool _skipOpening  = false;
     public bool SkipOpening // プロパティ
     {
-        get { return _skipOpening; }  // 通称ゲッター。呼び出した側がscoreを参照できる
-        set { _skipOpening = value; } // 通称セッター。value はセットする側の数字などを反映する
+        get { return _skipOpening; }  
+        set { _skipOpening = value; }
     }
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private GameUIManager _gameUIManager;
@@ -210,6 +210,7 @@ public class GameCameraManager : CameraManager
         {
             camera.enabled = false;
         }
+        mainCamera.SetActive(false);
     }
 }
 
