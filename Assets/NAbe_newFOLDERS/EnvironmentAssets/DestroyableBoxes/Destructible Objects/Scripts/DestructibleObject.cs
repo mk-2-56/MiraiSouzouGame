@@ -71,12 +71,14 @@ public class DestructibleObject : MonoBehaviour
         private Vector3 collisionNormal;
         private float collisionForceMagnitude; // Õ“Ë‚Ì¨‚¢‚ğ•Û‘¶
 
-        void OnCollisionEnter(Collision collision)
+
+        void OnTriggerEnter(Collider other)
         {
-            if (collision.relativeVelocity.magnitude > forceRequired)
+            float relativeVel = (other.attachedRigidbody.velocity - rigidbody.velocity).magnitude;
+            if (relativeVel > forceRequired)
             {
-                collisionNormal = collision.contacts[0].normal; // Store collision normal
-                collisionForceMagnitude = collision.relativeVelocity.magnitude; // Õ“Ë‚Ì¨‚¢‚ğæ“¾
+                collisionNormal = other.attachedRigidbody.velocity.normalized;
+                collisionForceMagnitude = relativeVel;
                 Break(); // Call Break with updated collision data
             }
         }
@@ -101,7 +103,6 @@ public class DestructibleObject : MonoBehaviour
                 Vector3 randomForce = Random.insideUnitSphere * (collisionForceMagnitude * 0.3f); // ƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚É­‚µ‚Î‚ç‚Â‚©‚¹‚é
 
                 debrisRigidbody.AddForce(forceDirection + randomForce, ForceMode.Impulse); // —Í‚ğ“K—p
-
             }
 
         //Sends variable values to the debris

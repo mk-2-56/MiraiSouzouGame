@@ -18,8 +18,6 @@ public class CurveGenerator : MonoBehaviour
     }
     void Update()
     {
-
-
         UpdateVFXProperties();
     }
     void UpdateVFXProperties()
