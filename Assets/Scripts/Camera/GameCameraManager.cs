@@ -7,7 +7,10 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.XR;
+
+#if UNITY_EDITOR
 using static UnityEditor.PlayerSettings;
+#endif
 
 
 
@@ -210,7 +213,6 @@ public class GameCameraManager : CameraManager
         {
             camera.enabled = false;
         }
-        mainCamera.SetActive(false);
     }
 }
 

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 /// <summary>
 /// ukoh-2024-10-28
 /// ÉvÉåÉCÉÑÅ[Controller ì¸óÕÇ‚stateä«óùÇ»Ç«Ç™
@@ -16,6 +18,7 @@ using UnityEditor;
 namespace CC
 {
     using System;
+#if UNITY_EDITOR
     [CustomEditor(typeof(Hub))]
     public class HubUI : Editor
     {
@@ -49,6 +52,7 @@ namespace CC
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {

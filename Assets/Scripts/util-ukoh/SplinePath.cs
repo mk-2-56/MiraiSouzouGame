@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
+#if UNITY_EDITOR
 using UnityEditor;
 
 
@@ -20,6 +21,7 @@ public class SplinePathGUI : Editor
         }
     }
 }
+#endif
 
 
 public class SplinePath : MonoBehaviour

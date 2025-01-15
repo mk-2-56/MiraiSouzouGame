@@ -39,10 +39,9 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Debug.Log("Managers Initialized");
 
-/*        soundManager?.Initialized();
-*/      playerManager?.Initialized();
+        playerManager?.Initialized();
         cameraManager?.Initialized();
-        sceneManager.Initialized();
+        sceneManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
 
