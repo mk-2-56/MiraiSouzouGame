@@ -35,7 +35,7 @@ public class MeteorsManager : MonoBehaviour
             Vector3 spawnPosition = spawnPoint.position;
             spawnPosition.y += spawnHeight; // スポーン高さを追加
 
-            GameObject meteor = meteorPool.GetObject(spawnPosition, Quaternion.identity);
+            GameObject meteor = meteorPool?.GetObject(spawnPosition, Quaternion.identity);
             activeMeteors.Add(meteor); // アクティブな隕石リストに追加
             //markManager.AddMark(meteor.transform);
         }
@@ -57,7 +57,7 @@ public class MeteorsManager : MonoBehaviour
 
         meteor.SetActive(false); // 非アクティブ化
         activeMeteors.Remove(meteor); // リストから削除
-        meteorPool.ReturnObject(meteor); // プールに戻す
+        meteorPool?.ReturnObject(meteor); // プールに戻す
     }
 
     // シーンビューにスポーン位置を視覚化
