@@ -136,6 +136,7 @@ public class GameUIManager : UIManager
             UIGO.SetActive(true);
             UIGO.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
             pm.SetPlayerControl(true);
+            gameCameraManager.mainCamera.SetActive(false);
 
 
         }

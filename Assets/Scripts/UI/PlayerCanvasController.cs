@@ -84,19 +84,26 @@ public class PlayerCanvasController : MonoBehaviour
             StartCoroutine(AU.Fader.FadeIn(t, value => { t = value; }, duration));
         }
         else
-            StartCoroutine(AU.Fader.FadeOut(t, value => { t = value; }, duration));
-
-        while (true)
         {
-            _focusOverlay.material.SetFloat("_Intensity", t);
-            yield return new WaitForFixedUpdate();
-
-            if (fIn && t > 1.0f ||
-                !fIn && t < 0.0f)
-                break;
+            StartCoroutine(AU.Fader.FadeOut(t, value => { t = value; }, duration));
         }
-        if (!fIn)
-            _focusOverlay.enabled = false;
+
+        if(fIn)
+        {
+            while (true)
+            {
+                _focusOverlay.material.SetFloat("_Intensity", t);
+                yield return new WaitForFixedUpdate();
+
+                if (fIn && t > 1.0f ||
+                    !fIn && t < 0.0f)
+                    break;
+            }
+        }
+
+        if (!fIn) 
+        { _focusOverlay.enabled = false;
+        }
     }
 
 

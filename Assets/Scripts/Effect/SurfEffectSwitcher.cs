@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 using UnityEngine.VFX;
 using System;
 
+
+#if UNITY_EDITOR
+using UnityEditor;
 [UnityEditor.CustomEditor(typeof(SurfEffectSwitcher))]
 public class TestInspector : UnityEditor.Editor
 {
@@ -27,6 +29,7 @@ public class TestInspector : UnityEditor.Editor
         }
     }
 }
+#endif
 
 public class SurfEffectSwitcher : MonoBehaviour
 {

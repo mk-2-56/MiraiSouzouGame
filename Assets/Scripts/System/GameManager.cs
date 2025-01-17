@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         stateKeeper = FindObjectOfType<StateKeeper>();
         if (stateKeeper == null)
         {
-            UnityEngine.Debug.LogError("stateKeeper ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            UnityEngine.Debug.Log("stateKeeper ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
         }
         else
         {
@@ -39,10 +39,9 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Debug.Log("Managers Initialized");
 
-/*        soundManager?.Initialized();
-*/      playerManager?.Initialized();
+        playerManager?.Initialized();
         cameraManager?.Initialized();
-        sceneManager.Initialized();
+        sceneManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
 

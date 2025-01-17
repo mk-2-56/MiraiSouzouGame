@@ -21,7 +21,6 @@ public class JumpBoard : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerController = other.GetComponent<CC.Basic>();
-            Debug.Log("Player triggered the jump board!");
 
             Rigidbody playerRb = other.gameObject.GetComponent<Rigidbody>();
             if (playerRb != null)
@@ -30,9 +29,11 @@ public class JumpBoard : MonoBehaviour
                     _direction = playerController.GetPlayerMovementParams().xzPlainVel.normalized * jumpBoardForce
                         + heightForce * Vector3.up * jumpBoardForce;
                 else
+                {
+                    _direction = param_direction.forward;
                     _direction = _direction.normalized * jumpBoardForce * forwardForce + Vector3.up * jumpBoardForce * heightForce;
+                }
                 playerRb.AddForce(_direction, ForceMode.VelocityChange);
-
                 SoundManager.Instance?.PlaySE(SESoundData.SE.SE_JumpBoardS);
 
             }
