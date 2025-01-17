@@ -64,7 +64,7 @@ Shader "TriForge/Fantasy Worlds/FWTreeLeaf"
 
 		
 
-		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" "UniversalMaterialType"="Lit" "DisableBatching"="True" }
+		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Transparent" "Queue"="Transparent" "UniversalMaterialType"="Lit" "DisableBatching"="True" }
 
 		Cull Off
 		ZWrite On

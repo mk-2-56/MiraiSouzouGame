@@ -923,6 +923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3757642069809605437}
   - component: {fileID: 8250537501247020108}
+  - component: {fileID: -4059988946919148186}
   m_Layer: 0
   m_Name: P_fwOF_Tree_M_2
   m_TagString: Untagged
@@ -973,7 +974,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 5767021105848536785}
-  - screenRelativeHeight: 0.999
+  - screenRelativeHeight: 0.98618543
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1916204550765887551}
@@ -986,6 +987,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 4026596655317682219}
   m_Enabled: 1
+--- !u!114 &-4059988946919148186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570594112744518023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b00a7326a990da44bf66823ee667266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 1
 --- !u!1 &5007740607695409030
 GameObject:
   m_ObjectHideFlags: 0

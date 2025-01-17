@@ -138,6 +138,7 @@ Material:
     - _TransShadow: 1
     - _TransStrength: 1
     - _Translucency: 3
+    - _Transparency: 1
     - _UVSec: 0
     - _UndercolorAmount: 0.063
     - _UndercolorHue: -0.9

@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5257052136735510885
 Transform:
   m_ObjectHideFlags: 0
@@ -233,11 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d423edf6828a544a569fb7d35b20fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  param_lerpSpeed: 0.8
+  param_lerpSpeed: 1.75
   param_lerpSpeedPos: 12
-  param_lerpSpeedPivot: 0.95
+  param_lerpSpeedPivot: 1.5
   param_locking: 1
-  param_pivotAngle: {x: 30, y: 45}
+  param_pivotAngle: {x: 40, y: 35}
   param_springForce: 10
   param_damperForce: 2
 --- !u!114 &2055902048137551163

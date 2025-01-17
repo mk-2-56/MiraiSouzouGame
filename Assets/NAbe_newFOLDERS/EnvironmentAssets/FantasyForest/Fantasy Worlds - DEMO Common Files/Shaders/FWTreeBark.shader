@@ -6,6 +6,7 @@ Shader "TriForge/Fantasy Worlds/FWTreeBark"
 	{
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
+		_GlobalAlpha("Global Alpha", Range(0, 1)) = 1
 		_Smoothness("Smoothness", Range( 0 , 1)) = 0
 		_Color("Color", Color) = (1,1,1,0)
 		_BaseColor("Base Color", 2D) = "white" {}
@@ -56,7 +57,7 @@ Shader "TriForge/Fantasy Worlds/FWTreeBark"
 
 		
 
-		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" "UniversalMaterialType"="Lit" }
+		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Transparent" "Queue"="Transparent" "UniversalMaterialType"="Lit" }
 
 		Cull Back
 		ZWrite On
@@ -333,6 +334,7 @@ Shader "TriForge/Fantasy Worlds/FWTreeBark"
 				float _TessEdgeLength;
 				float _TessMaxDisp;
 			#endif
+			float _GlobalAlpha;
 			CBUFFER_END
 
 			#ifdef SCENEPICKINGPASS

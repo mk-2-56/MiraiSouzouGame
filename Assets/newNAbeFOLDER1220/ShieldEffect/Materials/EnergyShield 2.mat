@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _HexagonTexture:
         m_Texture: {fileID: 2800000, guid: 3d5c3b6e09eebb04798ef3144ee13a57, type: 3}
-        m_Scale: {x: 3, y: 1.5}
+        m_Scale: {x: 9, y: 1.5}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
@@ -155,7 +155,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 1, b: 0.07363963, a: 0.5019608}
+    - _BaseColor: {r: 0, g: 1, b: 0.07363961, a: 0.011764706}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeGlowThickness: {r: 0.02, g: 0.04, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 23.968628, b: 0.5710738, a: 1}
