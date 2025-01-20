@@ -32,6 +32,13 @@ public class GameCameraManager : CameraManager
         get { return _skipOpening; }  
         set { _skipOpening = value; }
     }
+
+    private bool _playOpening = false;
+    public bool PlayOpening
+    {
+        get { return _playOpening; }
+        set { _playOpening = value; }
+    }
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private CinemachineBrain cinemachineBrain;
@@ -69,19 +76,20 @@ public class GameCameraManager : CameraManager
             virtualCameras[i].m_LookAt = startPos.GetComponent<Transform>();
         }
 
-        if (!_skipOpening)
+/*        if (!_skipOpening)
         {
-            // 最初のカメラをアクティブに設定
-            if (virtualCameras[0] != null)
-            {
-                SetCineCamera(virtualCameras[0], true);
-                if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
-            }
+            SetStartCameraWork(); 
             param_cameraPrefab?.SetActive(false);
         }
         else
         {
-            ResetVCamerasPriority();
+            ResetAllVCamerasPriority(0);
+            DisableAllVCamera();
+            param_cameraPrefab?.SetActive(true);
+        }*/
+
+        {
+            ResetAllVCamerasPriority(0);
             DisableAllVCamera();
             param_cameraPrefab?.SetActive(true);
         }
@@ -97,24 +105,30 @@ public class GameCameraManager : CameraManager
                 param_splitMode = 0;
         }
 
-        if (virtualCameras[0] == activeCamera)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if(dollyCart1.m_Position >= dollyPath1.PathLength)
-            {
-                SetCineCamera(virtualCameras[1],true);
-            }
+            SetStartCameraWork();
         }
 
-        if(virtualCameras[virtualCameras.Count - 1].enabled == true)
+        if (_playOpening)
         {
-            lastSwitchTime -= Time.deltaTime;
-            if(lastSwitchTime < 0)
-            {
-                ResetVCamerasPriority();
+               if (virtualCameras[0] == activeCamera)
+                {
+                    if(dollyCart1.m_Position >= dollyPath1.PathLength)
+                    {
+                        SetCineCamera(virtualCameras[1],true);
+                    }
+                }
 
-            }
-        }
-
+               if(virtualCameras[virtualCameras.Count - 1].enabled == true)
+               {
+                   lastSwitchTime -= Time.deltaTime;
+                   if(lastSwitchTime < 0)
+                   {
+                       ResetAllVCamerasPriority(0);
+                   }
+               }
+        }     
     }
 
 
@@ -171,6 +185,21 @@ public class GameCameraManager : CameraManager
             i++;
         }
     }
+    public void SetStartCameraWork()
+    {
+        _playOpening = true;
+         mainCamera.SetActive(true);
+        SetAllGameCamera(false);
+
+        _playerManager.SetAllPlayerPos(startPos);
+
+        // 最初のカメラをアクティブに設定
+        if (virtualCameras[0] != null)
+        {
+            SetCineCamera(virtualCameras[0], true);
+            if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
+        }
+    }
 
     public void SetAllGameCamera(bool isEnable)
     {
@@ -183,7 +212,7 @@ public class GameCameraManager : CameraManager
     {
         for (int i = 0; i < virtualCameras.Count; i++)
         {
-            ResetVCamerasPriority();
+            ResetAllVCamerasPriority(0);
             SetCineCamera(virtualCameras[i], true);
 
             UnityEngine.Debug.Log($"Camera {i + 1} is now active");
@@ -192,19 +221,20 @@ public class GameCameraManager : CameraManager
             {
                 yield return new WaitForSeconds(switchTimes[i]);
             }
-
         }
         _gameUIManager.StartCount();
 
         SetAllGameCamera(true);
     }
 
-    private void ResetVCamerasPriority()
+    private void ResetAllVCamerasPriority(int pvalue)
     {
         foreach (var camera in virtualCameras)
         {
-            camera.Priority = 0;
+            camera.Priority = pvalue;
         }
+        dollyCart1.m_Position = 0f;
+        _playOpening = false;
     }
 
     private void DisableAllVCamera()

@@ -12,6 +12,8 @@ namespace AU
 {
 #if UNITY_EDITOR
     using UnityEditor;
+    using static UnityEngine.Rendering.DebugUI.Table;
+
     [CustomEditor(typeof(PlayerManager))]
 
     public class PlayerManagerUI : Editor
@@ -49,6 +51,7 @@ namespace AU
             GameObject player = input.gameObject;
 
             {
+                //Player Position Setting
                 float radius = 15.0f;
                 RaycastHit hit;
                 Vector3 pos = transform.position;
@@ -123,7 +126,7 @@ namespace AU
             _gameCameras.Clear();
         }
 
-        public void SetPlayersPos(Vector3 spawnPos)
+        public void SetAllPlayerPos(Vector3 spawnPos)
         {
             Vector3 pos = spawnPos;
             if (_players.Count <= 0) return;
@@ -135,9 +138,39 @@ namespace AU
                 if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
                     pos = hit.point;
                 if (Physics.CheckSphere(pos, 30f, LayerMask.GetMask("PlayerControlled")))
-                { pos.x += 10.0f; pos.z += 5.0f; }
+                { pos.x += 10.0f; }
                 _players[i].transform.position = pos;
+                _players[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+
             }
+        }
+
+        public void SetAllPlayerPos(GameObject spawnPos)
+        {
+            if (_players.Count <= 0) return;
+            Transform transform = spawnPos.transform;
+            float radius = 15.0f;
+
+            for (int i = 1; i <= _players.Count; i++)
+            {
+                RaycastHit hit;
+                Vector3 pos = transform.position;
+                Quaternion rot = transform.rotation;
+                if (respawnPos != null)
+                    pos = respawnPos.transform.position;
+                rot = respawnPos.transform.rotation;
+
+                if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
+                    pos = hit.point;
+
+                /*                if (Physics.CheckSphere(pos, 30f, LayerMask.GetMask("PlayerControlled")))
+                                { pos.x += 10.0f; }*/
+                pos.x += (float)(i-1) * 10f;
+                _players[i].transform.position = pos;
+                _players[i].transform.rotation = rot;
+                _players[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+/*                yield return new WaitForSeconds(1);
+*/            }
         }
 
         public void RemovePlayer(int index)
@@ -192,13 +225,13 @@ namespace AU
             //‰˜‚¢‚¯‚Ç‚Æ‚è‚ ‚¦‚¸
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                SetPlayersPos(respawnPosList[posListNum].transform.position);
+                SetAllPlayerPos(respawnPosList[posListNum].transform.position);
                 posListNum++;
                 if (posListNum >= respawnPosList.Count) posListNum = 0;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                SetPlayersPos(respawnPosList[posListNum].transform.position);
+                SetAllPlayerPos(respawnPosList[posListNum].transform.position);
                 posListNum--;
                 if (posListNum < 0) posListNum = respawnPosList.Count - 1;
             }

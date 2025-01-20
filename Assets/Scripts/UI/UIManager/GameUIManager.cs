@@ -143,8 +143,8 @@ public class GameUIManager : UIManager
         else if((countDT>4.0f) &&(countDown==0))
         {
             countActive = false;
-
             UIGO.SetActive(false);
+            Initialized();
 
         }
     }
