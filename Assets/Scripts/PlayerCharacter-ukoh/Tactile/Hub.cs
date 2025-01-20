@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
+using UnityEditor;
 /// <summary>
 /// ukoh-2024-10-28
 /// ÉvÉåÉCÉÑÅ[Controller ì¸óÕÇ‚stateä«óùÇ»Ç«Ç™
@@ -17,42 +15,40 @@ using UnityEditor;
 
 namespace CC
 {
-    using System;
-#if UNITY_EDITOR
-    [CustomEditor(typeof(Hub))]
-    public class HubUI : Editor
-    {
-        SerializedProperty disableInput;
+    //using System;
+    //[CustomEditor(typeof(Hub))]
+    //public class HubUI : Editor
+    //{
+    //    SerializedProperty disableInput;
 
-        bool freezed = false;
+    //    bool freezed = false;
 
-        string _target;
+    //    string _target;
 
-        void OnEnable()
-        {
-            disableInput = serializedObject.FindProperty("_disableInput");
-            _target = this.target.GetType().ToString();
-        }
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
+    //    void OnEnable()
+    //    {
+    //        disableInput = serializedObject.FindProperty("_disableInput");
+    //        _target = this.target.GetType().ToString();
+    //    }
+    //    public override void OnInspectorGUI()
+    //    {
+    //        DrawDefaultInspector();
 
-            GUILayout.Label(_target);
+    //        GUILayout.Label(_target);
 
-            if (GUILayout.Button(new GUIContent("DsiableInput")))
-            { disableInput.boolValue = !disableInput.boolValue; }
-            if (GUILayout.Button(new GUIContent("Freeze")))
-            {
-                if (freezed = !freezed)
-                    this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
-                else
-                    this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
-            }
+    //        if (GUILayout.Button(new GUIContent("DsiableInput")))
+    //        { disableInput.boolValue = !disableInput.boolValue; }
+    //        if (GUILayout.Button(new GUIContent("Freeze")))
+    //        {
+    //            if (freezed = !freezed)
+    //                this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
+    //            else
+    //                this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
+    //        }
 
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
-#endif
+    //        serializedObject.ApplyModifiedProperties();
+    //    }
+    //}
 
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
@@ -66,7 +62,7 @@ namespace CC
         public event System.Action DriftEndEvent;
         public event System.Action DashEvent;
 
-        public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
+        public delegate void AdditionFixedOperation(Rigidbody tar, PlayerMovementParams parameters);
         public event AdditionFixedOperation FixedEvent;
 
         //Event for speed related effects
@@ -208,7 +204,7 @@ namespace CC
         private void FixedUpdate()
         {
             SpeedEffect?.Invoke(_rRb.velocity.magnitude);
-            FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
+            FixedEvent?.Invoke(_rRb, _rMovementParams);
         }
         private void OnCollisionEnter(Collision collision)
         {
