@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using AU;
 
 public class GameUIManager : UIManager
 {
     [SerializeField] private GameObject UI3;
     [SerializeField] private GameObject UI2;
     [SerializeField] private GameObject UI1;
+
+    List<GameObject> countDownNumbers = new(); 
+
     [SerializeField] private GameObject UIGO;
     [SerializeField] private GameObject MiniMap;
     [SerializeField] private GameObject MiniMapCamera;
@@ -22,19 +24,28 @@ public class GameUIManager : UIManager
     [SerializeField] private Sprite p2Icon;
     [SerializeField] private GameCameraManager gameCameraManager;
 
-    private PlayerManager pm;
-    private float countStartTime;
+    private AU.PlayerManager pm;
 
-    private bool countActive;
-    private int countDown;
+    bool anyPlayer      = false;
+    bool countdownOver  = false;
+    public int  countDown;
 
     private Vector3 UIscale;
 
     private int iconCount;
 
+    private void Start()
+    {
+        countDownNumbers.Add(UIGO);
+        countDownNumbers.Add(UI1);
+        countDownNumbers.Add(UI2);
+        countDownNumbers.Add(UI3);
+    }
+
     // Start is called before the first frame update
     public override void Initialized()
     {
+        countDown = 5;
         UIscale.x = 5f;
         UIscale.y = 5f;
         UIscale.z = 5f;
@@ -49,7 +60,7 @@ public class GameUIManager : UIManager
         UIGO.transform.localScale= UIscale;
 
         iconCount = 0;
-        pm = playerManager.GetComponent<PlayerManager>();
+        pm = playerManager.GetComponent<AU.PlayerManager>();
         //StartCount();
         //ShowFinish();
 
@@ -75,83 +86,70 @@ public class GameUIManager : UIManager
             rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.pivot = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = new Vector2(0.0f, 0.0f);
-
         }
-
-        if (countActive)
-        {
-            UpdateCount();
-        }
-
-
-
     }
 
     //カウントダウンを始めたい時にこの関数を呼んでください。
     public void StartCount()
     {
-        countStartTime = Time.time;
-        countActive= true;
-        countDown = 4;
-        SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
-
+        countdownOver = false;
+        StartCoroutine(WaitForAnyPlayer());
     }
-    public void UpdateCount()
+
+
+    IEnumerator WaitForAnyPlayer()
     {
-        float countDT = Time.time - countStartTime;
-        if((countDT>0.0f)&&(countDown==4))
+        while (true)
         {
-            countDown = 3;
-
-            UI3.SetActive(true);
-            UI3.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-            
-
-        }
-        else if((countDT>1.0f)&&(countDown==3))
-        {
-            countDown = 2;
-
-            UI3.SetActive(false);
-            UI2.SetActive(true);
-            UI2.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-
-
-        }
-        else if((countDT>2.0f) &&(countDown==2))
-        {
-            countDown = 1;
-
-            UI2.SetActive(false);
-
-            UI1.SetActive(true);
-            UI1.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-
-        }
-        else if((countDT>3.0f) &&(countDown==1))
-        {
-            countDown = 0;
-            UI1.SetActive(false);
-
-            UIGO.SetActive(true);
-            UIGO.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
-            pm.SetPlayerControl(true);
-            gameCameraManager.mainCamera.SetActive(false);
-
-
-        }
-        else if((countDT>4.0f) &&(countDown==0))
-        {
-            countActive = false;
-            UIGO.SetActive(false);
-            Initialized();
-
+            if (anyPlayer)
+            {
+                countDown = 4;
+                StartCoroutine(UpdateCountdown());
+                SoundManager.Instance?.PlaySE(SESoundData.SE.SE_CountDown);
+                break;
+            }
+            yield return new WaitForFixedUpdate();
         }
     }
+    IEnumerator UpdateCountdown()
+    {
+        GameObject cur = null;
+        GameObject old = null;
+
+        while (true)
+        {
+            countDown--;
+            Debug.Log(countDown);
+
+            if(old)
+                old.SetActive(false);   //deactivate old sprite
+
+            if (countDown < 0)
+            {
+                countdownOver = true;
+                pm.SetPlayerControl(true);
+                break;
+            }
+
+            cur = countDownNumbers[countDown];
+
+            cur.SetActive(true);    //activate appropriate sprite
+            cur.GetComponent<Image>().DOFade(0.0f, 1.0f).Play();
+
+            old = cur;
+
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
 
     public void AddPlayerIcon(Transform transform)
     {
+        anyPlayer |= true;
+
         // アイコンのインスタンスを生成
+        if(!countdownOver)
+            transform.root.gameObject.GetComponent<CC.Hub>().disableInput = true;
 
         GameObject playerIcon = Instantiate(iconPrefab, MiniMap.transform);
 
