@@ -73,13 +73,13 @@ public class GameCameraManager : CameraManager
                 SetCineCamera(virtualCameras[0], true);
                 if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
             }
-            param_cameraPrefab?.SetActive(false);
+            //param_cameraPrefab?.SetActive(false);
         }
         else
         {
             ResetVCamerasPriority();
             DisableAllVCamera();
-            param_cameraPrefab?.SetActive(true);
+            //param_cameraPrefab?.SetActive(true);
         }
 
     }
@@ -107,7 +107,6 @@ public class GameCameraManager : CameraManager
             if(lastSwitchTime < 0)
             {
                 ResetVCamerasPriority();
-
             }
         }
 
@@ -124,7 +123,9 @@ public class GameCameraManager : CameraManager
 
         var tmp = camera.GetComponent<GameCamera>();
         tmp.SetPlayerReference(gameObject);
-        camera.SetActive(_skipOpening);
+
+        //camera.SetActive(_skipOpening);
+
         _gameCameras.Add(gameObject, camera);
         return camera;
 
@@ -167,7 +168,6 @@ public class GameCameraManager : CameraManager
             i++;
         }
     }
-
     public void SetAllGameCamera(bool isEnable)
     {
         foreach (GameObject cam in _gameCameras.Values)
@@ -191,8 +191,7 @@ public class GameCameraManager : CameraManager
 
         }
         _gameUIManager.StartCount();
-
-        SetAllGameCamera(true);
+        //in transition = false;
     }
 
     private void ResetVCamerasPriority()

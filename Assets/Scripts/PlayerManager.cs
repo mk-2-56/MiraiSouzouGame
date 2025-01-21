@@ -10,23 +10,6 @@ using Cinemachine;
 
 namespace AU
 {
-    //using UnityEditor;
-
-    //[CustomEditor(typeof(PlayerManager))]
-    //public class PlayerManagerUI : Editor
-    //{
-
-    //    public override void OnInspectorGUI()
-    //    {
-    //        DrawDefaultInspector();
-
-    //        if (GUILayout.Button(new GUIContent("JoinPlayer")))
-    //        {
-    //            this.target.GetType().GetMethod("JoinPlayer").Invoke(target, null);
-    //        }
-    //    }
-    //}
-
 
     public class PlayerManager : MonoBehaviour
     {
@@ -40,7 +23,8 @@ namespace AU
         [SerializeField] private int posListNum;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
-
+        
+        public void Initialized(){ }
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -90,7 +74,7 @@ namespace AU
             controller.playerHub = player.GetComponent<CC.Hub>();
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
-            SetPlayerControl(_rCameraManager.SkipOpening);
+
             if (_curentPlayerCount > 1)
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
@@ -175,11 +159,6 @@ namespace AU
 
         }
 
-        public void Initialized()
-        {
-/*            cameraManager = FindObjectOfType<CameraManager>();
-*/        }
-
         // Update is called once per frame
         private void Update()
         {
@@ -204,9 +183,6 @@ namespace AU
         private void FixedUpdate()
         {
             _rTrackManager.UpdatePositions(_players);
-        }
-        private void OnDestroy()
-        {
         }
 
         public bool SetPlayerControl(bool flag)

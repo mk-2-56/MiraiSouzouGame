@@ -74,6 +74,9 @@ public class DestructibleObject : MonoBehaviour
 
         void OnTriggerEnter(Collider other)
         {
+            if(!other.attachedRigidbody)
+                return;
+
             float relativeVel = (other.attachedRigidbody.velocity - rigidbody.velocity).magnitude;
             if (relativeVel > forceRequired)
             {

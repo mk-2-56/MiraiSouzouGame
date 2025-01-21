@@ -42,7 +42,6 @@ public class CoinGaugeController : MonoBehaviour
             image.color = _notFulledColor;
             isFilled = false;
         }
-        Debug.Log(gaugeValue.ToString() + "." + image.fillAmount.ToString());
     }
 
     public void AddGaugeValue(float value)

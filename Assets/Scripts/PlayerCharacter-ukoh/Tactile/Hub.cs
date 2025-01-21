@@ -62,7 +62,7 @@ namespace CC
         public event System.Action DriftEndEvent;
         public event System.Action DashEvent;
 
-        public delegate void AdditionFixedOperation(Rigidbody sender, Quaternion terrianRot);
+        public delegate void AdditionFixedOperation(Rigidbody tar, PlayerMovementParams parameters);
         public event AdditionFixedOperation FixedEvent;
 
         //Event for speed related effects
@@ -204,7 +204,7 @@ namespace CC
         private void FixedUpdate()
         {
             SpeedEffect?.Invoke(_rRb.velocity.magnitude);
-            FixedEvent?.Invoke(_rRb, _rMovementParams.terrianRotation);
+            FixedEvent?.Invoke(_rRb, _rMovementParams);
         }
         private void OnCollisionEnter(Collision collision)
         {
