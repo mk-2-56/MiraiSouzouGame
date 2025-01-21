@@ -80,6 +80,8 @@ namespace AU
 
             //Camera¶¬
             GameObject camera = _rCameraManager.SpawnGameCamera(player);
+            _rCameraManager.SetRenderTarget(0);//‰æ–Ê•ªŠ„
+
             //Canvas¶¬&‰Šú‰»ˆ—
             _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
             Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
@@ -95,6 +97,7 @@ namespace AU
             SetPlayerControl(_rCameraManager.SkipOpening);
             if (_curentPlayerCount > 1)
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//‰æ–Ê•ªŠ„
+                _rCameraManager.SetRenderTarget(0);//‰æ–Ê•ªŠ„
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
         }
 
