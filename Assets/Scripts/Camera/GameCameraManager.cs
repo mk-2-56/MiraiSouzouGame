@@ -52,6 +52,9 @@ public class GameCameraManager : CameraManager
     [SerializeField] GameObject param_cameraPrefab;
     [SerializeField] private PlayerManager playerManager;
 
+    [SerializeField] private RenderTexture rtv;
+
+
     Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
 
     private float lastSwitchTime = 8f;
@@ -170,6 +173,57 @@ public class GameCameraManager : CameraManager
             cam.rect = new Rect(pos, size);
             i++;
         }
+    }
+
+    public void SetRenderTarget(int game)
+    {
+
+        int i = 0;
+        foreach (KeyValuePair<GameObject, GameObject> item in _gameCameras)
+        {
+            if (!item.Key)
+            {
+                Destroy(item.Value);
+                _gameCameras.Remove(item.Key);
+                return;
+            }
+
+            Camera cam = item.Value.transform.Find("Camera").GetComponent<Camera>();
+
+            if (game == 1)
+            {
+                cam.targetTexture = null;
+            }
+            else if (game == 0)
+            {
+                cam.targetTexture = rtv;
+                mainCamera.GetComponent<Camera>().targetTexture = null;
+
+            }
+            i++;
+
+        }
+        if (game == 1)
+        {
+            mainCamera.GetComponent<Camera>().targetTexture = null;
+        }
+        else if (game == 0)
+        {
+
+            mainCamera.GetComponent<Camera>().targetTexture = rtv;
+            mainCamera.GetComponent<Camera>().targetTexture = null;
+
+            if (i == 0)
+            {
+
+            }
+            else
+            {
+
+            }
+
+        }
+
     }
 
     public void SetStartCameraWork(bool isActive)

@@ -10,6 +10,7 @@ using Cinemachine;
 
 namespace AU
 {
+    using Unity.VisualScripting;
 #if UNITY_EDITOR
     using UnityEditor;
     using static UnityEngine.Rendering.DebugUI.Table;
@@ -34,6 +35,10 @@ namespace AU
 
     public class PlayerManager : MonoBehaviour
     {
+        //ゴミコード申し訳ない
+        public int _playerReady = 0;
+        InputAction aButtonAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/start");
+        //
         [SerializeField] GameObject respawnPos;
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
@@ -44,7 +49,6 @@ namespace AU
         [SerializeField] private int posListNum;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
-
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -83,6 +87,7 @@ namespace AU
 
             //Camera生成
             GameObject camera = _rCameraManager.SpawnGameCamera(player);
+            _rCameraManager.SetRenderTarget(0);//Turorial用
             //Canvas生成&初期化処理
             _uiCanvasInstance = Instantiate(_uiCanvasPrefab);
             Canvas canvas = _uiCanvasInstance.GetComponent<Canvas>();
@@ -97,7 +102,11 @@ namespace AU
             _players.Add(_curentPlayerCount, player);
             SetPlayerControl(true);
             if (_curentPlayerCount > 1)
+            {
                 _rCameraManager.AdjustGameCamera(_curentPlayerCount);//画面分割
+                _rCameraManager.SetRenderTarget(0);
+            }
+
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
         }
 
@@ -198,7 +207,6 @@ namespace AU
 
         Dictionary<int, GameObject> _players = new Dictionary<int, GameObject>();
         Dictionary<GameObject, GameObject> _gameCameras = new Dictionary<GameObject, GameObject>();
-
         int _curentPlayerCount = 0;
 
 
@@ -212,8 +220,11 @@ namespace AU
 
         public void Initialized()
         {
-/*            cameraManager = FindObjectOfType<CameraManager>();
-*/        }
+            aButtonAction.Enable();
+            _playerReady = 0;
+/*          cameraManager = FindObjectOfType<CameraManager>();
+*/
+        }
 
         // Update is called once per frame
         private void Update()
@@ -235,6 +246,33 @@ namespace AU
                 posListNum--;
                 if (posListNum < 0) posListNum = respawnPosList.Count - 1;
             }
+
+            if (GameUIManager.GetComponent<GameUIManager>().IsTutorial())
+            {
+
+                if (aButtonAction.WasPressedThisFrame())
+                {
+                    SoundManager.Instance?.PlaySE(SESoundData.SE.SE_Button);
+                    _playerReady++;
+                }
+                if(_playerReady > 1)
+                {
+                    _playerReady = 0;
+                    StartCoroutine("StartGame");
+
+                }
+            }
+           
+
+        }
+
+        private IEnumerator StartGame()
+        {
+            GameUIManager.GetComponent<GameUIManager>().EndTutorial();
+            yield return new WaitForSeconds(2f);
+
+            GameUIManager.GetComponent<GameUIManager>().StartGame();
+            
         }
         private void FixedUpdate()
         {
