@@ -183,6 +183,7 @@ public class GameUIManager : UIManager
                 countdownOver = true;
                 pm.SetPlayerControl(true);
                 tutorialPlayerControl = true;
+                TimeManager.Instance.StartTimer();
                 break;
             }
 
@@ -247,8 +248,11 @@ public class GameUIManager : UIManager
         tutorialCanvas.SetActive(false);
         gameCameraManager.SetRenderTarget(1);
         StartInTransition();
-
         gameCameraManager.SetStartCameraWork(true);
+        SoundManager.Instance?.SetBGMVolume(1);
+        SoundManager.Instance?.SetSEVolume(1);
+        SoundManager.Instance?.SetMasterVolume(1);
+        SoundManager.Instance?.PlayBGM(BGMSoundData.BGM.BGM_Game);
 
     }
     public void StartInTransition()
@@ -263,7 +267,6 @@ public class GameUIManager : UIManager
     {
         outTransition.SetActive(false);
         outTransition.SetActive(true);
-
     }
 
 }
