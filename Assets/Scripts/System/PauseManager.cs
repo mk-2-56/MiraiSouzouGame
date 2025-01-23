@@ -34,7 +34,7 @@ public class PauseManager : MonoBehaviour
     void Update()
     {
         // ESCキーでポーズのオン/オフを切り替える
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             SoundManager.Instance.PlaySE(SESoundData.SE.SE_Select);
             if (isPaused)

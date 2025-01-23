@@ -8,6 +8,6 @@ public class StateKeeper : MonoBehaviour
     // シーン間でStateServiceが持続するようにDontDestroyOnLoadを使用
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
+/*        DontDestroyOnLoad(gameObject);
+*/    }
 }

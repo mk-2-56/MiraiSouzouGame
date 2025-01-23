@@ -41,15 +41,14 @@ public class GoalChecker : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(Instance.gameObject); // 古いインスタンスを削除
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        Instance = this; // 新しいインスタンスを登録
+        DontDestroyOnLoad(gameObject); // シーン間で保持
+
     }
     private void Start()
     {
