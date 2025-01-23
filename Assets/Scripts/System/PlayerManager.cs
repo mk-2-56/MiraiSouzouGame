@@ -13,6 +13,8 @@ namespace AU
     using Unity.VisualScripting;
 #if UNITY_EDITOR
     using UnityEditor;
+    using UnityEngine.SceneManagement;
+    using static UnityEditor.Experimental.GraphView.GraphView;
     using static UnityEngine.Rendering.DebugUI.Table;
 
     [CustomEditor(typeof(PlayerManager))]
@@ -39,6 +41,8 @@ namespace AU
         public int _playerReady = 0;
         InputAction aButtonAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/start");
         //
+        [SerializeField] private GameManager _gameManager;
+        [SerializeField] GameObject _tutorialSpawnPos;
         [SerializeField] GameObject respawnPos;
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
@@ -60,9 +64,19 @@ namespace AU
                 RaycastHit hit;
                 Vector3 pos = transform.position;
                 Quaternion rot = transform.rotation;
-                if (respawnPos != null)
-                    pos = respawnPos.transform.position;
-                rot = respawnPos.transform.rotation;
+                if (respawnPos != null && _tutorialSpawnPos != null)
+                {
+                    if (_gameManager.IsLoadTutorial())
+                    {//チュートリアルを行う
+                        pos = _tutorialSpawnPos.transform.position;
+                        rot = _tutorialSpawnPos.transform.rotation;
+                    }
+                    else
+                    {
+                        pos = respawnPos.transform.position;
+                        rot = respawnPos.transform.rotation;
+                    }
+                }
 
                 if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
                     pos = hit.point;
@@ -108,6 +122,7 @@ namespace AU
             }
 
             GameUIManager.GetComponent<GameUIManager>().AddPlayerIcon(player.transform.GetChild(1).GetChild(0).GetChild(0));
+            SoundManager.Instance?.PlaySE(SESoundData.SE.SE_Cancel);
         }
 
         public void JoinPlayer()
@@ -154,9 +169,10 @@ namespace AU
             }
         }
 
-        public void SetAllPlayerPos(GameObject spawnPos)
+        public IEnumerator SetAllPlayerPos(GameObject spawnPos)
         {
-            if (_players.Count <= 0) return;
+            if (_players.Count <= 0) yield break;
+
             Transform transform = spawnPos.transform;
             float radius = 15.0f;
 
@@ -165,21 +181,21 @@ namespace AU
                 RaycastHit hit;
                 Vector3 pos = transform.position;
                 Quaternion rot = transform.rotation;
-                if (respawnPos != null)
-                    pos = respawnPos.transform.position;
-                rot = respawnPos.transform.rotation;
+                if (spawnPos != null)
+                    pos = spawnPos.transform.position;
+                rot = spawnPos.transform.rotation;
 
                 if (Physics.SphereCast(pos + radius * Vector3.up, radius, Vector3.down, out hit, 100f, LayerMask.GetMask("Terrian")))
                     pos = hit.point;
 
-                /*                if (Physics.CheckSphere(pos, 30f, LayerMask.GetMask("PlayerControlled")))
-                                { pos.x += 10.0f; }*/
-                pos.x += (float)(i-1) * 10f;
+                if (Physics.CheckSphere(pos, 30f, LayerMask.GetMask("PlayerControlled")))
+                { pos.x += 10.0f; }
                 _players[i].transform.position = pos;
                 _players[i].transform.rotation = rot;
                 _players[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
-/*                yield return new WaitForSeconds(1);
-*/            }
+
+                yield return new WaitForSeconds(0.3f);
+            }
         }
 
         public void RemovePlayer(int index)
@@ -200,6 +216,16 @@ namespace AU
                 if (_curentPlayerCount < 2)
                     _rCameraManager.AdjustGameCamera(_curentPlayerCount);
             }
+        }
+
+        public int GetPlayerId(GameObject player)
+        {
+            foreach (var kvp in _players)
+            {
+                if (kvp.Value == player)
+                    return kvp.Key; // プレイヤーのIDを返す
+            }
+            return -1; // プレイヤーが見つからない場合
         }
 
         GameCameraManager _rCameraManager;
@@ -236,13 +262,13 @@ namespace AU
             //汚いけどとりあえず
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                SetAllPlayerPos(respawnPosList[posListNum].transform.position);
+                StartCoroutine(SetAllPlayerPos(respawnPosList[posListNum].gameObject));
                 posListNum++;
                 if (posListNum >= respawnPosList.Count) posListNum = 0;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                SetAllPlayerPos(respawnPosList[posListNum].transform.position);
+                StartCoroutine(SetAllPlayerPos(respawnPosList[posListNum].gameObject));
                 posListNum--;
                 if (posListNum < 0) posListNum = respawnPosList.Count - 1;
             }
@@ -258,7 +284,7 @@ namespace AU
                 if(_playerReady > 1)
                 {
                     _playerReady = 0;
-                    StartCoroutine("StartGame");
+                    StartCoroutine(StartGame());
 
                 }
             }
@@ -268,11 +294,13 @@ namespace AU
 
         private IEnumerator StartGame()
         {
+            SoundManager.Instance?.FadeOutAllSounds(1);
             GameUIManager.GetComponent<GameUIManager>().EndTutorial();
+            SceneManager.UnloadSceneAsync("Tutorial");
             yield return new WaitForSeconds(2f);
 
             GameUIManager.GetComponent<GameUIManager>().StartGame();
-            
+
         }
         private void FixedUpdate()
         {
