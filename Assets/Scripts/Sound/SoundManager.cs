@@ -275,6 +275,45 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // フェードイン処理
+    public void FadeInAllSounds(float fadeDuration = 1f, System.Action onComplete = null)
+    {
+        StartCoroutine(FadeInCoroutine(fadeDuration, onComplete));
+    }
+
+    private IEnumerator FadeInCoroutine(float fadeDuration, System.Action onComplete)
+    {
+        float startTime = Time.time;
+
+        // 現在の音量を取得（フェードイン開始時は0）
+        float bgmStartVolume = 0;
+        float seStartVolume = 0;
+
+        // フェードイン終了時の音量
+        float bgmTargetVolume = bgmMasterVolume * masterVolume;
+        float seTargetVolume = seMasterVolume * masterVolume;
+
+        // フェードイン中の音量を徐々に増加
+        while (Time.time < startTime + fadeDuration)
+        {
+            float elapsed = Time.time - startTime;
+            float progress = elapsed / fadeDuration;
+
+            float newVolume = Mathf.Lerp(bgmStartVolume, bgmTargetVolume, progress);
+            SetBGMVolume(newVolume / masterVolume); // bgmMasterVolumeを更新
+            SetSEVolume(newVolume / masterVolume);  // seMasterVolumeを更新
+
+            yield return null; // 次のフレームまで待機
+        }
+
+        // 最終的に目標の音量に設定
+        SetBGMVolume(bgmTargetVolume / masterVolume);
+        SetSEVolume(seTargetVolume / masterVolume);
+
+        // フェードイン完了時のコールバック
+        onComplete?.Invoke();
+    }
+
     public void FadeOutAllBGM(float fadeDuration = 1f)
     {
         foreach (AudioSource bgmAC in bgmAudioSources)
