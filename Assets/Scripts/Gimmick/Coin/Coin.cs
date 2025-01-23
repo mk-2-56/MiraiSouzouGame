@@ -3,6 +3,10 @@ using UnityEngine.VFX;
 
 public class Coin : MonoBehaviour
 {
+    static int maxCoinNumber;
+    static int collectedCoinNumber;
+
+
     [SerializeField] private float RotSpeed;          // 回転速度
     [SerializeField] private VisualEffect coinEffect; // コイン取得エフェクト
     [SerializeField] private float gaugeValue = 0.1f; // ゲージの増加量
@@ -11,8 +15,19 @@ public class Coin : MonoBehaviour
     private bool isTouched = false;
     private Vector3 rotationAxis = Vector3.up;
 
+    static public void GetCoinNumber(out int max, out int collected)
+    {
+        max       = maxCoinNumber;
+        collected = collectedCoinNumber;
+    }
+    static public void Reset()
+    {
+        maxCoinNumber = collectedCoinNumber = 0;
+    }
+
     void Start()
     {
+        maxCoinNumber++;
         coinSound = GetComponent<AudioSource>();
     }
 
@@ -36,6 +51,8 @@ public class Coin : MonoBehaviour
     private void GetCoin(Collider other)
     {
         if (isTouched) return;
+
+        collectedCoinNumber++;
 
         isTouched = true;
 

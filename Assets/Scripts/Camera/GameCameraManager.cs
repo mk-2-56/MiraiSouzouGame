@@ -69,12 +69,12 @@ public class GameCameraManager : CameraManager
             UnityEngine.Debug.Log("Brain not found!");
         }
 
-        for (int i = 0; i < virtualCameras.Count; i++)
-        {
-            if (virtualCameras[i] == null) continue;
-            virtualCameras[i].Priority = 0;
-            virtualCameras[i].m_LookAt = startPos.GetComponent<Transform>();
-        }
+        //for (int i = 0; i < virtualCameras.Count; i++)
+        //{
+        //    if (virtualCameras[i] == null) continue;
+        //    virtualCameras[i].Priority = 0;
+        //    virtualCameras[i].m_LookAt = startPos.GetComponent<Transform>();
+        //}
 
 /*        if (!_skipOpening)
         {
@@ -110,26 +110,8 @@ public class GameCameraManager : CameraManager
             SetStartCameraWork();
         }
 
-        if (_playOpening)
-        {
-               if (virtualCameras[0] == activeCamera)
-                {
-                    if(dollyCart1.m_Position >= dollyPath1.PathLength)
-                    {
-                        SetCineCamera(virtualCameras[1],true);
-                    }
-                }
-
-               if(virtualCameras[virtualCameras.Count - 1].enabled == true)
-               {
-                   lastSwitchTime -= Time.deltaTime;
-                   if(lastSwitchTime < 0)
-                   {
-                       ResetAllVCamerasPriority(0);
-                   }
-               }
-        }     
     }
+
 
 
     public override GameObject SpawnGameCamera(GameObject gameObject)//->playerCharacter
@@ -193,11 +175,30 @@ public class GameCameraManager : CameraManager
 
         _playerManager.SetAllPlayerPos(startPos);
 
+
+
         // 最初のカメラをアクティブに設定
         if (virtualCameras[0] != null)
         {
             SetCineCamera(virtualCameras[0], true);
             if (virtualCameras.Count > 1) StartCoroutine(SwitchVCameras());
+        }
+
+        if (virtualCameras[0] == activeCamera)
+        {
+            if (dollyCart1.m_Position >= dollyPath1.PathLength)
+            {
+                SetCineCamera(virtualCameras[1], true);
+            }
+        }
+
+        if (virtualCameras[virtualCameras.Count - 1].enabled == true)
+        {
+            lastSwitchTime -= Time.deltaTime;
+            if (lastSwitchTime < 0)
+            {
+                ResetAllVCamerasPriority(0);
+            }
         }
     }
 

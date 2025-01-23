@@ -35,6 +35,15 @@ public class GameManager : MonoBehaviour
         Initialized();
     }
 
+    /*
+    List<Manager> _registeredManager = new();
+    
+
+    public void Register(Manager system)
+    { 
+        _registeredManager.Add()
+    }
+    */
     public void Initialized()
     {
         UnityEngine.Debug.Log("Managers Initialized");
@@ -44,6 +53,13 @@ public class GameManager : MonoBehaviour
         sceneManager?.Initialized();
         uiManager?.Initialized();
         pauseManager?.Initialized();
+
+        //base:
+        //class Manager()
+        //{
+        //  public virtual Initialized()
+        //}
+
 
         UnityEngine.Debug.Log("GameManager initialized for scene: " + SceneManager.GetActiveScene().name);
     }
