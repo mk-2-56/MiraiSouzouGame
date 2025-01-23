@@ -242,7 +242,7 @@ public class GameCameraManager : CameraManager
         }
         
         //カメラワーク開始の設定
-        _playerManager.SetAllPlayerPos(startPos);
+        StartCoroutine(_playerManager.SetAllPlayerPos(startPos));
 
         // 最初のカメラをアクティブに設定
         if (virtualCameras[0] != null)
