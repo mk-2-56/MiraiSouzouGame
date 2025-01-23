@@ -10,12 +10,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AU.PlayerManager   playerManager;
     [SerializeField] private CameraManager      cameraManager;
     [SerializeField] private BaseSceneManager   sceneManager;
-
+    [SerializeField] private bool _tutoiral = true;
     // ƒQ[ƒ€ó‘Ô‚ğ•\‚·Enum
     public enum SceneState { Title, Tutorial, Game, Result };
     private IState currentState;
     private StateKeeper stateKeeper; // Œ»İ‚ÌSceneState‚ğ•Û‚·‚é‚½‚ß‚Ì•Ï”
 
+    public bool IsLoadTutorial()
+    {
+        return _tutoiral;
+    }
     void Awake()
     {
         stateKeeper = FindObjectOfType<StateKeeper>();

@@ -5,19 +5,24 @@ using UnityEngine;
 
 public class ResultPlayerManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _player;
+    [SerializeField] private ResultImageChanger _imageChanger;
 
-    [SerializeField] List<Color> p_playerColors = new();
-    [SerializeField] private GameObject player;
-
-    public int winPlayer;
+    private Color winnerColor;
 
     void Start()
     {
-        Color pcColor = p_playerColors[winPlayer];
+        //
+        if (GoalChecker.Instance)
+        {
+            //êF
+            winnerColor = GoalChecker.Instance.GetWinnerColor();
 
-        GameObject model = player.transform.Find("Character_V2").gameObject;
-        model.transform.Find("Raincoat").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
-        model.transform.Find("L_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
-        model.transform.Find("R_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", pcColor);
+        }
+
+        GameObject model = _player.transform.Find("Character_V2").gameObject;
+        model.transform.Find("Raincoat").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", winnerColor);
+        model.transform.Find("L_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", winnerColor);
+        model.transform.Find("R_boots").GetComponent<SkinnedMeshRenderer>().material.SetColor("_BASE_COLOR", winnerColor);
     }
 }
