@@ -2303,6 +2303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1449468290}
+  _resultPlayerManager: {fileID: 1917942259}
   bgm: 3
 --- !u!82 &985161126
 AudioSource:
@@ -4305,11 +4306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e878d72888dcd419d99788bb8f3e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p_playerColors:
-  - {r: 0.9254902, g: 0.8156863, b: 0.09019608, a: 0}
-  - {r: 0.1764706, g: 0.79607844, b: 0.9411765, a: 0}
-  player: {fileID: 409882349}
-  winPlayer: 0
+  _player: {fileID: 409882349}
+  _imageChanger: {fileID: 0}
 --- !u!224 &405041286485612781
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4438,7 +4436,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 975b91dcb91a1164b99e6141a4081275, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5215,6 +5213,6 @@ SceneRoots:
   - {fileID: 247283240}
   - {fileID: 409882348}
   - {fileID: 1127946426}
-  - {fileID: 1449468289}
   - {fileID: 985161124}
   - {fileID: 1889596901}
+  - {fileID: 1449468289}

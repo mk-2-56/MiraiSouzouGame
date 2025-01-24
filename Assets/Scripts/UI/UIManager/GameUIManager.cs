@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using AU;
+using static CC.PlayerMovementParams;
 
 public class GameUIManager : UIManager
 {
@@ -24,16 +26,28 @@ public class GameUIManager : UIManager
     [SerializeField] private Sprite p2Icon;
     [SerializeField] private GameCameraManager gameCameraManager;
 
-    private AU.PlayerManager pm;
+    [SerializeField] private GameObject tutorialCanvas;
+    [SerializeField] private GameObject gameUICanvas;
+    [SerializeField] private GameObject inTransition;
+    [SerializeField] private GameObject outTransition;
+    [SerializeField] private GameObject tutorialWindow;
+    private PlayerManager pm;
+    private float countStartTime;
 
-    bool anyPlayer      = false;
-    bool countdownOver  = false;
-    public int  countDown;
+    private bool countActive;
+    bool anyPlayer = false;
+    bool countdownOver = false;
+    public int countDown;
 
     private Vector3 UIscale;
 
     private int iconCount;
-
+    public bool mode;//0=tutorial,1=game
+    public bool tutorialPlayerControl = true;
+    public bool IsTutorial()
+    {
+        return !mode;
+    }
     private void Start()
     {
         countDownNumbers.Add(UIGO);
@@ -60,33 +74,73 @@ public class GameUIManager : UIManager
         UIGO.transform.localScale= UIscale;
 
         iconCount = 0;
-        pm = playerManager.GetComponent<AU.PlayerManager>();
-        //StartCount();
-        //ShowFinish();
+        pm = playerManager.GetComponent<PlayerManager>();
+        mode = false;
+        StartTutorial();
 
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        if (pm.GetPlayerCount() == 1)
+        
+        if (tutorialPlayerControl)
         {
-            RectTransform rt = MiniMap.GetComponent<RectTransform>();
-            rt.anchorMin = new Vector2(1.0f, 0.0f);
-            rt.anchorMax = new Vector2(1.0f, 0.0f);
-            rt.pivot = new Vector2(1.0f, 0.0f);
-            rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+            pm.SetPlayerControl(true);
+        }
+        else
+        {
+            pm.SetPlayerControl(false);
+        }
+
+        if (!mode)
+        {
+            if (pm.GetPlayerCount() == 0)
+            {
+                tutorialWindow.SetActive(false);
+            }
+            else
+            {
+                tutorialWindow.SetActive(true);
+            }
+        }
+        else if ( mode )
+        {
+            if (pm.GetPlayerCount() == 1)
+            {
+                RectTransform rt = MiniMap.GetComponent<RectTransform>();
+                rt.anchorMin = new Vector2(1.0f, 0.0f);
+                rt.anchorMax = new Vector2(1.0f, 0.0f);
+                rt.pivot = new Vector2(1.0f, 0.0f);
+                rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+
+            }
+            if (pm.GetPlayerCount() == 2)
+            {
+                centerLine.SetActive(true);
+                RectTransform rt = MiniMap.GetComponent<RectTransform>();
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.pivot = new Vector2(0.5f, 0.5f);
+                rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+
+            }
 
         }
-        if (pm.GetPlayerCount() == 2)
+
+        //debug
+/*        if (UnityEngine.Input.GetKeyDown(KeyCode.H))
         {
-            centerLine.SetActive(true);
-            RectTransform rt = MiniMap.GetComponent<RectTransform>();
-            rt.anchorMin = new Vector2(0.5f, 0.5f);
-            rt.anchorMax = new Vector2(0.5f, 0.5f);
-            rt.pivot = new Vector2(0.5f, 0.5f);
-            rt.anchoredPosition = new Vector2(0.0f, 0.0f);
+            EndTutorial();
         }
+
+        if (UnityEngine.Input.GetKeyDown(KeyCode.J))
+        {
+            StartGame();
+        }*/
+
     }
 
     //カウントダウンを始めたい時にこの関数を呼んでください。
@@ -119,15 +173,17 @@ public class GameUIManager : UIManager
         while (true)
         {
             countDown--;
-            Debug.Log(countDown);
+            UnityEngine.Debug.Log(countDown);
 
-            if(old)
+            if (old)
                 old.SetActive(false);   //deactivate old sprite
 
             if (countDown < 0)
             {
                 countdownOver = true;
                 pm.SetPlayerControl(true);
+                tutorialPlayerControl = true;
+                TimeManager.Instance.StartTimer();
                 break;
             }
 
@@ -142,13 +198,11 @@ public class GameUIManager : UIManager
         }
     }
 
-
     public void AddPlayerIcon(Transform transform)
     {
         anyPlayer |= true;
-
         // アイコンのインスタンスを生成
-        if(!countdownOver)
+        if (!countdownOver)
             transform.root.gameObject.GetComponent<CC.Hub>().disableInput = true;
 
         GameObject playerIcon = Instantiate(iconPrefab, MiniMap.transform);
@@ -157,17 +211,62 @@ public class GameUIManager : UIManager
         playerIcon.GetComponent<MiniMapIcon>().targetObject = transform;
         playerIcon.GetComponent<MiniMapIcon>().MiniMapCamera = MiniMapCamera.GetComponent<Camera>();
 
-        if (iconCount==0)
+        if (iconCount == 0)
         {
             playerIcon.GetComponent<Image>().sprite = p1Icon;
 
         }
-        else if (iconCount==1)
+        else if (iconCount == 1)
         {
             playerIcon.GetComponent<Image>().sprite = p2Icon;
 
         }
         iconCount++;
+    }
+
+    public void StartTutorial()
+    {
+        pm.SetPlayerControl(true);
+        mode = false;
+        gameUICanvas.SetActive(false);
+        tutorialCanvas.SetActive(true);
+        gameCameraManager.SetRenderTarget(0);
+        StartInTransition();
+    }
+    public void EndTutorial()
+    {
+        tutorialPlayerControl = false;
+        pm.SetPlayerControl(false);
+
+        StartOutTransition();
+    }
+
+    public void StartGame()
+    {
+        mode = true;
+        gameUICanvas.SetActive(true);
+        tutorialCanvas.SetActive(false);
+        gameCameraManager.SetRenderTarget(1);
+        StartInTransition();
+        gameCameraManager.SetStartCameraWork(true);
+        SoundManager.Instance?.SetBGMVolume(1);
+        SoundManager.Instance?.SetSEVolume(1);
+        SoundManager.Instance?.SetMasterVolume(1);
+        SoundManager.Instance?.PlayBGM(BGMSoundData.BGM.BGM_Game);
+
+    }
+    public void StartInTransition()
+    {
+        outTransition.SetActive(false);
+        inTransition.SetActive(false);
+        inTransition.SetActive(true);
+
+    }
+
+    public void StartOutTransition()
+    {
+        outTransition.SetActive(false);
+        outTransition.SetActive(true);
     }
 
 }

@@ -37,15 +37,15 @@ public class ResultUIManager : UIManager
         scoreGroup.GetComponent<CanvasGroup>().alpha = 0.0f;
         scoreLine.GetComponent<RectTransform>().localScale = new Vector3(0.0f, 1.0f, 1.0f);
 
-        // èâä˙ílÇÕ0î‘ñ⁄(1P)Ç…ÇµÇ∆Ç≠
-        winPlayer = 0;
-
-        // pm = playerManager.GetComponent<PlayerManager>();
+        // èâä˙ílÇÕ1PÇ…ÇµÇ∆Ç≠
+        if (GoalChecker.Instance)
+            winPlayer = GoalChecker.Instance.GetWinner();
+        else winPlayer = 1;
     }
 
     void Start()
     {
-        winText.GetComponent<Image>().sprite = (winPlayer == 0) ? p1WinImg : p2WinImg;
+        winText.GetComponent<Image>().sprite = (winPlayer == 1) ? p1WinImg : p2WinImg;
     }
 
     void Update()
@@ -79,6 +79,18 @@ public class ResultUIManager : UIManager
     private void ShowScore()
     {
         resultLogo.SetActive(true);
+        float time;
+        if (GoalChecker.Instance)
+        {
+            KeyValuePair<int, float> winnerD = GoalChecker.Instance.GetWinnerTime();
+            time = winnerD.Value;
+        }
+        else time = 0.0f;
+
+        int h = (int)(time / 3600);
+        int m = (int)((time % 3600) / 60);
+        int s = (int)(time % 60);
+        scoreGroup.transform.Find("Time/Value").GetComponent<TextMeshProUGUI>().text = $"{h}:{m}:{s}"; 
         scoreGroup.SetActive(true);
 
         ScoreAnim();
