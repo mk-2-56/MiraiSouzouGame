@@ -70,10 +70,12 @@ public class BoostTile : MonoBehaviour
         {
             case BoostMode.Burst:
                 Burst();
+                SoundManager.Instance?.PlaySE(SESoundData.SE.SE_BoostTile);
                 break;
 
             case BoostMode.Continous:
                 StartAccelerate(other.GetComponent<CC.Hub>());
+                SoundManager.Instance?.PlaySE(SESoundData.SE.SE_BoostRing);
                 break;
         }
         StartEffect(other);
