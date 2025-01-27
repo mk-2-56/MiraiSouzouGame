@@ -67,7 +67,7 @@ public class SceneLoader : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "Title")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if ((Input.GetKeyDown("joystick button 0")) || (Input.GetKeyDown("joystick button 1")) || (Input.GetKeyDown("joystick button 7")))
             {
                 Load(NextScene);
             }
@@ -75,7 +75,7 @@ public class SceneLoader : MonoBehaviour
 
         else if(SceneManager.GetActiveScene().name == "Result")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if ((Input.GetKeyDown("joystick button 0")) || (Input.GetKeyDown("joystick button 1")) || (Input.GetKeyDown("joystick button 7")))
             {
                 Load(NextScene);
             }

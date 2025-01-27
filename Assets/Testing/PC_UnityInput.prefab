@@ -2078,10 +2078,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   param_maxSpeed: 40
   param_acc: 20
-  param_jumpForce: 10
+  param_jumpForce: 4
   param_torqueCoefficient: 0.03
   param_minAirTime: 0.1
-  param_maxAirTime: 0.9
+  param_maxAirTime: 0.6
 --- !u!114 &4955483750236158470
 MonoBehaviour:
   m_ObjectHideFlags: 0

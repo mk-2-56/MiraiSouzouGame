@@ -91,6 +91,12 @@ public class ResultUIManager : UIManager
         int m = (int)((time % 3600) / 60);
         int s = (int)(time % 60);
         scoreGroup.transform.Find("Time/Value").GetComponent<TextMeshProUGUI>().text = $"{h}:{m}:{s}"; 
+
+        if(winPlayer != 1)
+        {
+            scoreGroup.transform.Find("Rank/Value1").GetComponent<TextMeshProUGUI>().text = "2P";
+            scoreGroup.transform.Find("Rank/Value2").GetComponent<TextMeshProUGUI>().text = "1P";
+        }
         scoreGroup.SetActive(true);
 
         ScoreAnim();
