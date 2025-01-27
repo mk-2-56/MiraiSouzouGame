@@ -37,22 +37,20 @@ namespace AU
 
     public class PlayerManager : MonoBehaviour
     {
-        //ゴミコード申し訳ない
-        public int _playerReady = 0;
-        InputAction aButtonAction = new InputAction(type: InputActionType.Button, binding: "<Gamepad>/start");
-        //
         [SerializeField] private GameManager _gameManager;
         [SerializeField] GameObject _tutorialSpawnPos;
         [SerializeField] GameObject respawnPos;
         [SerializeField] GameObject param_playerPrefab;
         [SerializeField] GameObject _uiCanvasPrefab;
         [SerializeField] GameObject GameUIManager;
-        
+        [SerializeField] GameUIManager GameUIManagerCom;
         [SerializeField] List<Color> p_playerColors = new();
         [SerializeField] List<GameObject> respawnPosList = new();
         [SerializeField] private int posListNum;
         private GameObject _uiCanvasInstance;
         private TrackPositionManager _rTrackManager;
+        private bool transition;
+
         public void OnPlayerJoined(PlayerInput input)
         {
             _curentPlayerCount++;
@@ -241,13 +239,12 @@ namespace AU
             _rCameraManager = FindObjectOfType<GameCameraManager>();
             _rInputManager = GetComponent<PlayerInputManager>();
             _rTrackManager = ScriptableObject.CreateInstance<TrackPositionManager>();
-
+            GameUIManagerCom = GameUIManager.GetComponent<GameUIManager>();
+            transition = false;
         }
 
         public void Initialized()
         {
-            aButtonAction.Enable();
-            _playerReady = 0;
 /*          cameraManager = FindObjectOfType<CameraManager>();
 */
         }
@@ -273,22 +270,29 @@ namespace AU
                 if (posListNum < 0) posListNum = respawnPosList.Count - 1;
             }
 
-            if (GameUIManager.GetComponent<GameUIManager>().IsTutorial())
+            if (GameUIManagerCom.IsTutorial() && transition == false && _players.Count != 0)
             {
-
-                if (aButtonAction.WasPressedThisFrame())
+                int stCnt = 0;
+                foreach (KeyValuePair<int, GameObject> playerEntry in _players)
                 {
+                    GameObject player = playerEntry.Value;
+                    CC.PlayerStanby stanbyCom = player.GetComponent<CC.PlayerStanby>();
+                    if (stanbyCom.stanby == true)
+                    {
+                        GameUIManagerCom.PlayerStanby(playerEntry.Key);
+                        stCnt++;
+                    }
+
+                }
+                if (stCnt >= _players.Count)
+                {
+                    transition = true;
                     SoundManager.Instance?.PlaySE(SESoundData.SE.SE_Button);
-                    _playerReady++;
-                }
-                if(_playerReady > 1)
-                {
-                    _playerReady = 0;
                     StartCoroutine(StartGame());
-
                 }
+
             }
-           
+
 
         }
 

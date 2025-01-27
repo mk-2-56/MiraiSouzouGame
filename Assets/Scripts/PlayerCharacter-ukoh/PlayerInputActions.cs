@@ -82,6 +82,15 @@ namespace CC
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stanby"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c574c92-e7b3-4975-95ff-e21147c35617"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -307,6 +316,17 @@ namespace CC
                 },
                 {
                     ""name"": """",
+                    ""id"": ""5683131f-7ba7-440f-997b-9a79157e2fdb"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""eb40bb66-4559-4dfa-9a2f-820438abb426"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -357,6 +377,39 @@ namespace CC
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72559754-d195-4806-a5b6-0deea3e0a48e"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce547f5a-b5e4-4156-b5a7-19347ae96af0"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Stanby"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2eb501c4-f795-4bfd-ba63-b97c349c3f65"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Stanby"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -434,6 +487,7 @@ namespace CC
             m_Player_Drift = m_Player.FindAction("Drift", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
+            m_Player_Stanby = m_Player.FindAction("Stanby", throwIfNotFound: true);
         }
 
         ~@PlayerInputActions()
@@ -506,6 +560,7 @@ namespace CC
         private readonly InputAction m_Player_Drift;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Boost;
+        private readonly InputAction m_Player_Stanby;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -516,6 +571,7 @@ namespace CC
             public InputAction @Drift => m_Wrapper.m_Player_Drift;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Boost => m_Wrapper.m_Player_Boost;
+            public InputAction @Stanby => m_Wrapper.m_Player_Stanby;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -543,6 +599,9 @@ namespace CC
                 @Boost.started += instance.OnBoost;
                 @Boost.performed += instance.OnBoost;
                 @Boost.canceled += instance.OnBoost;
+                @Stanby.started += instance.OnStanby;
+                @Stanby.performed += instance.OnStanby;
+                @Stanby.canceled += instance.OnStanby;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -565,6 +624,9 @@ namespace CC
                 @Boost.started -= instance.OnBoost;
                 @Boost.performed -= instance.OnBoost;
                 @Boost.canceled -= instance.OnBoost;
+                @Stanby.started -= instance.OnStanby;
+                @Stanby.performed -= instance.OnStanby;
+                @Stanby.canceled -= instance.OnStanby;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -635,6 +697,7 @@ namespace CC
             void OnDrift(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnBoost(InputAction.CallbackContext context);
+            void OnStanby(InputAction.CallbackContext context);
         }
     }
 }

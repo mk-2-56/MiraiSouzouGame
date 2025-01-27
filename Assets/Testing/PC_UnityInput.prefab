@@ -1974,6 +1974,7 @@ GameObject:
   - component: {fileID: -6552278331286557088}
   - component: {fileID: 3629761313017018211}
   - component: {fileID: 8097347893524193773}
+  - component: {fileID: 1068904985923643005}
   m_Layer: 6
   m_Name: PC_UnityInput
   m_TagString: Player
@@ -2243,6 +2244,22 @@ MonoBehaviour:
         m_CallState: 1
     m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
     m_ActionName: Player/Boost[/Keyboard/leftShift,/XInputControllerWindows/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5824348562883177774}
+        m_TargetAssemblyTypeName: CC.Hub, Assembly-CSharp
+        m_MethodName: OnStanby
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0c574c92-e7b3-4975-95ff-e21147c35617
+    m_ActionName: Player/StanbyOK[/DualShock4GamepadHID/start,/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -2283,6 +2300,19 @@ MonoBehaviour:
   - {x: -852.1116, y: 73.09, z: -1924.241}
   - {x: -452.0179, y: 264.7, z: -158.347}
   - {x: -3842.705, y: -19.29, z: 1445.2}
+--- !u!114 &1068904985923643005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848277800390095169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3001064cda1a0154b931d4cd3de39a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stanby: 0
 --- !u!1 &3881107173151752731
 GameObject:
   m_ObjectHideFlags: 0

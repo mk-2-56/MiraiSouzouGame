@@ -61,6 +61,7 @@ namespace CC
         public event System.Action DriftStartEvent;
         public event System.Action DriftEndEvent;
         public event System.Action DashEvent;
+        public event System.Action StanbyEvent;
 
         public delegate void AdditionFixedOperation(Rigidbody tar, PlayerMovementParams parameters);
         public event AdditionFixedOperation FixedEvent;
@@ -118,6 +119,14 @@ namespace CC
                 case InputActionPhase.Canceled:
                     JumpEndEvent();
                     break;
+            }
+        }
+        public void OnStanby(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                StanbyEvent?.Invoke();
+
             }
         }
         public void OnBoost(InputAction.CallbackContext context)

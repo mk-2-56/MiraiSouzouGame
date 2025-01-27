@@ -31,6 +31,8 @@ public class GameUIManager : UIManager
     [SerializeField] private GameObject inTransition;
     [SerializeField] private GameObject outTransition;
     [SerializeField] private GameObject tutorialWindow;
+    [SerializeField] private GameObject p1OK;
+    [SerializeField] private GameObject p2OK;
     private PlayerManager pm;
     private float countStartTime;
 
@@ -54,12 +56,13 @@ public class GameUIManager : UIManager
         countDownNumbers.Add(UI1);
         countDownNumbers.Add(UI2);
         countDownNumbers.Add(UI3);
+
     }
 
     // Start is called before the first frame update
     public override void Initialized()
     {
-        countDown = 5;
+        countDown = 3;
         UIscale.x = 5f;
         UIscale.y = 5f;
         UIscale.z = 5f;
@@ -72,7 +75,8 @@ public class GameUIManager : UIManager
         UI2.transform.localScale= UIscale;
         UI1.transform.localScale= UIscale;
         UIGO.transform.localScale= UIscale;
-
+        p1OK.SetActive(false);
+        p2OK.SetActive(false);
         iconCount = 0;
         pm = playerManager.GetComponent<PlayerManager>();
         mode = false;
@@ -267,6 +271,27 @@ public class GameUIManager : UIManager
     {
         outTransition.SetActive(false);
         outTransition.SetActive(true);
+    }
+
+    public void PlayerStanby(int playerNum)
+    {
+        if (playerNum == 1)
+        {
+            Player1OK();
+        }
+        else if (playerNum == 2)
+        {
+            Player2OK();
+        }
+    }
+    public void Player1OK()
+    {
+        p1OK.SetActive(true);
+    }
+    public void Player2OK()
+    {
+        p2OK.SetActive(true);
+
     }
 
 }
