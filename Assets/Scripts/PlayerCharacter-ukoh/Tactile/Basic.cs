@@ -34,6 +34,7 @@ namespace CC
         public Vector3 terrianNormal;
         public Quaternion terrianRotation;
 
+
         public struct Input
         {
             public Vector3 raw;
