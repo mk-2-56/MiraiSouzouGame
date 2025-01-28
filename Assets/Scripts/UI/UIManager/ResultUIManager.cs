@@ -17,8 +17,7 @@ public class ResultUIManager : UIManager
     [SerializeField] private Sprite p2WinImg;
     [SerializeField] private GameObject resultLogo;
     [SerializeField] private GameObject scoreGroup;
-    [SerializeField] private GameObject timeValue;
-    [SerializeField] private GameObject coinValue;
+    [SerializeField] private GameObject losersTime;
     [SerializeField] private GameObject scoreLine;
     [SerializeField] private Camera gameCamera;
     [SerializeField] private GameObject lastCameraPos;
@@ -79,20 +78,31 @@ public class ResultUIManager : UIManager
     private void ShowScore()
     {
         resultLogo.SetActive(true);
-        float time;
+        float time, timeLoser;
         if (GoalChecker.Instance)
         {
-            KeyValuePair<int, float> winnerD = GoalChecker.Instance.GetWinnerTime();
-            time = winnerD.Value;
+            time = GoalChecker.Instance.GetWinnerTime();
+            timeLoser = GoalChecker.Instance.GetLoserTime();
         }
-        else time = 0.0f;
+        else
+        {
+            time = 0.0f; 
+            timeLoser = 0.0f;
+        }
 
         int h = (int)(time / 3600);
         int m = (int)((time % 3600) / 60);
         int s = (int)(time % 60);
-        scoreGroup.transform.Find("Time/Value").GetComponent<TextMeshProUGUI>().text = $"{h}:{m}:{s}"; 
 
-        if(winPlayer != 1)
+        // îsé“
+        int hLoser = (int)(timeLoser / 3600);
+        int mLoser = (int)((timeLoser % 3600) / 60);
+        int sLoser = (int)(timeLoser % 60);
+
+        scoreGroup.transform.Find("Time/Value").GetComponent<TextMeshProUGUI>().text = $"{h}:{m}:{s}"; 
+        scoreGroup.transform.Find("TimeLoser/Value").GetComponent<TextMeshProUGUI>().text = $"{hLoser}:{mLoser}:{sLoser}";
+
+        if (winPlayer != 1)
         {
             scoreGroup.transform.Find("Rank/Value1").GetComponent<TextMeshProUGUI>().text = "2P";
             scoreGroup.transform.Find("Rank/Value2").GetComponent<TextMeshProUGUI>().text = "1P";
@@ -121,7 +131,6 @@ public class ResultUIManager : UIManager
 
         scoreGroup.GetComponent<CanvasGroup>().DOFade(1f, 1f).SetDelay(1);
         // timeValue.GetComponent<TextMeshProUGUI>().DOCounter(0, 00, 2f).SetDelay(1);
-        coinValue.GetComponent<TextMeshProUGUI>().DOCounter(0, 43, 2f).SetDelay(1);
         scoreLine.GetComponent<RectTransform>().DOScaleX(1f, 1f).SetDelay(2);
     }
 

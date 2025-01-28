@@ -82,9 +82,20 @@ namespace CC
         }
 
         [SerializeField] bool  _disableInput;
+        [SerializeField] bool  _goaledInput;       // ƒS[ƒ‹‚µ‚½‚Ì‚ÅInput‚ğ‘€ì‚µ‚È‚­‚Ä‚¢‚¢‚©‚Ì”»’f
         public bool disableInput
         {
             set { _disableInput = value; }
+        }
+
+        public bool goaledInput
+        {
+            set { _goaledInput = value; }
+        }
+
+        public bool GetGoaledInput
+        {
+            get { return _goaledInput; }
         }
 
         public void FreezePlayer()
