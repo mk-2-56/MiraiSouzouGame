@@ -323,8 +323,8 @@ namespace AU
             {
                 GameObject player = playerEntry.Value;
                 CC.Hub hubComponent = player.GetComponent<CC.Hub>();
-                if (hubComponent != null)
-                {
+                if ((hubComponent != null) && (!hubComponent.GetGoaledInput))
+                {   // ƒS[ƒ‹‚µ‚Ä‚È‚¢‚È‚ç‘€ì•ÏX‚Å‚«‚é
                     hubComponent.disableInput = !flag;
                     UnityEngine.Debug.Log("Player " + playerEntry.Key + " control " + (flag ? "enabled" : "disabled"));
                     playerSpawned = true;
@@ -345,6 +345,7 @@ namespace AU
             if (hubComponent != null)
             {
                 hubComponent.disableInput = !flag;
+                hubComponent.goaledInput = !flag;
                 UnityEngine.Debug.Log($"{targetPlayer.name} control {(flag ? "enabled" : "disabled")}");
                 return true;
             }
