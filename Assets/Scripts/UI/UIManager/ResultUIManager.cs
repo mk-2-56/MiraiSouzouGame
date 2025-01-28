@@ -84,7 +84,11 @@ public class ResultUIManager : UIManager
             time = GoalChecker.Instance.GetWinnerTime();
             timeLoser = GoalChecker.Instance.GetLoserTime();
         }
-        else time = 0.0f; timeLoser = 0.0f;
+        else
+        {
+            time = 0.0f; 
+            timeLoser = 0.0f;
+        }
 
         int h = (int)(time / 3600);
         int m = (int)((time % 3600) / 60);
