@@ -102,7 +102,9 @@ namespace CC
         Vector3 _inputDirection;
 
         PlayerCanvasController _rUI;
-        PlayerMovementParams _movementParams = new PlayerMovementParams();
+        public PlayerMovementParams _movementParams = new PlayerMovementParams();
+
+        public bool notMove;
 
         void Start()
         {
@@ -215,6 +217,12 @@ _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _moveme
             Vector3 appliedAcc = acc;
             if (_movementParams.flags.antiGrav)
                 appliedAcc = _movementParams.terrianRotation * appliedAcc;
+
+            if (notMove)
+            {
+                appliedAcc = Vector3.down * 0.98f;
+            }
+
             _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
         }
         void SpeedSystem()

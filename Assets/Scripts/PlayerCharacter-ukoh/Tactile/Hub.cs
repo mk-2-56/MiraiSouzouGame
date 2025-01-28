@@ -70,6 +70,7 @@ namespace CC
         public event System.Action<float>     SpeedEffect;
         public event System.Action<Vector3> CollideEffect;
 
+
         public Vector2 moveRawInput
         { 
             get{ return _moveRawInput;}
@@ -221,5 +222,18 @@ namespace CC
             dv = dv.normalized;
             CollideEffect?.Invoke(dv);
         }
+
+        public void EndDriftAndBoost()
+        {
+            _rRb.velocity = Vector3.zero;
+            _rRb.angularVelocity = Vector3.zero;
+            DriftEndEvent?.Invoke();
+            BoostEndEvent?.Invoke();
+            CC.Basic basic = GetComponent<CC.Basic>();
+
+            basic.notMove = true; 
+        }
+
+
     }
 }

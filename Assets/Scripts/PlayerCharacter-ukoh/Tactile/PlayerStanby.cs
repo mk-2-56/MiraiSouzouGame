@@ -1,3 +1,4 @@
+using AU;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,11 @@ namespace CC
     {
         public bool stanby;
 
+
         void Stanby()
         {
+            CC.Hub CChub = GetComponent<CC.Hub>();
+
             stanby = true;
         }
 
@@ -20,7 +24,7 @@ namespace CC
 
             CC.Hub CChub = GetComponent<CC.Hub>();
             CChub.StanbyEvent += Stanby;
-
+            
         }
 
     }

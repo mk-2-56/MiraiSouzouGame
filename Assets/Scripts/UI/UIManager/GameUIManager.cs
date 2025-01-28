@@ -132,6 +132,12 @@ public class GameUIManager : UIManager
 
             }
 
+            if(!countdownOver)
+            {
+                pm.FaceFoward();
+
+            }
+
         }
 
         //debug
@@ -176,6 +182,7 @@ public class GameUIManager : UIManager
 
         while (true)
         {
+
             countDown--;
             UnityEngine.Debug.Log(countDown);
 
