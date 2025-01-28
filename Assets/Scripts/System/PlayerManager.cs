@@ -282,6 +282,9 @@ namespace AU
                     {
                         GameUIManagerCom.PlayerStanby(playerEntry.Key);
                         stCnt++;
+
+                        SetPlayerControl(playerEntry.Value, false);
+                        player.GetComponent<CC.Hub>().EndDriftAndBoost();
                     }
 
                 }
@@ -323,8 +326,16 @@ namespace AU
             {
                 GameObject player = playerEntry.Value;
                 CC.Hub hubComponent = player.GetComponent<CC.Hub>();
+
+
                 if ((hubComponent != null) && (!hubComponent.GetGoaledInput))
                 {   // ÉSÅ[ÉãÇµÇƒÇ»Ç¢Ç»ÇÁëÄçÏïœçXÇ≈Ç´ÇÈ
+                    if (flag)
+                    {
+                        CC.Basic basic = hubComponent.GetComponent<CC.Basic>();
+                        basic.notMove = false;
+                    }
+
                     hubComponent.disableInput = !flag;
                     UnityEngine.Debug.Log("Player " + playerEntry.Key + " control " + (flag ? "enabled" : "disabled"));
                     playerSpawned = true;
@@ -345,7 +356,6 @@ namespace AU
             if (hubComponent != null)
             {
                 hubComponent.disableInput = !flag;
-                hubComponent.goaledInput = !flag;
                 UnityEngine.Debug.Log($"{targetPlayer.name} control {(flag ? "enabled" : "disabled")}");
                 return true;
             }
@@ -356,9 +366,40 @@ namespace AU
             }
         }
 
+        public bool PlayerGoal(GameObject targetPlayer, bool flag)
+        {
+            UnityEngine.Debug.Log("SetPlayerControl for single player");
+            CC.Hub hubComponent = targetPlayer.GetComponent<CC.Hub>();
+            if (hubComponent != null)
+            {
+                hubComponent.disableInput = !flag;
+                hubComponent.goaledInput = !flag;
+                UnityEngine.Debug.Log($"{targetPlayer.name} control {(flag ? "enabled" : "disabled")}");
+                return true;
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning($"{targetPlayer.name} does not have a Hub component.");
+                return false;
+            }
+
+        }
+
         public int GetPlayerCount()
         {
             return _players.Count;
+        }
+        public void FaceFoward()
+        {
+            foreach (KeyValuePair<int, GameObject> playerEntry in _players)
+            {
+                GameObject player = playerEntry.Value;
+
+                player.transform.rotation = respawnPos.transform.rotation;
+                player.transform.Find("Facing").rotation = Quaternion.identity;
+                player.GetComponent<CC.Basic>()._movementParams.terrianRotation = Quaternion.identity;
+            }
+
         }
 
     }

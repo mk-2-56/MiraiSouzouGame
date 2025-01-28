@@ -86,7 +86,7 @@ public class GoalChecker : MonoBehaviour
             PlayerCanvasController controller = other.GetComponentInChildren<PlayerCanvasController>();
             controller.ShowFinish();
 
-            playerManager.SetPlayerControl(other.gameObject, false);
+            playerManager.PlayerGoal(other.gameObject, false);
             goalCount++;
             TimeManager.Instance.StopTimer();
             TimeRanking.Add(playerManager.GetPlayerId(other.gameObject), TimeManager.Instance.GetElapsedTime());
