@@ -29,16 +29,40 @@ public class GoalChecker : MonoBehaviour
     }
     public int GetWinner()
     {
-        var pair = TimeRanking.FirstOrDefault();
-
-        return pair.Key;
+        int winner = 1;
+        foreach (KeyValuePair<int, float> pt in TimeRanking)
+        {
+            if (pt.Key != winner && pt.Value < TimeRanking[winner])
+            {
+                winner = pt.Key;
+            }
+        }
+        return winner;
     }
 
-    public KeyValuePair<int, float> GetWinnerTime()
+    public float GetWinnerTime()
     {
-        return TimeRanking.FirstOrDefault();
+        int winnerKey = GetWinner();
+        return TimeRanking[winnerKey];
     }
-    
+
+    public int GetLoser()
+    {
+        foreach (KeyValuePair<int, float> pt in TimeRanking)
+        {
+            if (pt.Key != GetWinner())
+            {
+                return pt.Key;
+            }
+        }
+        return 0;
+    }
+
+    public float GetLoserTime()
+    {
+        return TimeRanking[GetLoser()];
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
