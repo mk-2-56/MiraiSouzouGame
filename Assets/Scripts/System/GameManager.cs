@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     // Ÿ‚Ìó‘Ô‚É‘JˆÚ‚·‚éƒƒ\ƒbƒh
     public void GoToNextState()
     {
+        if (currentState == null) return;
         switch (stateKeeper.CurrentSceneState)
         {
             case SceneState.Title:
