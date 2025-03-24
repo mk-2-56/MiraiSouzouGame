@@ -22,14 +22,14 @@ public class SplineRider : MonoBehaviour
     Vector3 debug_resultPosition;
     Vector3 debug_resultDirection;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         _resolution = (int)param_container.CalculateLength() / 2;
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         _lineRenderer.enabled = inUse;

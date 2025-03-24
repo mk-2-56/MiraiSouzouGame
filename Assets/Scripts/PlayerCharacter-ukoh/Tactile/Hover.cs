@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ukoh-2024-10-28
 /// プレイヤーRB浮遊機能
 /// 
 /// 凸凹な地形でも滑らかに移動させる
+/// および、壁、天井で走る時の付着処理
 /// parameters:
 /// HoverHeight             浮遊高さ
 /// HoverSpringStrength     浮遊力の強さ
-/// HoverDamperStrength     wip、今は何もしない
+/// HoverDamperStrength     地形と衝突する時緩衝力の強度
 /// </summary>
 
 namespace CC
@@ -67,6 +67,8 @@ namespace CC
             float dtime = Time.deltaTime;
 
             TerrianCheck();
+
+            //プレイヤーモデル原点の位置処理
             if (_rMovementParams.flags.grounded)
             {
                 _rCog.position = _rayHit.point;
@@ -85,22 +87,22 @@ namespace CC
             rayDir = _terrianDirOld;
             float offset = 2.0f;
             float rayLength = HoverHeight + 2.0f + offset;
-            Vector3 offsetVec = _terrianDirOld * offset;
+            Vector3 offsetVec = _terrianDirOld * offset;//RayCast方向,空中時_terrianDirOld = 現在運動方向
 
             float radius = 2.0f;
 
             if (_rMovementParams.flags.minJumping)
-            {
+            {//跳んだ直後は地形checkしない
                 _rMovementParams.flags.grounded = false;
             }
             else
             {
                 if (!_rMovementParams.flags.grounded)
-                {
+                {//空中時は範囲確認
                     _rMovementParams.flags.grounded = Physics.SphereCast(_rRb.position - offsetVec, radius,
                     rayDir, out _rayHit, rayLength, _layerMask);
                 }
-                _rMovementParams.flags.grounded = Physics.Raycast(_rRb.position - offsetVec,
+                _rMovementParams.flags.grounded |= Physics.Raycast(_rRb.position - offsetVec,
                     rayDir, out _rayHit, rayLength, _layerMask);
             }
 
@@ -114,7 +116,7 @@ namespace CC
             _groundedOld = _rMovementParams.flags.grounded;
 
             if (!_rMovementParams.flags.grounded)
-            {
+            {//地形と衝突しない時の処理
                 _terrianDirOld = _rRb.velocity.normalized;
                 _rMovementParams.flags.groundedFlat = false;
                 _rMovementParams.terrianNormal = Vector3.up;
@@ -126,23 +128,19 @@ namespace CC
             _rMovementParams.terrianRotation = Quaternion.FromToRotation(Vector3.up, _rMovementParams.terrianNormal);
             _terrianDirOld = -_rayHit.normal;
 
-            bool terrianWalkale = _rayHit.normal.y > 0.8;
-            _rMovementParams.flags.groundedFlat = terrianWalkale;
+            bool terrianWalkable = _rayHit.normal.y > 0.8;
+            _rMovementParams.flags.groundedFlat = terrianWalkable;
             if (!(_rMovementParams.flags.groundedFlat || _rMovementParams.flags.antiGrav))
                 return;
 
+
+            //着地しているときプレイヤーrbの浮遊処理
             float verticalVel = Vector3.Dot(_rRb.velocity, _rayHit.normal);
             float x = -(_rayHit.distance - offset - HoverHeight);
             float hoverForce = x * HoverSpringStrength - verticalVel * HoverDamperStrength;
 
             _rRb.AddForce(_rayHit.normal * hoverForce, ForceMode.Acceleration);
         }
-
-        public void SetOffGround()
-        {
-            OffGroundE?.Invoke();
-        }
-
     }
 
 

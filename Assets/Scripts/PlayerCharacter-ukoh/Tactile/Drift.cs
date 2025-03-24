@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤードリフトモジュール
+/// 
+/// handle events from CC.Hub
+/// </summary>
+
 namespace CC
 {
     public class Drift : MonoBehaviour
@@ -10,7 +16,7 @@ namespace CC
 
         [SerializeField] float param_maxAngularAcc = 72.0f;
 
-        float _acc;
+        float _baseAcc;
 
         PlayerMovementParams _rMovementParams;
 
@@ -30,7 +36,6 @@ namespace CC
             _driftInput = false;
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             _rRb = GetComponent<Rigidbody>();
@@ -42,22 +47,27 @@ namespace CC
 
             CC.Basic temp = GetComponent<CC.Basic>();
             _rMovementParams = temp.GetPlayerMovementParams();
-            _acc = temp.acc;
+            _baseAcc = temp.acc;
         }
 
-        // Update is called once per frame
         void FixedUpdate()
         {
             if (!_rMovementParams.enabled)
                 return;
+
+            //ドリフト状態自動終了処理
             if (_driftingOld)
+                //おしっぱでない時に移動方向と向き方向が一致する終了
                 _rMovementParams.flags.drifting = _driftInput ||
                     Vector3.Dot(_rMovementParams.xzPlainVel.normalized, _rFacing.forward) < 0.90f;
 
             if (_rMovementParams.flags.grounded && _rMovementParams.flags.drifting)
                 Drifting();
+
             if(_driftingOld != _rMovementParams.flags.drifting)
+                //状態が変更したupdateだけeventを発送する
                 DriftEffect?.Invoke(_rMovementParams.flags.drifting);
+
             _driftingOld = _rMovementParams.flags.drifting;
         }
 
@@ -67,22 +77,23 @@ namespace CC
             float directionFector = 2.0f - Vector3.Dot(_rFacing.forward, _rMovementParams.xzPlainVel.normalized);
 
             if (_rMovementParams.flags.noInput)
-            {
+            {//Adjust input behaviour when no input from player
                 if (_rMovementParams.xzPlainVel != Vector3.zero)
                     _rRb.AddForce(_rMovementParams.terrianRotation *
-                        (_rMovementParams.xzPlainVel.normalized * -_acc), ForceMode.Acceleration);
+                        (_rMovementParams.xzPlainVel.normalized * -_baseAcc), ForceMode.Acceleration);
                 return;
             }
 
-            Vector3 mAcc = _rFacing.forward * _rMovementParams.momentum - _rMovementParams.xzPlainVel.normalized
+            Vector3 momentumAcc = _rFacing.forward * _rMovementParams.momentum - _rMovementParams.xzPlainVel.normalized
                 * (_rMovementParams.momentum * (-directionFector + 2));
+            //運動量の保持と方向変換による衰減
 
             _rFacing.rotation = Quaternion.RotateTowards(
                 _rFacing.rotation, Quaternion.LookRotation(_rMovementParams.inputs.inputDirection, Vector3.up),
                 param_maxAngularAcc * Time.deltaTime);
 
-            acc = _rFacing.forward * (_acc + _rMovementParams.momentum) * (directionFector - 1);
-            Vector3 appliedAcc = acc + mAcc;
+            acc = _rFacing.forward * (_baseAcc + _rMovementParams.momentum) * (directionFector - 1);
+            Vector3 appliedAcc = acc + momentumAcc;
             appliedAcc = _rMovementParams.terrianRotation * appliedAcc;
             _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
         }

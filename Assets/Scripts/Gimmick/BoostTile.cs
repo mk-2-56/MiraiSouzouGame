@@ -5,6 +5,12 @@ using UnityEngine.VFX;
 using UnityEngine.Pool;
 
 
+/// <summary>
+/// 加速板の処理
+/// 
+/// 持続加速ModeはCC.Hubのeventで作動
+/// 
+/// </summary>
 public class BoostTile : MonoBehaviour
 {
     enum BoostMode
@@ -28,6 +34,7 @@ public class BoostTile : MonoBehaviour
 
     float minAcc = 10.0f;
 
+    //全加速板共通シェアするVFXのObjectPool
     static List<VisualEffect> _effects = new List<VisualEffect>();
 
     private void Start()
@@ -63,7 +70,7 @@ public class BoostTile : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         _other = other.GetComponent<Rigidbody>();
         switch (param_mode)
@@ -84,6 +91,8 @@ public class BoostTile : MonoBehaviour
     void StartEffect(Collider other)
     {
         VisualEffect effect = null;
+
+        //VFX 動的object poolの処理
         foreach (VisualEffect ins in _effects)
         {
             if (ins.enabled == false)
@@ -114,7 +123,7 @@ public class BoostTile : MonoBehaviour
     }
 
     IEnumerator EffectUpdate(VisualEffect effect, Vector3 start, Transform tar)
-    {
+    {//VFXがプレイヤーに追跡、追跡強度がlifetimeに渡ってfadeoutする
         float t = 1.0f;
         StartCoroutine(AU.Fader.FadeOut(t, value => { t = value; }, param_effectFollowFade));
         while (t > 0)

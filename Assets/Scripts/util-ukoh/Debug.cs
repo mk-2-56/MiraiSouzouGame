@@ -11,14 +11,11 @@ using TMPro;
 /// メッセージを毎フレイムcanvasに表示
 /// 
 /// dependency: TextMeshPro
-/// 
-/// 使い方:
-/// 
 /// </summary>
 ///
 
 namespace System.Runtime.CompilerServices
-{
+{//C# caller attribute CallerArgumentExpressionAttribute workaround. UnityのC# versionがサポートしていない。
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
     public sealed class CallerArgumentExpressionAttribute : Attribute
     {

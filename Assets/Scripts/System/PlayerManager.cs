@@ -111,6 +111,8 @@ namespace AU
             controller.Canvas = _uiCanvasInstance;
             controller.Initialized();
             controller.playerHub = player.GetComponent<CC.Hub>();
+
+
             //プレイヤーDictionaryにプレイヤーを追加
             _players.Add(_curentPlayerCount, player);
             SetPlayerControl(true);

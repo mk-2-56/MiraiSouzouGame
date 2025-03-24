@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// プレイヤー追跡Dashの標的管理
+/// 
+/// </summary>
 public class TargetManager : MonoBehaviour
 {
     public Dictionary<GameObject, Transform> GetTargetList()
@@ -10,7 +15,7 @@ public class TargetManager : MonoBehaviour
     }
 
     public bool FindBestTarget(Vector3 positionPC, Vector3 inputDIreciton, out Vector3 target)
-    {
+    {//プレイヤーの操作方向に一致するtargetを優先して検索
         float closiestDot = 0f;
         target = Vector3.zero;
         Vector3 closiest = Vector3.zero;
@@ -34,36 +39,35 @@ public class TargetManager : MonoBehaviour
 
         return findCandidate;
     }
-    public void AddTarget(GameObject obj)
+
+    Dictionary<GameObject, Transform> _targets = new Dictionary<GameObject, Transform>();
+
+    void AddTarget(GameObject obj)
     {
         if(!_targets.ContainsKey(obj))
             _targets.Add(obj, obj.transform);
     }
 
-    public void RemoveTarget(GameObject obj)
+    void RemoveTarget(GameObject obj)
     {
         if(_targets.ContainsKey(obj))
         _targets.Remove(obj);
     }
 
-    Dictionary<GameObject, Transform> _targets = new Dictionary<GameObject, Transform>();
-
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-        AU.Debug.Log("Active Targets: " + _targets.Count.ToString(), AU.LogTiming.Update);
-        foreach (GameObject obj in _targets.Keys)
-        {
-            AU.Debug.Log(obj.name, AU.LogTiming.Update);
-        }
-    }
+        //AU.Debug.Log("Active Targets: " + _targets.Count.ToString(), AU.LogTiming.Update);
+        //foreach (GameObject obj in _targets.Keys)
+        //{
+            //AU.Debug.Log(obj.name, AU.LogTiming.Update);
+        //}
+    //}
+
+    //LayerでTrigger可能な対象を制限する
     private void OnTriggerEnter(Collider other)
     {
+        //途中追加:Dash機能破棄したため、もう一人のプレイヤーを探索することに流用
         if(other.gameObject.layer == LayerMask.NameToLayer("Targets"))
             AddTarget(other.gameObject);
     }

@@ -45,7 +45,6 @@ public class TrailContoller : MonoBehaviour
         _spawnRate = 256;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if(param_minSpeed == 0)
@@ -69,6 +68,4 @@ public class TrailContoller : MonoBehaviour
             _wind         = _windRenderer.material;
         }
     }
-
-    // Update is called once per frame
 }

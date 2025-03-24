@@ -1,20 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 /// <summary>
-/// ukoh-2024-10-28
 /// プレイヤー基本移動
+/// 
+/// handle events from CC.Hub
 /// 
 /// 今はほぼ全private、
 /// interface含め要望なども勿論、
 /// 必要がありましたら気軽に連絡を
 /// </summary>
 
-public abstract class Command
-{
-    public abstract void Execute();
-};
 
 namespace CC
 {
@@ -184,6 +182,7 @@ _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _moveme
             {
                 if (_movementParams.flags.antiGrav)
                 {
+                    //空中時のキャラ向き
                     Vector3 facingV = _movementParams.xzPlainVel.normalized;
 
                     _rFacing.rotation = Quaternion.Lerp(_rFacing.rotation, Quaternion.LookRotation(facingV, Vector3.up), 3f * Time.deltaTime);
@@ -199,32 +198,6 @@ _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _moveme
             BasicDebugInfo();
         }
 
-        void Locomovtive()
-        {
-            float directionFector = 3.0f - 2 * Vector3.Dot(_inputDirection, _movementParams.xzPlainVel.normalized);
-
-            float accMag = param_acc;
-            Vector3 acc = _inputDirection * accMag * directionFector * _movementParams.accCoefficient;
-
-            if (_movementParams.flags.groundedFlat && !_movementParams.flags.noInput)
-            {//斜面による加速/減速効果
-                Vector3 terrianSlope = new Vector3(_movementParams.terrianNormal.x, 0, _movementParams.terrianNormal.z).normalized;
-                float slideBuildUp = (1 - Vector3.Dot(_movementParams.terrianNormal, Vector3.up))
-                    * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
-
-                acc += _inputDirection * 98f * slideBuildUp;
-            }
-            Vector3 appliedAcc = acc;
-            if (_movementParams.flags.antiGrav)
-                appliedAcc = _movementParams.terrianRotation * appliedAcc;
-
-            if (notMove)
-            {
-                appliedAcc = Vector3.down * 0.98f;
-            }
-
-            _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
-        }
         void SpeedSystem()
         {
             Vector3 nativeVel = Quaternion.Inverse(_movementParams.terrianRotation) * _rRb.velocity;
@@ -266,6 +239,26 @@ _movementParams.flags.groundedFlat || (_movementParams.flags.grounded && _moveme
                 return;
             }
 
+        }
+        void Locomovtive()
+        {
+            float directionFector = 3.0f - 2 * Vector3.Dot(_inputDirection, _movementParams.xzPlainVel.normalized);
+
+            float accMag = param_acc;
+            Vector3 acc = _inputDirection * accMag * directionFector * _movementParams.accCoefficient;
+
+            if (_movementParams.flags.groundedFlat && !_movementParams.flags.noInput)
+            {//斜面による加速/減速効果
+                Vector3 terrianSlope = new Vector3(_movementParams.terrianNormal.x, 0, _movementParams.terrianNormal.z).normalized;
+                float slideBuildUp = (1 - Vector3.Dot(_movementParams.terrianNormal, Vector3.up))
+                    * Mathf.Max(-1, Vector3.Dot(terrianSlope, _rFacing.forward));
+
+                acc += _inputDirection * 98f * slideBuildUp;
+            }
+            Vector3 appliedAcc = acc;
+            if (_movementParams.flags.antiGrav)
+                appliedAcc = _movementParams.terrianRotation * appliedAcc;
+            _rRb.AddForce(appliedAcc, ForceMode.Acceleration);
         }
 
         void BasicDebugInfo()

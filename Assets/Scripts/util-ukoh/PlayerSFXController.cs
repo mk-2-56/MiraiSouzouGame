@@ -63,7 +63,6 @@ public class PlayerSFXController : MonoBehaviour
     }
 
     PlayerEffectDispatcher _effectDispatcher;
-    // Start is called before the first frame update
     void Start()
     {
         _source = GetComponent<AudioSource>();

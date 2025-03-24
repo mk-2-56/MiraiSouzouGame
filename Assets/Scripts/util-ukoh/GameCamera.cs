@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ukoh-2024-10-28
-/// GameCamera  プレイヤーカメラ
 /// 
-/// シンプルなカメラ制御なだけ
-/// todo inertia機能
+/// 
+/// GameCamera  
+/// Gamemode プレイヤーカメラ
+/// 
+/// Hubからのカメラ操作を受理
+/// 
 /// </summary>
 
 public class GameCamera : MonoBehaviour
@@ -83,15 +85,16 @@ public class GameCamera : MonoBehaviour
     {
         float dtime = Time.fixedDeltaTime;
         transform.position = Vector3.Lerp( transform.position, _rCog.position, param_lerpSpeedPos * dtime);
-        { 
+        {//地形判定用rbへのネジ力
             Vector3 springForce = transform.rotation * (param_springForce * (_camOffset - _rCamera.transform.localPosition))
                 - _rCamera.velocity * param_damperForce;
             _rCamera.AddForce(springForce, ForceMode.Acceleration);
+            //Note for update: 単に逆方向のraycastのするべき
         }
         CamControl();
 
         if (param_locking)
-        {
+        {//位置と向きのLerp
             _camPivot = Vector2.Lerp( _camPivot, _camPivotInput ,param_lerpSpeedPivot * dtime);
 
             Quaternion tarRot;

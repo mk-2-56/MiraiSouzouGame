@@ -25,7 +25,7 @@ public class GameCameraManager : CameraManager
     [SerializeField] private bool _skipOpening  = false;
     public bool SkipOpening // プロパティ
     {
-        get { return _skipOpening; }  // 通称ゲッター。呼び出した側がscoreを参照できる
+        get { return _skipOpening;  }  // 通称ゲッター。呼び出した側がscoreを参照できる
         set { _skipOpening = value; } // 通称セッター。value はセットする側の数字などを反映する
     }
 
@@ -134,11 +134,10 @@ public class GameCameraManager : CameraManager
 
         _gameCameras.Add(gameObject, camera);
         return camera;
-
     }
 
     public override void AdjustGameCamera(int curPlayerCount)
-    {
+    {//主にSplit Screenの処理
         Vector2 pos = new Vector2(0.0f, 0.0f);
         Vector2 size = new Vector2(0.0f, 0.0f);
         Vector2 posPerPlayer = new Vector2();
@@ -177,7 +176,6 @@ public class GameCameraManager : CameraManager
 
     public void SetRenderTarget(int game)
     {
-
         int i = 0;
         foreach (KeyValuePair<GameObject, GameObject> item in _gameCameras)
         {

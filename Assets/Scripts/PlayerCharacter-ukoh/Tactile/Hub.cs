@@ -5,51 +5,53 @@ using UnityEngine.InputSystem;
 
 using UnityEditor;
 /// <summary>
-/// ukoh-2024-10-28
-/// プレイヤーController 入力やstate管理などが
+/// Player Controller
+/// 入力やstate管理などが
 /// 
-/// 
+/// 操作などのevent発行
 /// 
 /// </summary>
 
 
 namespace CC
 {
-    //using System;
-    //[CustomEditor(typeof(Hub))]
-    //public class HubUI : Editor
-    //{
-    //    SerializedProperty disableInput;
+    using System;
+    using static Cinemachine.CinemachineTargetGroup;
+#if UNITY_EDITOR
+    [CustomEditor(typeof(Hub))]
+    public class HubUI : Editor
+    {//テスト用Inspector
+        SerializedProperty disableInput;
 
-    //    bool freezed = false;
+        bool freezed = false;
 
-    //    string _target;
+        string _target;
 
-    //    void OnEnable()
-    //    {
-    //        disableInput = serializedObject.FindProperty("_disableInput");
-    //        _target = this.target.GetType().ToString();
-    //    }
-    //    public override void OnInspectorGUI()
-    //    {
-    //        DrawDefaultInspector();
+        void OnEnable()
+        {
+            disableInput = serializedObject.FindProperty("_disableInput");
+            _target = this.target.GetType().ToString();
+        }
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
 
-    //        GUILayout.Label(_target);
+            GUILayout.Label(_target);
 
-    //        if (GUILayout.Button(new GUIContent("DsiableInput")))
-    //        { disableInput.boolValue = !disableInput.boolValue; }
-    //        if (GUILayout.Button(new GUIContent("Freeze")))
-    //        {
-    //            if (freezed = !freezed)
-    //                this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
-    //            else
-    //                this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
-    //        }
+            if (GUILayout.Button(new GUIContent("DsiableInput")))
+            { disableInput.boolValue = !disableInput.boolValue; }
+            if (GUILayout.Button(new GUIContent("Freeze")))
+            {
+                if (freezed = !freezed)
+                    this.target.GetType().GetMethod("FreezePlayer").Invoke(target, null);
+                else
+                    this.target.GetType().GetMethod("UnfreezePlayer").Invoke(target, null);
+            }
 
-    //        serializedObject.ApplyModifiedProperties();
-    //    }
-    //}
-
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+#endif
     public class Hub : MonoBehaviour/*PlayerInputActions.IPlayerActions*/
     {
         public event System.Action<Vector3> MoveEvent;
@@ -244,7 +246,5 @@ namespace CC
 
             basic.notMove = true; 
         }
-
-
     }
 }
